@@ -1,0 +1,11 @@
+[package]
+name = "bench_runqueue_get_next"
+version = "0.1.0"
+authors.workspace = true
+edition.workspace = true
+publish = false
+
+[dependencies]
+riot-rs = { workspace = true, default-features = true, features = [ "bench" ] }
+riot-rs-runqueue = { workspace = true }
+riot-rs-boards = { workspace = true }
