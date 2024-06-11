@@ -1,0 +1,30 @@
+[workspace]
+members = [
+    "benchmarks/*",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Elena Frank <elena.frank@proton.me>"]
+
+
+[workspace.dependencies]
+riot-rs = { git = "https://github.com/elenaf9/RIOT-rs.git", branch = "tmp/for-riot-rs-applications", features = [ 
+    "threading", 
+    # "executor-thread",
+    # "random", 
+    "time" 
+] }
+riot-rs-boards = { git = "https://github.com/elenaf9/RIOT-rs.git", branch = "tmp/for-riot-rs-applications" }
+riot-rs-runqueue = { git = "https://github.com/elenaf9/RIOT-rs.git", branch = "tmp/for-riot-rs-applications" }
+
+embassy-executor = { version = "0.5", default-features = false }
+
+[patch.crates-io]
+# riot-rs embassy fork
+embassy-executor = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-300424" }
+embassy-hal-internal = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-300424" }
+embassy-nrf = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-300424" }
+
