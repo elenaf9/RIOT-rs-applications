@@ -1,3 +1,4 @@
 subdirs:
   - bench_runqueue_add
   - bench_runqueue_advance
+  - bench_runqueue_del
