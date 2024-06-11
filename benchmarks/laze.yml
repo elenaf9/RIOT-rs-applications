@@ -3,3 +3,4 @@ subdirs:
   - bench_runqueue_advance
   - bench_runqueue_del
   - bench_runqueue_get_next
+  - bench_sched

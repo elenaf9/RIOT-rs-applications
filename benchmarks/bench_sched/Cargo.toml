@@ -1,0 +1,10 @@
+[package]
+name = "bench_sched"
+version = "0.1.0"
+authors.workspace = true
+edition.workspace = true
+publish = false
+
+[dependencies]
+riot-rs = { workspace = true, default-features = true, features = [ "bench" ] }
+riot-rs-boards = { workspace = true }
