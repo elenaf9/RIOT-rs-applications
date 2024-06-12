@@ -6,5 +6,5 @@ edition.workspace = true
 publish = false
 
 [dependencies]
-riot-rs = { workspace = true, default-features = true, features = [ "bench" ] }
+riot-rs = { workspace = true }
 riot-rs-boards = { workspace = true }

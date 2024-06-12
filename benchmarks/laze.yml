@@ -1,3 +1,27 @@
+modules:
+  - name: single-core
+    help: single core 
+    provides_unique:
+      - n-cores
+    env:
+      global:
+        FEATURES:
+          - single-core
+  - name: dual-core
+    help: dual core 
+    provides_unique:
+      - n-cores
+    env:
+      global:
+        FEATURES:
+          - dual-core
+  - name: n-cores-default
+    help: default number of cores
+    selects:
+      - ?single-core
+      - ?dual-core
+
 subdirs:
-  - runqueue
+  - bench_async
   - bench_sched
+  - runqueue

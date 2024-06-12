@@ -1,0 +1,7 @@
+apps:
+  - name: bench_async
+    selects:
+      - sw/benchmark
+      - executor-thread
+      - n-cores-default
+      - ?release

@@ -1,0 +1,17 @@
+[package]
+name = "bench_async"
+version = "0.1.0"
+authors.workspace = true
+edition.workspace = true
+publish = false
+
+[dependencies]
+riot-rs = { workspace = true, features = [ "time", "executor-thread" ] }
+riot-rs-boards = { workspace = true }
+
+embassy-executor = { workspace = true }
+embassy-time = { workspace = true }
+
+[features]
+single-core = []
+dual-core = []

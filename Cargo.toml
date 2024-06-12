@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "benchmarks/runqueue/*",
+    "benchmarks/bench_async",
     "benchmarks/bench_sched",
 ]
 resolver = "2"
