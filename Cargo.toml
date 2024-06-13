@@ -2,6 +2,7 @@
 members = [
     "benchmarks/runqueue/*",
     "benchmarks/bench_async",
+    "benchmarks/bench_matrix_mult",
     "benchmarks/bench_sched",
 ]
 resolver = "2"

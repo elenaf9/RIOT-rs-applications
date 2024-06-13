@@ -1,0 +1,6 @@
+apps:
+  - name: bench_matrix_mult
+    selects:
+      - sw/benchmark
+      - n-cores-default
+      - ?release

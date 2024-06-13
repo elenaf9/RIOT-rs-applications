@@ -23,5 +23,6 @@ modules:
 
 subdirs:
   - bench_async
+  - bench_matrix_mult
   - bench_sched
   - runqueue
