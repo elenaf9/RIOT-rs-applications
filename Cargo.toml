@@ -2,6 +2,7 @@
 members = [
     "benchmarks/runqueue/*",
     "benchmarks/bench_async",
+    "benchmarks/bench_busy_poll",
     "benchmarks/bench_matrix_mult",
     "benchmarks/bench_sched",
 ]
@@ -24,6 +25,7 @@ riot-rs-runqueue = { git = "https://github.com/elenaf9/RIOT-rs.git", default-fea
 embassy-executor = { version = "0.5", default-features = false }
 embassy-time = { version = "0.3", default-features = false }
 
+rp-pac = { version = "6.0.0", default-features = false }
 
 [patch.crates-io]
 # riot-rs embassy fork
