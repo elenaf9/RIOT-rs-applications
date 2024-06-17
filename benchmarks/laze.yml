@@ -27,4 +27,5 @@ subdirs:
   - bench_critical_section
   - bench_matrix_mult
   - bench_sched
+  - bench_thread_flags
   - runqueue

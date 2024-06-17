@@ -6,6 +6,7 @@ members = [
     "benchmarks/bench_critical_section",
     "benchmarks/bench_matrix_mult",
     "benchmarks/bench_sched",
+    "benchmarks/bench_thread_flags",
 ]
 resolver = "2"
 

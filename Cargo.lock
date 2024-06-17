@@ -166,6 +166,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "bench_thread_flags"
+version = "0.1.0"
+dependencies = [
+ "riot-rs",
+ "riot-rs-boards",
+]
+
+[[package]]
 name = "bit-set"
 version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
