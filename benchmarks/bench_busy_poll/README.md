@@ -1,8 +1,8 @@
-# bench_async
+# bench_busy_poll
 
 ## About
 
-This benchmark tests performance of asynchronous tasks in one vs two threads.
+This benchmark tests performance of busy-polling vs interrupts.
 
 ## How to run
 

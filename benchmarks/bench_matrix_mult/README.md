@@ -1,8 +1,8 @@
-# bench_sched
+# bench_matrix_mult
 
 ## About
 
-This benchmark tests triggering the scheduler without a context switch performance.
+This benchmark tests parallelization of a computation intensive task (matrix multiplication).
 
 ## How to run
 
