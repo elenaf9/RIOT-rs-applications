@@ -11,7 +11,7 @@ use riot_rs::{
     thread::{thread_flags, ThreadId},
 };
 
-const ITERATIONS: usize = 10_000;
+const ITERATIONS: usize = 1_000;
 
 #[cfg(feature = "dual-core")]
 fn now() -> u64 {
@@ -34,9 +34,9 @@ async fn network_task() {
         // Some dummy computation.
         let mut counter = 0;
         for _ in 0..10_000 {
-            counter += 1;
-            counter = core::hint::black_box(counter);
+            counter = core::hint::black_box(counter + 1);
         }
+        core::hint::black_box(counter);
     }
 }
 
@@ -57,7 +57,7 @@ async fn critical_task() {
     thread_flags::set(ThreadId::new(0), 1);
 }
 
-#[riot_rs::thread(autostart, priority = 2)]
+#[riot_rs::thread(autostart, priority = 3)]
 fn thread0() {
     match riot_rs::bench::benchmark(1, || {
         thread_flags::wait_all(1);
@@ -68,7 +68,9 @@ fn thread0() {
     }
 }
 
-#[riot_rs::thread(autostart, priority = 1)]
+// This thread has a higher priority than the `thread2` because
+// otherwise it would be blocked by the busy poll in `critical_task`.
+#[riot_rs::thread(autostart, priority = 2, stacksize = 4096)]
 fn thread1() {
     let executor = make_static!(Executor::new());
     executor.run(|spawner| {
@@ -76,7 +78,7 @@ fn thread1() {
     });
 }
 
-#[riot_rs::thread(autostart, priority = 1)]
+#[riot_rs::thread(autostart, priority = 1, stacksize = 4096)]
 fn thread2() {
     let executor = make_static!(Executor::new());
     executor.run(|spawner| {
