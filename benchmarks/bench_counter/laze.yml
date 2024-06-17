@@ -1,0 +1,5 @@
+apps:
+  - name: bench_counter
+    selects:
+      - sw/benchmark
+      - ?release

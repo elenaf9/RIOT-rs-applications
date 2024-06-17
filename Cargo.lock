@@ -105,6 +105,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "bench_counter"
+version = "0.1.0"
+dependencies = [
+ "riot-rs",
+ "riot-rs-boards",
+]
+
+[[package]]
 name = "bench_critical_section"
 version = "0.1.0"
 dependencies = [

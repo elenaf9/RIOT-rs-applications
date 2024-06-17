@@ -3,6 +3,7 @@ members = [
     "benchmarks/runqueue/*",
     "benchmarks/bench_async",
     "benchmarks/bench_busy_poll",
+    "benchmarks/bench_counter",
     "benchmarks/bench_critical_section",
     "benchmarks/bench_matrix_mult",
     "benchmarks/bench_sched",
