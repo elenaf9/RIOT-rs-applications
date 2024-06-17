@@ -12,4 +12,11 @@ fn thread0() {
 
         Err(_) => println!("benchmark returned error"),
     }
+    loop {}
+}
+
+#[cfg(feature = "multicore")]
+#[riot_rs::thread(autostart)]
+fn thread1() {
+    loop {}
 }

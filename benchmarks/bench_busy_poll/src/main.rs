@@ -13,7 +13,7 @@ use riot_rs::{
 
 const ITERATIONS: usize = 1_000;
 
-#[cfg(feature = "dual-core")]
+#[cfg(feature = "multicore")]
 fn now() -> u64 {
     loop {
         let hi = rp_pac::TIMER.timerawh().read();
@@ -47,7 +47,7 @@ async fn critical_task() {
     for _ in 0..ITERATIONS {
         #[cfg(feature = "single-core")]
         Timer::after(delay).await;
-        #[cfg(feature = "dual-core")]
+        #[cfg(feature = "multicore")]
         {
             let expires = now() + delay.as_ticks();
             // Busy loop for timer.

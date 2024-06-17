@@ -375,14 +375,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f578e8e2c440e7297e008bb5486a3a8a194775224bbc23729b0dbdfaeebf162e"
 
 [[package]]
-name = "derive_more"
-version = "0.99.17"
+name = "delegate"
+version = "0.12.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4fb810d30a7c1953f91334de7244731fc3f3c10d7fe163338a35b9f640960321"
+checksum = "4e018fccbeeb50ff26562ece792ed06659b9c2dae79ece77c4456bb10d9bf79b"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn 1.0.109",
+ "syn 2.0.66",
+]
+
+[[package]]
+name = "derive_more"
+version = "0.99.18"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5f33878137e4dafd7fa914ad4e259e18a4e8e532b9617a2d0150262bf53abfce"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.66",
 ]
 
 [[package]]
@@ -614,6 +625,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4fc247028eae04174b6635104a35b1ed336aabef4654f5e87a8f32327d231970"
 
 [[package]]
+name = "embedded-can"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e9d2e857f87ac832df68fa498d18ddc679175cf3d2e4aa893988e5601baf9438"
+dependencies = [
+ "nb 1.1.0",
+]
+
+[[package]]
 name = "embedded-dma"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -758,7 +778,7 @@ checksum = "5443807d6dff69373d433ab9ef5378ad8df50ca6298caf15de6e52e24aaf54d5"
 [[package]]
 name = "esp-build"
 version = "0.1.0"
-source = "git+https://github.com/kaspar030/esp-hal?branch=for-riot-rs-240517#9f358c89c695829504543cce4b8ed838c6a82aef"
+source = "git+https://github.com/kaspar030/esp-hal?branch=for-riot-rs-2024-06-14#abacafb069aac19dfc1c995f58189a3a3aeef411"
 dependencies = [
  "quote",
  "syn 2.0.66",
@@ -767,17 +787,20 @@ dependencies = [
 
 [[package]]
 name = "esp-hal"
-version = "0.17.0"
-source = "git+https://github.com/kaspar030/esp-hal?branch=for-riot-rs-240517#9f358c89c695829504543cce4b8ed838c6a82aef"
+version = "0.18.0"
+source = "git+https://github.com/kaspar030/esp-hal?branch=for-riot-rs-2024-06-14#abacafb069aac19dfc1c995f58189a3a3aeef411"
 dependencies = [
  "basic-toml",
  "bitfield 0.15.0",
  "bitflags",
  "cfg-if",
  "critical-section",
+ "delegate",
  "document-features",
- "embassy-time-driver",
+ "embedded-can",
  "embedded-dma",
+ "embedded-hal 1.0.0",
+ "embedded-hal-nb",
  "enumset",
  "esp-build",
  "esp-hal-procmacros",
@@ -798,9 +821,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "esp-hal-embassy"
+version = "0.1.0"
+source = "git+https://github.com/kaspar030/esp-hal?branch=for-riot-rs-2024-06-14#abacafb069aac19dfc1c995f58189a3a3aeef411"
+dependencies = [
+ "cfg-if",
+ "critical-section",
+ "document-features",
+ "embassy-time-driver",
+ "esp-build",
+ "esp-hal",
+ "esp-metadata",
+ "portable-atomic",
+]
+
+[[package]]
 name = "esp-hal-procmacros"
-version = "0.10.0"
-source = "git+https://github.com/kaspar030/esp-hal?branch=for-riot-rs-240517#9f358c89c695829504543cce4b8ed838c6a82aef"
+version = "0.11.0"
+source = "git+https://github.com/kaspar030/esp-hal?branch=for-riot-rs-2024-06-14#abacafb069aac19dfc1c995f58189a3a3aeef411"
 dependencies = [
  "darling",
  "document-features",
@@ -815,8 +853,8 @@ dependencies = [
 
 [[package]]
 name = "esp-metadata"
-version = "0.1.0"
-source = "git+https://github.com/kaspar030/esp-hal?branch=for-riot-rs-240517#9f358c89c695829504543cce4b8ed838c6a82aef"
+version = "0.1.1"
+source = "git+https://github.com/kaspar030/esp-hal?branch=for-riot-rs-2024-06-14#abacafb069aac19dfc1c995f58189a3a3aeef411"
 dependencies = [
  "basic-toml",
  "lazy_static",
@@ -837,7 +875,7 @@ dependencies = [
 [[package]]
 name = "esp-riscv-rt"
 version = "0.8.0"
-source = "git+https://github.com/kaspar030/esp-hal?branch=for-riot-rs-240517#9f358c89c695829504543cce4b8ed838c6a82aef"
+source = "git+https://github.com/kaspar030/esp-hal?branch=for-riot-rs-2024-06-14#abacafb069aac19dfc1c995f58189a3a3aeef411"
 dependencies = [
  "document-features",
  "riscv",
@@ -846,9 +884,8 @@ dependencies = [
 
 [[package]]
 name = "esp32c3"
-version = "0.22.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4c22d8c27e7d675ef79db212b9e41df80aef6db1a5c819e4e726735f64ee0700"
+version = "0.23.0"
+source = "git+https://github.com/esp-rs/esp-pacs?rev=a7c72f7#a7c72f72c4cc50d1595a0d5a395250306d741fed"
 dependencies = [
  "critical-section",
  "vcell",
@@ -856,9 +893,8 @@ dependencies = [
 
 [[package]]
 name = "esp32c6"
-version = "0.13.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "acb7fd83dcdaf1d904f789b2739b646134ec8346fdde2150b7903ef049d81d13"
+version = "0.14.0"
+source = "git+https://github.com/esp-rs/esp-pacs?rev=a7c72f7#a7c72f72c4cc50d1595a0d5a395250306d741fed"
 dependencies = [
  "critical-section",
  "vcell",
@@ -1206,9 +1242,9 @@ checksum = "90ed8c1e510134f979dbc4f070f87d4313098b704861a105fe34231c70a3901c"
 
 [[package]]
 name = "memchr"
-version = "2.7.2"
+version = "2.7.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6c8640c5d730cb13ebd907d8d04b52f55ac9a2eec55b440c8892f40d56c76c1d"
+checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
 
 [[package]]
 name = "minijinja"
@@ -1401,9 +1437,9 @@ dependencies = [
 
 [[package]]
 name = "object"
-version = "0.35.0"
+version = "0.36.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b8ec7ab813848ba4522158d5517a6093db1ded27575b070f4177b8d12b41db5e"
+checksum = "576dfe1fc8f9df304abb159d767a29d0476f7750fbf8aa7ad07816004a207434"
 dependencies = [
  "flate2",
  "memchr",
@@ -1610,9 +1646,9 @@ checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 
 [[package]]
 name = "redox_syscall"
-version = "0.5.1"
+version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "469052894dcb553421e483e4209ee581a45100d31b4018de03e5a7ad86374a7e"
+checksum = "c82cf8cff14456045f55ec4241383baeff27af886adb72ffb2162f99911de0fd"
 dependencies = [
  "bitflags",
 ]
@@ -1666,7 +1702,7 @@ checksum = "7a66a03ae7c801facd77a29370b4faec201768915ac14a721ba36f20bc9c209b"
 [[package]]
 name = "riot-rs"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?branch=tmp/for-riot-rs-applications#083957abaf6d3f46b66284f98eba344641ba02af"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
 dependencies = [
  "document-features",
  "linkme",
@@ -1684,16 +1720,17 @@ dependencies = [
 [[package]]
 name = "riot-rs-bench"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?branch=tmp/for-riot-rs-applications#083957abaf6d3f46b66284f98eba344641ba02af"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
 dependencies = [
  "cfg-if",
  "cortex-m",
+ "embassy-rp",
 ]
 
 [[package]]
 name = "riot-rs-boards"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?branch=tmp/for-riot-rs-applications#083957abaf6d3f46b66284f98eba344641ba02af"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
 dependencies = [
  "cfg-if",
  "linkme",
@@ -1703,7 +1740,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-debug"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?branch=tmp/for-riot-rs-applications#083957abaf6d3f46b66284f98eba344641ba02af"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
 dependencies = [
  "cortex-m",
  "esp-println",
@@ -1713,7 +1750,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-embassy"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?branch=tmp/for-riot-rs-applications#083957abaf6d3f46b66284f98eba344641ba02af"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
 dependencies = [
  "cfg-if",
  "critical-section",
@@ -1723,6 +1760,7 @@ dependencies = [
  "embassy-sync",
  "embassy-time",
  "esp-hal",
+ "esp-hal-embassy",
  "heapless",
  "linkme",
  "once_cell",
@@ -1737,7 +1775,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-macros"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?branch=tmp/for-riot-rs-applications#083957abaf6d3f46b66284f98eba344641ba02af"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
 dependencies = [
  "enum-iterator",
  "proc-macro-crate",
@@ -1749,11 +1787,12 @@ dependencies = [
 [[package]]
 name = "riot-rs-rt"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?branch=tmp/for-riot-rs-applications#083957abaf6d3f46b66284f98eba344641ba02af"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
 dependencies = [
  "cfg-if",
  "cortex-m",
  "cortex-m-rt",
+ "embassy-rp",
  "esp-hal",
  "linkme",
  "portable-atomic",
@@ -1765,30 +1804,32 @@ dependencies = [
 [[package]]
 name = "riot-rs-runqueue"
 version = "0.1.2"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?branch=tmp/for-riot-rs-applications#083957abaf6d3f46b66284f98eba344641ba02af"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
 
 [[package]]
 name = "riot-rs-threads"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?branch=tmp/for-riot-rs-applications#083957abaf6d3f46b66284f98eba344641ba02af"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
 dependencies = [
  "cfg-if",
  "cortex-m",
  "cortex-m-rt",
  "cortex-m-semihosting",
  "critical-section",
+ "embassy-rp",
  "esp-hal",
  "linkme",
  "panic-semihosting",
  "paste",
  "riot-rs-runqueue",
+ "rp-pac",
  "static_cell",
 ]
 
 [[package]]
 name = "riot-rs-utils"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?branch=tmp/for-riot-rs-applications#083957abaf6d3f46b66284f98eba344641ba02af"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
 dependencies = [
  "const_panic",
  "konst",

@@ -1,13 +1,7 @@
 [workspace]
 members = [
-    "benchmarks/runqueue/*",
-    "benchmarks/bench_async",
-    "benchmarks/bench_busy_poll",
-    "benchmarks/bench_counter",
-    "benchmarks/bench_critical_section",
-    "benchmarks/bench_matrix_mult",
-    "benchmarks/bench_sched",
-    "benchmarks/bench_thread_flags",
+    "benchmarks/runqueue/bench_*",
+    "benchmarks/bench_*"
 ]
 resolver = "2"
 
@@ -18,12 +12,12 @@ authors = ["Elena Frank <elena.frank@proton.me>"]
 
 
 [workspace.dependencies]
-riot-rs = { git = "https://github.com/elenaf9/RIOT-rs.git", branch = "tmp/for-riot-rs-applications", features = [ 
+riot-rs = { git = "https://github.com/future-proof-iot/RIOT-rs.git", features = [ 
     "threading", 
     "bench"
 ] }
-riot-rs-boards = { git = "https://github.com/elenaf9/RIOT-rs.git", branch = "tmp/for-riot-rs-applications" }
-riot-rs-runqueue = { git = "https://github.com/elenaf9/RIOT-rs.git", default-features = false, branch = "tmp/for-riot-rs-applications" }
+riot-rs-boards = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
+riot-rs-runqueue = { git = "https://github.com/future-proof-iot/RIOT-rs.git", default-features = false }
 
 embassy-executor = { version = "0.5", default-features = false }
 embassy-time = { version = "0.3", default-features = false }

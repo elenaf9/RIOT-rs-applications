@@ -2,4 +2,5 @@ apps:
   - name: bench_runqueue_get_next
     selects:
       - sw/benchmark
+      - n-cores-default
       - ?release

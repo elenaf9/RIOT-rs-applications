@@ -9,3 +9,8 @@ publish = false
 riot-rs = { workspace = true }
 riot-rs-runqueue = { workspace = true }
 riot-rs-boards = { workspace = true }
+
+[features]
+single-core = []
+multicore = []
+multicore-v1 = [ "multicore" ]

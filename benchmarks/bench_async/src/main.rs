@@ -42,7 +42,7 @@ fn thread1() {
     });
 }
 
-#[cfg(feature = "dual-core")]
+#[cfg(feature = "multicore")]
 #[riot_rs::thread(autostart, priority = 1)]
 fn thread2() {
     let executor = make_static!(Executor::new());

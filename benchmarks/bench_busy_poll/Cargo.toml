@@ -16,4 +16,5 @@ rp-pac = { workspace = true }
 
 [features]
 single-core = []
-dual-core = []
+multicore = []
+multicore-v1 = [ "multicore" ]

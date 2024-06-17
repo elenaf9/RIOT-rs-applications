@@ -7,9 +7,11 @@ use riot_rs::{
     debug::println,
     thread::{SCHED_PRIO_LEVELS, THREADS_NUMOF},
 };
+#[cfg(feature = "multicore-v1")]
+use riot_rs_runqueue::GlobalRunqueue;
 use riot_rs_runqueue::{RunQueue, RunqueueId, ThreadId};
 
-#[riot_rs::thread(autostart)]
+#[riot_rs::thread(autostart, priority = 2)]
 fn thread0() {
     let thread_id = ThreadId::new(0);
     let rq_id = RunqueueId::new(5);
@@ -23,4 +25,11 @@ fn thread0() {
         Ok(ticks) => println!("took {} ticks per iteration ", ticks),
         Err(_) => println!("benchmark returned error"),
     }
+    loop {}
+}
+
+#[cfg(feature = "multicore")]
+#[riot_rs::thread(autostart)]
+fn thread1() {
+    loop {}
 }

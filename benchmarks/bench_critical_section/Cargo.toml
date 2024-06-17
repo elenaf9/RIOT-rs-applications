@@ -10,3 +10,8 @@ riot-rs = { workspace = true }
 riot-rs-boards = { workspace = true }
 
 critical-section = { workspace = true }
+
+[features]
+multicore = []
+multicore-v1 = [ "multicore" ]
+

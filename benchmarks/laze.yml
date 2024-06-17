@@ -5,21 +5,34 @@ modules:
       - n-cores
     env:
       global:
+        RIOT_RS_REV: b594e508976dec42b319a49f046b98ab0fa47698
         FEATURES:
           - single-core
-  - name: dual-core
-    help: dual core 
+  - name: multicore-v1
+    help: multicore version 1
     provides_unique:
       - n-cores
     env:
       global:
+        RIOT_RS_REV: 533e9b8d4c05f73e3b87062f16ea5aa72916b271
         FEATURES:
-          - dual-core
+          - multicore-v1
   - name: n-cores-default
     help: default number of cores
     selects:
       - ?single-core
-      - ?dual-core
+      - ?multicore-v1
+    env: 
+      global:
+        UPSTREAM_REPO: https://github.com/future-proof-iot/RIOT-rs.git
+        FORKED_REPO: https://github.com/elenaf9/RIOT-rs.git
+        CARGO_ARGS:
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs.git="${FORKED_REPO}"'
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs.rev="${RIOT_RS_REV}"'
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs-runqueue.git="${FORKED_REPO}"'
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs-runqueue.rev="${RIOT_RS_REV}"'
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs-boards.git="${FORKED_REPO}"'
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs-boards.rev="${RIOT_RS_REV}"'
 
 subdirs:
   - bench_async
