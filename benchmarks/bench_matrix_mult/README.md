@@ -2,7 +2,7 @@
 
 ## About
 
-This benchmark tests parallelization of a computation intensive task (matrix multiplication).
+This benchmark tests parallelization of a memory bound task (matrix multiplication).
 
 ## How to run
 

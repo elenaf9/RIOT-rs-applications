@@ -1,0 +1,6 @@
+apps:
+  - name: bench_leibnitz_pi
+    selects:
+      - sw/benchmark
+      - n-cores-default
+      - ?release

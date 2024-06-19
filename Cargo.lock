@@ -130,6 +130,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "bench_leibnitz_pi"
+version = "0.1.0"
+dependencies = [
+ "riot-rs",
+ "riot-rs-boards",
+]
+
+[[package]]
 name = "bench_matrix_mult"
 version = "0.1.0"
 dependencies = [
@@ -1710,7 +1718,7 @@ checksum = "7a66a03ae7c801facd77a29370b4faec201768915ac14a721ba36f20bc9c209b"
 [[package]]
 name = "riot-rs"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
 dependencies = [
  "document-features",
  "linkme",
@@ -1728,17 +1736,16 @@ dependencies = [
 [[package]]
 name = "riot-rs-bench"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
 dependencies = [
  "cfg-if",
  "cortex-m",
- "embassy-rp",
 ]
 
 [[package]]
 name = "riot-rs-boards"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
 dependencies = [
  "cfg-if",
  "linkme",
@@ -1748,7 +1755,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-debug"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
 dependencies = [
  "cortex-m",
  "esp-println",
@@ -1758,7 +1765,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-embassy"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
 dependencies = [
  "cfg-if",
  "critical-section",
@@ -1783,7 +1790,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-macros"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
 dependencies = [
  "enum-iterator",
  "proc-macro-crate",
@@ -1795,12 +1802,11 @@ dependencies = [
 [[package]]
 name = "riot-rs-rt"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
 dependencies = [
  "cfg-if",
  "cortex-m",
  "cortex-m-rt",
- "embassy-rp",
  "esp-hal",
  "linkme",
  "portable-atomic",
@@ -1812,32 +1818,30 @@ dependencies = [
 [[package]]
 name = "riot-rs-runqueue"
 version = "0.1.2"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
 
 [[package]]
 name = "riot-rs-threads"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
 dependencies = [
  "cfg-if",
  "cortex-m",
  "cortex-m-rt",
  "cortex-m-semihosting",
  "critical-section",
- "embassy-rp",
  "esp-hal",
  "linkme",
  "panic-semihosting",
  "paste",
  "riot-rs-runqueue",
- "rp-pac",
  "static_cell",
 ]
 
 [[package]]
 name = "riot-rs-utils"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=533e9b8d4c05f73e3b87062f16ea5aa72916b271#533e9b8d4c05f73e3b87062f16ea5aa72916b271"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
 dependencies = [
  "const_panic",
  "konst",

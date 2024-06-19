@@ -48,6 +48,7 @@ subdirs:
   - bench_counter
   - bench_critical_section
   - bench_fib
+  - bench_leibnitz_pi
   - bench_matrix_mult
   - bench_sched
   - bench_thread_flags
