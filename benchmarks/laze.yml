@@ -14,7 +14,7 @@ modules:
       - n-cores
     env:
       global:
-        RIOT_RS_REV: 533e9b8d4c05f73e3b87062f16ea5aa72916b271
+        RIOT_RS_REV: 60e8ea1b2689a5cb932b291e139d22a1ea5e7e56
         FEATURES:
           - multicore-v1
   - name: n-cores-default

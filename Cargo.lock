@@ -1718,7 +1718,7 @@ checksum = "7a66a03ae7c801facd77a29370b4faec201768915ac14a721ba36f20bc9c209b"
 [[package]]
 name = "riot-rs"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=60e8ea1b2689a5cb932b291e139d22a1ea5e7e56#60e8ea1b2689a5cb932b291e139d22a1ea5e7e56"
 dependencies = [
  "document-features",
  "linkme",
@@ -1736,16 +1736,17 @@ dependencies = [
 [[package]]
 name = "riot-rs-bench"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=60e8ea1b2689a5cb932b291e139d22a1ea5e7e56#60e8ea1b2689a5cb932b291e139d22a1ea5e7e56"
 dependencies = [
  "cfg-if",
  "cortex-m",
+ "embassy-rp",
 ]
 
 [[package]]
 name = "riot-rs-boards"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=60e8ea1b2689a5cb932b291e139d22a1ea5e7e56#60e8ea1b2689a5cb932b291e139d22a1ea5e7e56"
 dependencies = [
  "cfg-if",
  "linkme",
@@ -1755,7 +1756,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-debug"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=60e8ea1b2689a5cb932b291e139d22a1ea5e7e56#60e8ea1b2689a5cb932b291e139d22a1ea5e7e56"
 dependencies = [
  "cortex-m",
  "esp-println",
@@ -1765,7 +1766,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-embassy"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=60e8ea1b2689a5cb932b291e139d22a1ea5e7e56#60e8ea1b2689a5cb932b291e139d22a1ea5e7e56"
 dependencies = [
  "cfg-if",
  "critical-section",
@@ -1790,7 +1791,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-macros"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=60e8ea1b2689a5cb932b291e139d22a1ea5e7e56#60e8ea1b2689a5cb932b291e139d22a1ea5e7e56"
 dependencies = [
  "enum-iterator",
  "proc-macro-crate",
@@ -1802,11 +1803,12 @@ dependencies = [
 [[package]]
 name = "riot-rs-rt"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=60e8ea1b2689a5cb932b291e139d22a1ea5e7e56#60e8ea1b2689a5cb932b291e139d22a1ea5e7e56"
 dependencies = [
  "cfg-if",
  "cortex-m",
  "cortex-m-rt",
+ "embassy-rp",
  "esp-hal",
  "linkme",
  "portable-atomic",
@@ -1818,30 +1820,32 @@ dependencies = [
 [[package]]
 name = "riot-rs-runqueue"
 version = "0.1.2"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=60e8ea1b2689a5cb932b291e139d22a1ea5e7e56#60e8ea1b2689a5cb932b291e139d22a1ea5e7e56"
 
 [[package]]
 name = "riot-rs-threads"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=60e8ea1b2689a5cb932b291e139d22a1ea5e7e56#60e8ea1b2689a5cb932b291e139d22a1ea5e7e56"
 dependencies = [
  "cfg-if",
  "cortex-m",
  "cortex-m-rt",
  "cortex-m-semihosting",
  "critical-section",
+ "embassy-rp",
  "esp-hal",
  "linkme",
  "panic-semihosting",
  "paste",
  "riot-rs-runqueue",
+ "rp-pac",
  "static_cell",
 ]
 
 [[package]]
 name = "riot-rs-utils"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=b594e508976dec42b319a49f046b98ab0fa47698#b594e508976dec42b319a49f046b98ab0fa47698"
+source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=60e8ea1b2689a5cb932b291e139d22a1ea5e7e56#60e8ea1b2689a5cb932b291e139d22a1ea5e7e56"
 dependencies = [
  "const_panic",
  "konst",
