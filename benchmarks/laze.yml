@@ -20,8 +20,16 @@ modules:
   - name: n-cores-default
     help: default number of cores
     selects:
+      - patch
       - ?single-core
       - ?multicore-v1
+  - name: multicore-default
+    help: default version for multicore testing
+    selects:
+      - patch
+      - ?multicore-v1
+  - name: patch
+    help: patch used repo revision
     env: 
       global:
         UPSTREAM_REPO: https://github.com/future-proof-iot/RIOT-rs.git
