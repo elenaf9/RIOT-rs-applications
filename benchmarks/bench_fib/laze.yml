@@ -1,0 +1,23 @@
+modules:
+  - name: fib
+    help: same fib computation running on core 1
+    provides_unique:
+      - test-scenario
+    env:
+      global:
+        FEATURES:
+          - fib
+  - name: loop
+    help: infinite loop running on core 1
+    provides_unique:
+      - test-scenario
+    env:
+      global:
+        FEATURES:
+          - loop
+apps:
+  - name: bench_fib
+    selects:
+      - sw/benchmark
+      - multicore-default
+      - ?release

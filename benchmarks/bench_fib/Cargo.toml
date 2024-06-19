@@ -1,0 +1,17 @@
+[package]
+name = "bench_fib"
+version = "0.1.0"
+authors.workspace = true
+edition.workspace = true
+publish = false
+
+[dependencies]
+riot-rs = { workspace = true }
+riot-rs-boards = { workspace = true }
+
+[features]
+multicore = []
+multicore-v1 = [ "multicore" ]
+fib = []
+loop = []
+
