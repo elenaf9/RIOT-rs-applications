@@ -7,7 +7,7 @@ use riot_rs::{debug::println, thread};
 
 #[riot_rs::thread(autostart)]
 fn thread0() {
-    match riot_rs::bench::benchmark(10_000, || {
+    match riot_rs::bench::benchmark(1_000, || {
         thread::current_pid().unwrap();
     }) {
         Ok(ticks) => println!("took {} ticks per iteration", ticks),
