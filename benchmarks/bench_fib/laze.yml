@@ -1,4 +1,12 @@
 modules:
+  - name: none
+    help: nothing running on core 1
+    provides_unique:
+      - test-scenario
+    env:
+      global:
+        FEATURES:
+          - none
   - name: fib
     help: same fib computation running on core 1
     provides_unique:

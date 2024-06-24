@@ -6,13 +6,16 @@ edition.workspace = true
 publish = false
 
 [dependencies]
-riot-rs = { workspace = true }
-riot-rs-boards = { workspace = true }
+riot-rs.workspace = true
+riot-rs-boards.workspace = true
+
+cortex-m.workspace = true
 
 [features]
 multicore = []
 multicore-v1 = [ "multicore" ]
 multicore-v2 = [ "multicore" ]
+none = []
 fib = []
 loop = []
 

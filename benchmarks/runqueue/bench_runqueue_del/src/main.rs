@@ -31,5 +31,5 @@ fn thread0() {
 #[cfg(feature = "multicore")]
 #[riot_rs::thread(autostart)]
 fn thread1() {
-    loop {}
+    cortex_m::asm::wfi();
 }

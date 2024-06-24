@@ -24,9 +24,11 @@ fn thread0() {
     loop {}
 }
 
-#[cfg(any(feature = "fib", feature = "loop"))]
 #[riot_rs::thread(autostart)]
 fn thread1() {
+    #[cfg(feature = "none")]
+    cortex_m::asm::wfi();
+    #[cfg(any(feature = "fib", feature = "loop"))]
     loop {
         #[cfg(feature = "fib")]
         core::hint::black_box(fib(25));
