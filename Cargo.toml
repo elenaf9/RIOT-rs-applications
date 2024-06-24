@@ -28,7 +28,10 @@ critical-section = { version = "1.1", default-features = false}
 
 [patch.crates-io]
 # riot-rs embassy fork
-embassy-executor = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-300424" }
-embassy-hal-internal = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-300424" }
-embassy-nrf = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-300424" }
-
+embassy-executor = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
+embassy-hal-internal = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
+embassy-nrf = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
+embassy-rp = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
+embassy-time-driver = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
+embassy-time-queue-driver = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
+embassy-usb-driver = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
