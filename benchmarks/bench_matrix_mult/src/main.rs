@@ -29,11 +29,10 @@ fn matrix_mult<const M: usize>(
     matrix_c
 }
 
-#[riot_rs::thread(autostart, stacksize = 65536)]
+#[riot_rs::thread(autostart, stacksize = 16384)]
 fn thread0() {
     let matrix_a = core::hint::black_box([[3; N]; N]);
     let matrix_b = core::hint::black_box([[7; N]; N]);
-
     match riot_rs::bench::benchmark(10, || {
         #[cfg(feature = "single-core")]
         {
@@ -60,7 +59,7 @@ fn thread0() {
     }
 }
 #[cfg(feature = "multicore")]
-#[riot_rs::thread(autostart, stacksize = 65536)]
+#[riot_rs::thread(autostart, stacksize = 16384)]
 fn thread1() {
     loop {
         let (matrix_a, matrix_b) = INPUT_CHANNEL.recv();
