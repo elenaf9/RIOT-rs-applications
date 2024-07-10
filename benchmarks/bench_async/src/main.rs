@@ -13,8 +13,16 @@ use riot_rs::{
 
 const ITERATIONS: usize = 100;
 
+#[riot_rs::task(autostart)]
+async fn start_other_tasks() {
+    riot_rs::thread::thread_flags::set(ThreadId::new(1), 0b110);
+    #[cfg(feature = "multicore")]
+    riot_rs::thread::thread_flags::set(ThreadId::new(2), 0b110);
+}
+
 #[riot_rs::task(pool_size = 2)]
 async fn task(id: usize) {
+    riot_rs::thread::thread_flags::wait_one(0b110);
     for _ in 0..ITERATIONS {
         Timer::after(Duration::from_millis(1)).await;
     }
