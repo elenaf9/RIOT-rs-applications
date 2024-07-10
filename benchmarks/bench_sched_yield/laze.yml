@@ -1,0 +1,6 @@
+apps:
+  - name: bench_sched_yield
+    selects:
+      - sw/benchmark
+      - n-cores-default
+      - ?release
