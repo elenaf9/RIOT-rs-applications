@@ -5,7 +5,7 @@ modules:
       - n-cores
     env:
       global:
-        RIOT_RS_BRANCH: WIP/multicore/baseline
+        RIOT_RS_REV: cedaab07f4d21323377f76c07177b9b9bf7280ca
         FEATURES:
           - single-core
   - name: multicore-v1
@@ -14,7 +14,7 @@ modules:
       - n-cores
     env:
       global:
-        RIOT_RS_BRANCH: WIP/multicore/v1
+        RIOT_RS_REV: bc8711e0dbdcca9cb0250096d89773ce5570451e
         FEATURES:
           - multicore-v1
   - name: multicore-v2
@@ -23,7 +23,7 @@ modules:
       - n-cores
     env:
       global:
-        RIOT_RS_BRANCH: WIP/multicore/v2
+        RIOT_RS_REV: eb2e784c726580d61bc778628287adc6cef6a3bb
         FEATURES:
           - multicore-v2
   - name: n-cores-default
@@ -45,11 +45,11 @@ modules:
         FORKED_REPO: https://github.com/elenaf9/RIOT-rs.git
         CARGO_ARGS:
           - --config 'patch."${UPSTREAM_REPO}".riot-rs.git="${FORKED_REPO}"'
-          - --config 'patch."${UPSTREAM_REPO}".riot-rs.branch="${RIOT_RS_BRANCH}"'
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs.rev="${RIOT_RS_REV}"'
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-runqueue.git="${FORKED_REPO}"'
-          - --config 'patch."${UPSTREAM_REPO}".riot-rs-runqueue.branch="${RIOT_RS_BRANCH}"'
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs-runqueue.rev="${RIOT_RS_REV}"'
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-boards.git="${FORKED_REPO}"'
-          - --config 'patch."${UPSTREAM_REPO}".riot-rs-boards.branch="${RIOT_RS_BRANCH}"'
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs-boards.rev="${RIOT_RS_REV}"'
 
 subdirs:
   - bench_async
