@@ -1,3 +1,20 @@
+modules:
+  - name: poll
+    help: busy poll timer
+    provides_unique:
+      - test-scenario
+    env:
+      global:
+        FEATURES:
+          - poll
+  - name: await
+    help: await timer
+    provides_unique:
+      - test-scenario
+    env:
+      global:
+        FEATURES:
+          - await
 apps:
   - name: bench_busy_poll
     selects:

@@ -11,9 +11,9 @@ use riot_rs::{
     thread::{thread_flags, ThreadId},
 };
 
-const ITERATIONS: usize = 1_000;
+const ITERATIONS: usize = 100;
 
-#[cfg(feature = "multicore")]
+#[cfg(feature = "poll")]
 fn now() -> u64 {
     loop {
         let hi = rp_pac::TIMER.timerawh().read();
@@ -33,7 +33,7 @@ async fn network_task() {
 
         // Some dummy computation.
         let mut counter = 0;
-        for _ in 0..10_000 {
+        for _ in 0..1_000 {
             counter = core::hint::black_box(counter + 1);
         }
         core::hint::black_box(counter);
@@ -42,12 +42,12 @@ async fn network_task() {
 
 #[riot_rs::task(pool_size = 1)]
 async fn critical_task() {
-    let delay = Duration::from_micros(1);
+    let delay = Duration::from_millis(1);
 
     for _ in 0..ITERATIONS {
-        #[cfg(feature = "single-core")]
+        #[cfg(feature = "await")]
         Timer::after(delay).await;
-        #[cfg(feature = "multicore")]
+        #[cfg(feature = "poll")]
         {
             let expires = now() + delay.as_ticks();
             // Busy loop for timer.
