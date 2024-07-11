@@ -4,7 +4,7 @@
 #![feature(used_with_arg)]
 
 use riot_rs::{
-    debug::println,
+    debug::log::*,
     thread::{SCHED_PRIO_LEVELS, THREADS_NUMOF},
 };
 use riot_rs_runqueue::{GlobalRunqueue, RunQueue, RunqueueId, ThreadId};
@@ -19,8 +19,8 @@ fn thread0() {
         core::hint::black_box(changed_core);
         core::hint::black_box(&mut rq);
     }) {
-        Ok(ticks) => println!("took {} ticks per iteration ", ticks),
-        Err(_) => println!("benchmark returned error"),
+        Ok(ticks) => info!("took {} ticks per iteration ", ticks),
+        Err(_) => error!("benchmark returned error"),
     }
     loop {}
 }

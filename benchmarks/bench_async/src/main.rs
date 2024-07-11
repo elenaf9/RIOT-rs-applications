@@ -5,7 +5,7 @@
 
 use embassy_time::{Duration, Timer};
 use riot_rs::{
-    debug::println,
+    debug::log::*,
     embassy::thread_executor::Executor,
     static_cell::make_static,
     thread::{thread_flags, ThreadId},
@@ -34,9 +34,9 @@ fn thread0() {
     match riot_rs::bench::benchmark(1, || {
         thread_flags::wait_all(0b11);
     }) {
-        Ok(ticks) => println!("took {} ticks", ticks),
+        Ok(ticks) => info!("took {} ticks", ticks),
 
-        Err(_) => println!("benchmark returned error"),
+        Err(_) => error!("benchmark returned error"),
     }
 }
 

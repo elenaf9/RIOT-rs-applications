@@ -3,7 +3,7 @@
 #![feature(type_alias_impl_trait)]
 #![feature(used_with_arg)]
 
-use riot_rs::debug::println;
+use riot_rs::debug::log::*;
 #[cfg(feature = "multicore")]
 use riot_rs::thread::channel::Channel;
 
@@ -53,9 +53,9 @@ fn thread0() {
             core::hint::black_box((matrix_c1, matrix_c2));
         }
     }) {
-        Ok(ticks) => println!("took {} ticks per iteration", ticks),
+        Ok(ticks) => info!("took {} ticks per iteration", ticks),
 
-        Err(_) => println!("benchmark returned error"),
+        Err(_) => error!("benchmark returned error"),
     }
 }
 #[cfg(feature = "multicore")]

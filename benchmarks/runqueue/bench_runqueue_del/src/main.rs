@@ -4,7 +4,7 @@
 #![feature(used_with_arg)]
 
 use riot_rs::{
-    debug::println,
+    debug::log::*,
     thread::{SCHED_PRIO_LEVELS, THREADS_NUMOF},
 };
 #[cfg(feature = "multicore-v1")]
@@ -22,8 +22,8 @@ fn thread0() {
         rq.del(thread_id, rq_id);
         core::hint::black_box(rq);
     }) {
-        Ok(ticks) => println!("took {} ticks per iteration ", ticks),
-        Err(_) => println!("benchmark returned error"),
+        Ok(ticks) => info!("took {} ticks per iteration ", ticks),
+        Err(_) => error!("benchmark returned error"),
     }
     loop {}
 }

@@ -3,7 +3,7 @@
 #![feature(type_alias_impl_trait)]
 #![feature(used_with_arg)]
 
-use riot_rs::{debug::println, thread::yield_same};
+use riot_rs::{debug::log::*, thread::yield_same};
 
 fn count() {
     let mut counter = 0;
@@ -19,9 +19,9 @@ fn thread0() {
         count();
         yield_same();
     }) {
-        Ok(ticks) => println!("took {} ticks per iteration", ticks),
+        Ok(ticks) => info!("took {} ticks per iteration", ticks),
 
-        Err(_) => println!("benchmark returned error"),
+        Err(_) => error!("benchmark returned error"),
     }
     loop {}
 }

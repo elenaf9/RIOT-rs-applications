@@ -4,7 +4,7 @@
 #![feature(used_with_arg)]
 
 use riot_rs::{
-    debug::println,
+    debug::log::*,
     thread::{thread_flags, ThreadId},
 };
 
@@ -38,8 +38,8 @@ fn thread3() {
         thread_flags::set(ThreadId::new(2), 1);
         thread_flags::wait_all(1);
     }) {
-        Ok(ticks) => println!("took {} ticks per iteration", ticks),
-        Err(_) => println!("benchmark returned error"),
+        Ok(ticks) => info!("took {} ticks per iteration", ticks),
+        Err(_) => error!("benchmark returned error"),
     }
     loop {}
 }
