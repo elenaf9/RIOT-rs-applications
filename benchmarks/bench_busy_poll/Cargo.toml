@@ -6,7 +6,7 @@ edition.workspace = true
 publish = false
 
 [dependencies]
-riot-rs = { workspace = true, features = [ "time", "executor-thread" ] }
+riot-rs = { workspace = true, features = ["time", "executor-thread"] }
 riot-rs-boards = { workspace = true }
 
 embassy-executor = { workspace = true }
@@ -15,9 +15,9 @@ embassy-time = { workspace = true }
 rp-pac = { workspace = true }
 
 [features]
-poll = [ ]
-await = [ ]
+poll = []
+await = []
 single-core = []
 multicore = []
-multicore-v1 = [ "multicore" ]
-multicore-v2 = [ "multicore" ]
+multicore-v1 = ["multicore"]
+multicore-v2 = ["multicore"]
