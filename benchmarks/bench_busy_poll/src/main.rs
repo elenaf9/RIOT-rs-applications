@@ -15,9 +15,9 @@ const ITERATIONS: usize = 100;
 
 #[riot_rs::task(autostart)]
 async fn start_other_tasks() {
-    riot_rs::thread::thread_flags::set(ThreadId::new(0), 0b10);
-    riot_rs::thread::thread_flags::set(ThreadId::new(1), 0b10);
-    riot_rs::thread::thread_flags::set(ThreadId::new(2), 0b10);
+    thread_flags::set(ThreadId::new(0), 0b10);
+    thread_flags::set(ThreadId::new(1), 0b10);
+    thread_flags::set(ThreadId::new(2), 0b10);
 }
 
 #[cfg(feature = "poll")]
@@ -34,7 +34,7 @@ fn now() -> u64 {
 
 #[riot_rs::task(pool_size = 1)]
 async fn network_task() {
-    riot_rs::thread::thread_flags::wait_one(0b10);
+    thread_flags::wait_one(0b10);
     let delay = Duration::from_millis(10);
     loop {
         Timer::after(delay).await;
@@ -50,7 +50,7 @@ async fn network_task() {
 
 #[riot_rs::task(pool_size = 1)]
 async fn critical_task() {
-    riot_rs::thread::thread_flags::wait_one(0b10);
+    thread_flags::wait_one(0b10);
     let delay = Duration::from_millis(1);
 
     for _ in 0..ITERATIONS {
@@ -68,7 +68,7 @@ async fn critical_task() {
 
 #[riot_rs::thread(autostart, priority = 3)]
 fn thread0() {
-    riot_rs::thread::thread_flags::wait_one(0b10);
+    thread_flags::wait_one(0b10);
     match riot_rs::bench::benchmark(1, || {
         thread_flags::wait_all(1);
     }) {
