@@ -21,12 +21,10 @@ fn thread0() {
         #[cfg(not(feature = "multicore-v1"))]
         {
             rq.advance(rq_id);
-            rq.advance(rq_id);
         }
         #[cfg(feature = "multicore-v1")]
         {
             rq.advance(ThreadId::new(0), rq_id);
-            rq.advance(ThreadId::new(1), rq_id);
         }
         core::hint::black_box(&mut rq);
     }) {
