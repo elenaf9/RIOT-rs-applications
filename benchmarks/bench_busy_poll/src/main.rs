@@ -22,14 +22,7 @@ async fn start_other_tasks() {
 
 #[cfg(feature = "poll")]
 fn now() -> u64 {
-    loop {
-        let hi = rp_pac::TIMER.timerawh().read();
-        let lo = rp_pac::TIMER.timerawl().read();
-        let hi2 = rp_pac::TIMER.timerawh().read();
-        if hi == hi2 {
-            return (hi as u64) << 32 | (lo as u64);
-        }
-    }
+    embassy_time_driver::now()
 }
 
 #[riot_rs::task(pool_size = 1)]

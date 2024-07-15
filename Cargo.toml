@@ -18,6 +18,7 @@ riot-rs-runqueue = { git = "https://github.com/future-proof-iot/RIOT-rs.git", de
 
 embassy-executor = { version = "0.5", default-features = false }
 embassy-time = { version = "0.3", default-features = false }
+embassy-time-driver = { version = "0.1.0", default-features = false }
 
 rp-pac = { version = "6.0.0", default-features = false }
 

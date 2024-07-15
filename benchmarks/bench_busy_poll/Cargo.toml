@@ -11,8 +11,7 @@ riot-rs-boards = { workspace = true }
 
 embassy-executor = { workspace = true }
 embassy-time = { workspace = true }
-
-rp-pac = { workspace = true }
+embassy-time-driver = { workspace = true }
 
 [features]
 poll = []

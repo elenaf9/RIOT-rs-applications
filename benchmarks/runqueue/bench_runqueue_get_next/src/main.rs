@@ -29,9 +29,3 @@ fn thread0() {
     }
     loop {}
 }
-
-#[cfg(feature = "multicore")]
-#[riot_rs::thread(autostart)]
-fn thread1() {
-    cortex_m::asm::wfi();
-}
