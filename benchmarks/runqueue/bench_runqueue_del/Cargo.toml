@@ -16,4 +16,3 @@ cortex-m.workspace = true
 single-core = []
 multicore = []
 multicore-v1 = ["multicore"]
-multicore-v2 = ["multicore"]
