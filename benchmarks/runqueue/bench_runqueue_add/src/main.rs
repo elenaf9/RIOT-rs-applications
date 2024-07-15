@@ -11,7 +11,7 @@ use riot_rs::{
 use riot_rs_runqueue::GlobalRunqueue;
 use riot_rs_runqueue::{RunQueue, RunqueueId, ThreadId};
 
-#[riot_rs::thread(autostart, priority = 2)]
+#[riot_rs::thread(autostart)]
 fn thread0() {
     match riot_rs::bench::benchmark(10000, || {
         let mut rq = RunQueue::<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }>::new();
