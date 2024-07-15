@@ -8,14 +8,14 @@ use riot_rs::{debug::log::*, thread::yield_same};
 fn count() {
     let mut counter = 0;
     for _ in 0..1_000 {
-        counter = core::hint::black_box(counter);
+        counter = core::hint::black_box(counter + 1);
     }
     core::hint::black_box(counter);
 }
 
 #[riot_rs::thread(autostart)]
 fn thread0() {
-    match riot_rs::bench::benchmark(1000, || {
+    match riot_rs::bench::benchmark(100, || {
         count();
         yield_same();
     }) {
