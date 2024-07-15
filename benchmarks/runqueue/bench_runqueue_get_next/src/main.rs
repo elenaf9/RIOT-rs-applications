@@ -16,7 +16,7 @@ fn thread0() {
     let mut rq = RunQueue::<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }>::new();
     rq.add(ThreadId::new(0), RunqueueId::new(5));
     match riot_rs::bench::benchmark(10000, || {
-        #[cfg(feature = "single-core")]
+        #[cfg(not(feature = "multicore-v1"))]
         let next = rq.get_next();
         #[cfg(feature = "multicore-v1")]
         let next = rq.get_next(CoreId::new(0));

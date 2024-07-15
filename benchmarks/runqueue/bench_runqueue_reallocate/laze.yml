@@ -2,5 +2,4 @@ apps:
   - name: bench_runqueue_reallocate
     selects:
       - sw/benchmark
-      - n-cores-default
       - ?release

@@ -18,7 +18,7 @@ fn thread0() {
     rq.add(ThreadId::new(0), rq_id);
     rq.add(ThreadId::new(1), rq_id);
     match riot_rs::bench::benchmark(10000, || {
-        #[cfg(feature = "single-core")]
+        #[cfg(not(feature = "multicore-v1"))]
         {
             rq.advance(rq_id);
             rq.advance(rq_id);

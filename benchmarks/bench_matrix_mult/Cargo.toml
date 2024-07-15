@@ -5,6 +5,9 @@ authors.workspace = true
 edition.workspace = true
 publish = false
 
+[lints]
+workspace = true
+
 [dependencies]
 riot-rs = { workspace = true }
 riot-rs-boards = { workspace = true }
@@ -12,4 +15,4 @@ riot-rs-boards = { workspace = true }
 [features]
 single-core = []
 multicore = []
-multicore-v1 = ["multicore"]
+multicore-v1 = []

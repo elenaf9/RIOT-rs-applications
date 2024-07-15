@@ -15,4 +15,4 @@ embassy-time = { workspace = true }
 [features]
 single-core = []
 multicore = []
-multicore-v1 = ["multicore"]
+multicore-v1 = []

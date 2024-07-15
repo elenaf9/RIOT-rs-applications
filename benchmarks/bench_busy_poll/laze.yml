@@ -20,5 +20,4 @@ apps:
     selects:
       - sw/benchmark
       - executor-thread
-      - n-cores-default
       - ?release

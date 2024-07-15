@@ -26,6 +26,12 @@ critical-section = { version = "1.1", default-features = false }
 
 cortex-m = { version = "0.7", default-features = false }
 
+[workspace.lints.rust]
+# ... until we figure out a way to generate a list of all used cfg variables
+# across build configurations ...
+unexpected_cfgs = "allow"
+
+
 [patch.crates-io]
 # riot-rs embassy fork
 embassy-executor = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }

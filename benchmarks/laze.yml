@@ -1,33 +1,4 @@
 modules:
-  - name: single-core
-    help: single core 
-    provides_unique:
-      - n-cores
-    env:
-      global:
-        RIOT_RS_REV: a7bb53fd58e9136243d148eba34e17d12210555c
-        FEATURES:
-          - single-core
-  - name: multicore-v1
-    help: multicore version 1
-    provides_unique:
-      - n-cores
-    env:
-      global:
-        RIOT_RS_REV: 6380afca27560ddecc0e189fc8a604c1cd06a052
-        FEATURES:
-          - multicore-v1
-  - name: n-cores-default
-    help: default number of cores
-    selects:
-      - patch
-      - ?single-core
-      - ?multicore-v1
-  - name: multicore-default
-    help: default version for multicore testing
-    selects:
-      - patch
-      - ?multicore-v1
   - name: patch
     help: patch used repo revision
     env: 
@@ -41,7 +12,44 @@ modules:
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-runqueue.rev="${RIOT_RS_REV}"'
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-boards.git="${FORKED_REPO}"'
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-boards.rev="${RIOT_RS_REV}"'
-
+  - name: single-core
+    selects:
+      - patch
+    provides_unique:
+      - riot-rs-rev
+    env:
+      global:
+        RIOT_RS_REV: a7bb53fd58e9136243d148eba34e17d12210555c
+        FEATURES:
+          - single-core
+  - name: multicore-v1-rev
+    selects:
+      - patch
+    provides_unique:
+      - riot-rs-rev
+    env:
+      global:
+        RIOT_RS_REV: 6380afca27560ddecc0e189fc8a604c1cd06a052
+        FEATURES:
+          - multicore-v1
+  - name: multicore-v1
+    context:
+      - rp2040
+    selects:
+      - multicore-v1-rev
+    env:
+      global:
+        FEATURES:
+          - multicore
+  - name: multicore-v1
+    context:
+      - nrf
+    selects:
+      - multicore-v1-rev
+    env:
+      global:
+        FEATURES:
+          - single-core
 subdirs:
   - bench_async
   - bench_busy_poll
