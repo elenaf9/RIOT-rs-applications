@@ -29,7 +29,7 @@ modules:
       - riot-rs-rev
     env:
       global:
-        RIOT_RS_REV: 6380afca27560ddecc0e189fc8a604c1cd06a052
+        RIOT_RS_REV: 8c1d66f437542fdd30a27f06fa7fe587821ac11b
         FEATURES:
           - multicore-v1
   - name: multicore-v1
