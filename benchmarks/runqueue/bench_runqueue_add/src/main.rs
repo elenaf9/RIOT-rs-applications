@@ -7,14 +7,22 @@ use riot_rs::{
     debug::log::*,
     thread::{SCHED_PRIO_LEVELS, THREADS_NUMOF},
 };
+use riot_rs_runqueue::{RunQueue as GenericRunqueue, RunqueueId, ThreadId};
+
+#[cfg(feature = "multicore")]
+use riot_rs::thread::CORES_NUMOF;
 #[cfg(feature = "multicore-v1")]
 use riot_rs_runqueue::GlobalRunqueue;
-use riot_rs_runqueue::{RunQueue, RunqueueId, ThreadId};
+
+#[cfg(feature = "single-core")]
+type RunQueue = GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }>;
+#[cfg(feature = "multicore")]
+type RunQueue = GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }, { CORES_NUMOF }>;
 
 #[riot_rs::thread(autostart)]
 fn thread0() {
     match riot_rs::bench::benchmark(10000, || {
-        let mut rq = RunQueue::<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }>::new();
+        let mut rq = RunQueue::new();
         rq.add(ThreadId::new(0), RunqueueId::new(5));
         core::hint::black_box(rq);
     }) {
