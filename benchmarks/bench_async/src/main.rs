@@ -4,7 +4,7 @@
 #![feature(used_with_arg)]
 
 use embassy_time::{Duration, Timer};
-#[cfg(feature = "multicore")]
+#[cfg(feature = "multicore-v1")]
 use riot_rs::thread::CoreId;
 use riot_rs::{
     debug::log::*,
@@ -31,10 +31,10 @@ async fn task(id: usize) {
     }
     thread_flags::set(ThreadId::new(0), 1 << id);
 
-    /// Blocks Core 1 so that the benchmark has to continue running on Core 0;
-    /// FIXME: implement core affinity masks instead.
+    // Blocks Core 1 so that the benchmark has to continue running on Core 0;
+    // FIXME: implement core affinity masks instead.
     #[cfg(feature = "multicore")]
-    if riot_rs::thread::core_id() == CoreId::new(1) {
+    if usize::from(riot_rs::thread::core_id()) == 1 {
         loop {}
     }
 }

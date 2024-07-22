@@ -12,3 +12,4 @@ riot-rs-boards = { workspace = true }
 [features]
 multicore = []
 multicore-v1 = []
+multicore-v2 = []

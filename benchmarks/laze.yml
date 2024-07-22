@@ -22,9 +22,24 @@ modules:
         RIOT_RS_REV: a7bb53fd58e9136243d148eba34e17d12210555c
         FEATURES:
           - single-core
-  - name: multicore-v1-rev
+  - name: multicore-feature
+    context:
+      - rp2040
+    env:
+      global:
+        FEATURES:
+          - multicore
+  - name: multicore-feature
+    context:
+      - nrf
+    env:
+      global:
+        FEATURES:
+          - single-core
+  - name: multicore-v1
     selects:
       - patch
+      - multicore-feature
     provides_unique:
       - riot-rs-rev
     env:
@@ -32,24 +47,19 @@ modules:
         RIOT_RS_REV: 8c1d66f437542fdd30a27f06fa7fe587821ac11b
         FEATURES:
           - multicore-v1
-  - name: multicore-v1
-    context:
-      - rp2040
+
+  - name: multicore-v2
     selects:
-      - multicore-v1-rev
+      - patch
+      - multicore-feature
+    provides_unique:
+      - riot-rs-rev
     env:
       global:
+        RIOT_RS_REV: e89b6bc2db2b2632346f7ab967f9998ee913e45f
         FEATURES:
-          - multicore
-  - name: multicore-v1
-    context:
-      - nrf
-    selects:
-      - multicore-v1-rev
-    env:
-      global:
-        FEATURES:
-          - single-core
+          - multicore-v2
+  
 subdirs:
   - bench_async
   - bench_busy_poll

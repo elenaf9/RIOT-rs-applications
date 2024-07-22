@@ -27,5 +27,4 @@ apps:
   - name: bench_fib
     selects:
       - sw/benchmark
-      - multicore-default
       - ?release

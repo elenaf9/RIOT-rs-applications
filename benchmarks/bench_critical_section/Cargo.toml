@@ -14,3 +14,4 @@ critical-section = { workspace = true }
 [features]
 multicore = []
 multicore-v1 = []
+multicore-v2 = []
