@@ -2,10 +2,7 @@
 #![no_std]
 #![feature(type_alias_impl_trait)]
 #![feature(used_with_arg)]
-
 use embassy_time::{Duration, Timer};
-#[cfg(feature = "multicore-v1")]
-use riot_rs::thread::CoreId;
 use riot_rs::{
     debug::log::*,
     embassy::thread_executor::Executor,
@@ -13,7 +10,15 @@ use riot_rs::{
     thread::{thread_flags, ThreadId},
 };
 
+#[cfg(feature = "multicore")]
+use core::cell::RefCell;
+#[cfg(feature = "multicore")]
+use critical_section::{with, Mutex};
+
 const ITERATIONS: usize = 100;
+
+#[cfg(feature = "multicore")]
+static BENCHMARK_CORE: Mutex<RefCell<usize>> = Mutex::new(RefCell::new(0xff));
 
 #[riot_rs::task(autostart)]
 async fn start_other_tasks() {
@@ -31,10 +36,10 @@ async fn task(id: usize) {
     }
     thread_flags::set(ThreadId::new(0), 1 << id);
 
-    // Blocks Core 1 so that the benchmark has to continue running on Core 0;
+    // Blocks other core so that the benchmark has to continue running on its original core
     // FIXME: implement core affinity masks instead.
     #[cfg(feature = "multicore")]
-    if usize::from(riot_rs::thread::core_id()) == 1 {
+    if with(|cs| *BENCHMARK_CORE.borrow(cs).borrow() != usize::from(riot_rs::thread::core_id())) {
         loop {}
     }
 }
@@ -42,11 +47,12 @@ async fn task(id: usize) {
 #[riot_rs::thread(autostart, priority = 1)]
 fn thread0() {
     thread_flags::wait_one(0b1);
+    #[cfg(feature = "multicore")]
+    with(|cs| *BENCHMARK_CORE.borrow(cs).borrow_mut() = usize::from(riot_rs::thread::core_id()));
     match riot_rs::bench::benchmark(1, || {
         thread_flags::wait_all(0b11);
     }) {
         Ok(ticks) => info!("took {} ticks", ticks),
-
         Err(_) => error!("benchmark returned error"),
     }
 }

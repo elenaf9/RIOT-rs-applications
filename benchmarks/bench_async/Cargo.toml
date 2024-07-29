@@ -9,6 +9,7 @@ publish = false
 riot-rs = { workspace = true, features = ["time", "executor-thread"] }
 riot-rs-boards = { workspace = true }
 
+critical-section = { workspace = true }
 embassy-executor = { workspace = true }
 embassy-time = { workspace = true }
 
