@@ -1,3 +1,25 @@
+modules:
+  - name: t1
+    provides_unique:
+      - n-threads
+    env:
+      global:
+        FEATURES:
+          - t1
+  - name: t3
+    provides_unique:
+      - n-threads
+    env:
+      global:
+        FEATURES:
+          - t3
+  - name: t4
+    provides_unique:
+      - n-threads
+    env:
+      global:
+        FEATURES:
+          - t4
 apps:
   - name: bench_sched_yield
     selects:
