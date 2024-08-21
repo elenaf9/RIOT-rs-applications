@@ -21,13 +21,24 @@ type RunQueue = GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }, { CORE
 
 #[riot_rs::thread(autostart, priority = 2)]
 fn thread0() {
-    let thread_id = ThreadId::new(0);
+    let thread0 = ThreadId::new(0);
+    let thread1 = ThreadId::new(1);
     let rq_id = RunqueueId::new(5);
     match riot_rs::bench::benchmark(10000, || {
         let mut rq = RunQueue::new();
-        rq.add(thread_id, rq_id);
+        rq.add(thread0, rq_id);
+        rq.add(thread1, rq_id);
         rq = core::hint::black_box(rq);
-        rq.del(thread_id, rq_id);
+        #[cfg(feature = "multicore")]
+        {
+            rq.del(thread1, rq_id);
+            rq.del(thread0, rq_id);
+        }
+        #[cfg(not(feature = "multicore"))]
+        {
+            rq.del(thread0, rq_id);
+            rq.del(thread1, rq_id);
+        }
         core::hint::black_box(rq);
     }) {
         Ok(ticks) => info!("took {} ticks per iteration ", ticks),
