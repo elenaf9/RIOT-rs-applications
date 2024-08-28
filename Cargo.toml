@@ -37,7 +37,7 @@ unexpected_cfgs = "allow"
 embassy-executor = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
 embassy-hal-internal = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
 embassy-nrf = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
-embassy-rp = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
+embassy-rp = { git = "https://github.com/elenaf9/embassy", branch = "for-riot-rs-multicore-240821"}
 embassy-time-driver = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
 embassy-time-queue-driver = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
 embassy-usb-driver = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-240605" }
