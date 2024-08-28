@@ -6,6 +6,8 @@
 use riot_rs::debug::log::*;
 #[cfg(feature = "multicore")]
 use riot_rs::thread::channel::Channel;
+#[cfg(feature = "multicore-v2")]
+use riot_rs::thread::{CoreAffinity, CoreId};
 
 #[cfg(feature = "multicore")]
 static RESULT_CHANNEL: Channel<f32> = Channel::new();
@@ -22,8 +24,7 @@ fn leibniz_formula(start: usize, end: usize) -> f32 {
     res
 }
 
-#[riot_rs::thread(autostart)]
-fn thread0() {
+fn benchmark_fn() {
     match riot_rs::bench::benchmark(10, || {
         let res;
         #[cfg(feature = "single-core")]
@@ -40,6 +41,18 @@ fn thread0() {
         Err(_) => error!("benchmark returned error"),
     }
     loop {}
+}
+
+#[cfg(not(feature = "multicore-v2"))]
+#[riot_rs::thread(autostart)]
+fn thread0() {
+    benchmark_fn()
+}
+
+#[cfg(feature = "multicore-v2")]
+#[riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(1)))]
+fn thread0() {
+    benchmark_fn()
 }
 
 #[cfg(feature = "multicore")]

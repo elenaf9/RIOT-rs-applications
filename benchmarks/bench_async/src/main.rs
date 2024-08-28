@@ -10,14 +10,17 @@ use riot_rs::{
     thread::{thread_flags, ThreadId},
 };
 
-#[cfg(feature = "multicore")]
+#[cfg(feature = "multicore-v1")]
 use core::cell::RefCell;
-#[cfg(feature = "multicore")]
+#[cfg(feature = "multicore-v1")]
 use critical_section::{with, Mutex};
+
+#[cfg(feature = "multicore-v2")]
+use riot_rs::thread::{CoreAffinity, CoreId};
 
 const ITERATIONS: usize = 100;
 
-#[cfg(feature = "multicore")]
+#[cfg(feature = "multicore-v1")]
 static BENCHMARK_CORE: Mutex<RefCell<usize>> = Mutex::new(RefCell::new(0xff));
 
 #[riot_rs::task(autostart)]
@@ -38,16 +41,15 @@ async fn task(id: usize) {
 
     // Blocks other core so that the benchmark has to continue running on its original core
     // FIXME: implement core affinity masks instead.
-    #[cfg(feature = "multicore")]
+    #[cfg(feature = "multicore-v1")]
     if with(|cs| *BENCHMARK_CORE.borrow(cs).borrow() != usize::from(riot_rs::thread::core_id())) {
         loop {}
     }
 }
 
-#[riot_rs::thread(autostart, priority = 1)]
-fn thread0() {
+fn benchmark_fn() {
     thread_flags::wait_one(0b1);
-    #[cfg(feature = "multicore")]
+    #[cfg(feature = "multicore-v1")]
     with(|cs| *BENCHMARK_CORE.borrow(cs).borrow_mut() = usize::from(riot_rs::thread::core_id()));
     match riot_rs::bench::benchmark(1, || {
         thread_flags::wait_all(0b11);
@@ -57,7 +59,19 @@ fn thread0() {
     }
 }
 
-#[riot_rs::thread(autostart, priority = 1)]
+#[cfg(not(feature = "multicore-v2"))]
+#[riot_rs::thread(autostart)]
+fn thread0() {
+    benchmark_fn();
+}
+
+#[cfg(feature = "multicore-v2")]
+#[riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(1)))]
+fn thread0() {
+    benchmark_fn();
+}
+
+#[riot_rs::thread(autostart)]
 fn thread1() {
     let executor = make_static!(Executor::new());
     executor.run(|spawner| {
@@ -68,7 +82,7 @@ fn thread1() {
 }
 
 #[cfg(feature = "multicore")]
-#[riot_rs::thread(autostart, priority = 1)]
+#[riot_rs::thread(autostart)]
 fn thread2() {
     let executor = make_static!(Executor::new());
     executor.run(|spawner| {

@@ -13,6 +13,9 @@ use riot_rs::{
     thread::{thread_flags, ThreadId},
 };
 
+#[cfg(feature = "multicore-v2")]
+use riot_rs::thread::{CoreAffinity, CoreId};
+
 const ITERATIONS: usize = 100;
 
 #[riot_rs::task(autostart)]
@@ -44,8 +47,7 @@ async fn critical_task() {
     thread_flags::set(ThreadId::new(0), 1);
 }
 
-#[riot_rs::thread(autostart)]
-fn thread0() {
+fn benchmark_fn() {
     thread_flags::wait_one(0b10);
     match riot_rs::bench::benchmark(1, || {
         thread_flags::wait_all(1);
@@ -54,6 +56,18 @@ fn thread0() {
 
         Err(_) => error!("benchmark returned error"),
     }
+}
+
+#[cfg(not(feature = "multicore-v2"))]
+#[riot_rs::thread(autostart)]
+fn thread0() {
+    benchmark_fn()
+}
+
+#[cfg(feature = "multicore-v2")]
+#[riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(0)))]
+fn thread0() {
+    benchmark_fn()
 }
 
 #[riot_rs::thread(autostart, stacksize = 4096)]
