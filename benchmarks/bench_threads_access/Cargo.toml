@@ -1,0 +1,17 @@
+[package]
+name = "bench_threads_access"
+version = "0.1.0"
+authors.workspace = true
+edition.workspace = true
+publish = false
+
+[dependencies]
+riot-rs = { workspace = true }
+riot-rs-boards = { workspace = true }
+
+critical-section = { workspace = true }
+
+[features]
+multicore = []
+multicore-v1 = []
+multicore-v2 = []

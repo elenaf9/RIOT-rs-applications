@@ -71,4 +71,5 @@ subdirs:
   - bench_sched
   - bench_sched_yield
   - bench_thread_flags
+  - bench_threads_access
   - runqueue

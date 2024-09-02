@@ -1,0 +1,5 @@
+apps:
+  - name: bench_threads_access
+    selects:
+      - sw/benchmark
+      - ?release
