@@ -3,7 +3,7 @@
 #![feature(type_alias_impl_trait)]
 #![feature(used_with_arg)]
 
-#[cfg(feature = "multicore-v2")]
+#[cfg(feature = "affinity")]
 use riot_rs::thread::{CoreAffinity, CoreId};
 use riot_rs::{
     debug::log::*,
@@ -34,19 +34,12 @@ fn thread2() {
     }
 }
 
-#[cfg(not(feature = "multicore-v2"))]
-#[riot_rs::thread(autostart, stacksize = 4094)]
+#[cfg_attr(
+    not(feature = "multicore-v2"),
+    riot_rs::thread(autostart, stacksize = 4094)
+)]
+#[cfg_attr(feature = "affinity", riot_rs::thread(autostart, stacksize = 4094, affinity = CoreAffinity::one(CoreId::new(0))))]
 fn thread3() {
-    benchmark_fn()
-}
-
-#[cfg(feature = "multicore-v2")]
-#[riot_rs::thread(autostart, stacksize = 4094, affinity = CoreAffinity::one(CoreId::new(0)))]
-fn thread3() {
-    benchmark_fn()
-}
-
-fn benchmark_fn() {
     match riot_rs::bench::benchmark(1000, || {
         thread_flags::set(ThreadId::new(2), 1);
         thread_flags::wait_all(1);

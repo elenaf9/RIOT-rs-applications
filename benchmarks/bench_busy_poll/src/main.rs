@@ -8,12 +8,12 @@ use embassy_time::Duration;
 use embassy_time::Timer;
 use riot_rs::{
     debug::log::*,
-    embassy::thread_executor::Executor,
     static_cell::make_static,
     thread::{thread_flags, ThreadId},
+    thread_executor::Executor,
 };
 
-#[cfg(feature = "multicore-v2")]
+#[cfg(feature = "affinity")]
 use riot_rs::thread::{CoreAffinity, CoreId};
 
 const ITERATIONS: usize = 100;
@@ -31,7 +31,6 @@ fn now() -> u64 {
 
 #[riot_rs::task(pool_size = 1)]
 async fn critical_task() {
-    thread_flags::wait_one(0b10);
     let delay = Duration::from_millis(1);
 
     for _ in 0..ITERATIONS {
@@ -47,8 +46,11 @@ async fn critical_task() {
     thread_flags::set(ThreadId::new(0), 1);
 }
 
-fn benchmark_fn() {
+#[cfg_attr(not(feature = "affinity"), riot_rs::thread(autostart))]
+#[cfg_attr(feature = "affinity", riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(0))))]
+fn thread0() {
     thread_flags::wait_one(0b10);
+    thread_flags::wait_all(1);
     match riot_rs::bench::benchmark(1, || {
         thread_flags::wait_all(1);
     }) {
@@ -56,18 +58,6 @@ fn benchmark_fn() {
 
         Err(_) => error!("benchmark returned error"),
     }
-}
-
-#[cfg(not(feature = "multicore-v2"))]
-#[riot_rs::thread(autostart)]
-fn thread0() {
-    benchmark_fn()
-}
-
-#[cfg(feature = "multicore-v2")]
-#[riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(0)))]
-fn thread0() {
-    benchmark_fn()
 }
 
 #[riot_rs::thread(autostart, stacksize = 4096)]

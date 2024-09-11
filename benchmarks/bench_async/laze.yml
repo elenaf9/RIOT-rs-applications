@@ -2,5 +2,7 @@ apps:
   - name: bench_async
     selects:
       - sw/benchmark
+      - sw/threading
       - executor-thread
+      - ?affinity
       - ?release

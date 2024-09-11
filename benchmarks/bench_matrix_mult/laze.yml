@@ -2,4 +2,6 @@ apps:
   - name: bench_matrix_mult
     selects:
       - sw/benchmark
+      - sw/threading
+      - executor-thread
       - ?release

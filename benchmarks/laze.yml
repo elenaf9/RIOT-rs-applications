@@ -1,5 +1,7 @@
 modules:
   - name: patch
+    selects:
+      - executor-thread
     help: patch used repo revision
     env: 
       global:
@@ -12,53 +14,78 @@ modules:
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-runqueue.rev="${RIOT_RS_REV}"'
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-boards.git="${FORKED_REPO}"'
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-boards.rev="${RIOT_RS_REV}"'
-  - name: single-core
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs-rt.git="${FORKED_REPO}"'
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs-rt.rev="${RIOT_RS_REV}"'
+  - name: main
     selects:
       - patch
-    provides_unique:
-      - riot-rs-rev
+    conflicts:
+      - multicore-v1
+      - multicore-v2
     env:
       global:
-        RIOT_RS_REV: a7bb53fd58e9136243d148eba34e17d12210555c
+        RIOT_RS_REV: bb25312c53b25660c71dc53e1bea65590a713bc6
         FEATURES:
           - single-core
-  - name: multicore-feature
-    context:
-      - rp2040
-    env:
-      global:
-        FEATURES:
-          - multicore
-  - name: multicore-feature
-    context:
-      - nrf
-    env:
-      global:
-        FEATURES:
-          - single-core
+
   - name: multicore-v1
     selects:
       - patch
-      - multicore-feature
-    provides_unique:
-      - riot-rs-rev
+    conflicts:
+      - main
+      - multicore-v2
     env:
       global:
-        RIOT_RS_REV: 8c1d66f437542fdd30a27f06fa7fe587821ac11b
+        RIOT_RS_REV: d1508d740d75ec9429ba5fc8d6009af659f190d4
         FEATURES:
+          - multicore
           - multicore-v1
 
   - name: multicore-v2
     selects:
       - patch
-      - multicore-feature
-    provides_unique:
-      - riot-rs-rev
+      - ?multicore
+    conflicts:
+      - main
+      - multicore-v1
     env:
       global:
-        RIOT_RS_REV: c4f8feef2aa2d4ea96a3d4ac4f9f9967bc63855c
+        RIOT_RS_REV: 12d25afbc71c1cc4bb1ef6d87a6493160f738db5
         FEATURES:
           - multicore-v2
+    
+  - name: single-core
+    selects:
+      - multicore-v2
+    conflicts:
+      - multicore
+    env:
+      global:
+        FEATURES:
+          - single-core
+          - riot-rs/single-core
+
+  - name: multicore
+    selects:
+      - multicore-v2
+    conflicts:
+      - single-core
+    env:
+      global:
+        FEATURES:
+          - multicore
+          - riot-rs/multicore
+
+  - name: affinity
+    conflicts:
+      - main
+      - single-core
+      - multicore-v1
+    env:
+      global:
+        FEATURES:
+          - affinity
+          - riot-rs/core-affinity
   
 subdirs:
   - bench_async

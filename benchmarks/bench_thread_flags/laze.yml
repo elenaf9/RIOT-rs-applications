@@ -2,4 +2,7 @@ apps:
   - name: bench_thread_flags
     selects:
       - sw/benchmark
+      - sw/threading
+      - executor-thread
+      - ?affinity
       - ?release

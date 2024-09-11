@@ -9,8 +9,7 @@ publish = false
 riot-rs.workspace = true
 riot-rs-runqueue.workspace = true
 riot-rs-boards.workspace = true
-
-cortex-m.workspace = true
+riot-rs-rt.workspace = true
 
 [features]
 multicore = []

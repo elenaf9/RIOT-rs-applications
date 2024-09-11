@@ -1,13 +1,14 @@
 #![no_main]
 #![no_std]
 #![feature(type_alias_impl_trait)]
+#![feature(impl_trait_in_assoc_type)]
 #![feature(used_with_arg)]
 use embassy_time::{Duration, Timer};
 use riot_rs::{
     debug::log::*,
-    embassy::thread_executor::Executor,
     static_cell::make_static,
     thread::{thread_flags, ThreadId},
+    thread_executor::Executor,
 };
 
 #[cfg(feature = "multicore-v1")]
@@ -15,7 +16,7 @@ use core::cell::RefCell;
 #[cfg(feature = "multicore-v1")]
 use critical_section::{with, Mutex};
 
-#[cfg(feature = "multicore-v2")]
+#[cfg(feature = "affinity")]
 use riot_rs::thread::{CoreAffinity, CoreId};
 
 const ITERATIONS: usize = 100;
@@ -47,7 +48,9 @@ async fn task(id: usize) {
     }
 }
 
-fn benchmark_fn() {
+#[cfg_attr(not(feature = "affinity"), riot_rs::thread(autostart))]
+#[cfg_attr(feature = "affinity", riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(1))))]
+fn thread0() {
     thread_flags::wait_one(0b1);
     #[cfg(feature = "multicore-v1")]
     with(|cs| *BENCHMARK_CORE.borrow(cs).borrow_mut() = usize::from(riot_rs::thread::core_id()));
@@ -57,18 +60,6 @@ fn benchmark_fn() {
         Ok(ticks) => info!("took {} ticks", ticks),
         Err(_) => error!("benchmark returned error"),
     }
-}
-
-#[cfg(not(feature = "multicore-v2"))]
-#[riot_rs::thread(autostart)]
-fn thread0() {
-    benchmark_fn();
-}
-
-#[cfg(feature = "multicore-v2")]
-#[riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(1)))]
-fn thread0() {
-    benchmark_fn();
 }
 
 #[riot_rs::thread(autostart)]

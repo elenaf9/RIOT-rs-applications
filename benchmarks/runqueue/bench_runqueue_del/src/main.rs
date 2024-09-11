@@ -29,15 +29,20 @@ fn thread0() {
         rq.add(thread0, rq_id);
         rq.add(thread1, rq_id);
         rq = core::hint::black_box(rq);
-        #[cfg(feature = "multicore")]
+        #[cfg(not(any(feature = "multicore-v1", feature = "multicore-v2")))]
+        {
+            rq.del(thread0, rq_id);
+            rq.del(thread1, rq_id);
+        }
+        #[cfg(feature = "multicore-v1")]
         {
             rq.del(thread1, rq_id);
             rq.del(thread0, rq_id);
         }
-        #[cfg(not(feature = "multicore"))]
+        #[cfg(feature = "multicore-v2")]
         {
-            rq.del(thread0, rq_id);
-            rq.del(thread1, rq_id);
+            rq.del(thread1);
+            rq.del(thread0);
         }
         core::hint::black_box(rq);
     }) {

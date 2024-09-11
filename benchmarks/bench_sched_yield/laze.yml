@@ -24,4 +24,6 @@ apps:
   - name: bench_sched_yield
     selects:
       - sw/benchmark
+      - sw/threading
+      - executor-thread
       - ?release

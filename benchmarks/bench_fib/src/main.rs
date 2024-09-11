@@ -27,7 +27,7 @@ fn thread0() {
 #[riot_rs::thread(autostart)]
 fn thread1() {
     #[cfg(feature = "none")]
-    cortex_m::asm::wfi();
+    return;
     #[cfg(any(feature = "fib", feature = "loop"))]
     loop {
         #[cfg(feature = "fib")]
