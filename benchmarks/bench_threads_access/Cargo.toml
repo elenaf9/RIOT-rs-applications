@@ -13,6 +13,7 @@ riot-rs-rt = { workspace = true }
 critical-section = { workspace = true }
 
 [features]
+single-core = []
 multicore = []
 multicore-v1 = []
 multicore-v2 = []

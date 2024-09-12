@@ -1,72 +1,102 @@
+get_all_benchmarks() {
+    BENCHMARKS=($(find ./benchmarks/ -name "*bench_*" -type d |  grep -vE "reallocate|async|poll|fib" ))
+
+    for i in 1 3 4
+    do
+        BENCHMARKS+=("benchmarks/bench_sched_yield -s t$i")
+    done
+
+    for i in none fib loop
+    do
+        BENCHMARKS+=("benchmarks/bench_fib -s $i")
+    done
+}
+
+print_table_header(){
+    benchmark_names=""
+    table_line=""
+
+    for benchmark in "${BENCHMARKS[@]}"
+    do
+        bench=$(echo $benchmark | grep -oP "(?<=bench_).*")
+        benchmark_names+="| $bench"
+        table_line+="| -: "
+    done
+
+    echo "source $benchmark_names"
+    echo ":- $table_line"
+}
+
+
+subprocess(){
+    set -m
+    laze build -C $benchmark_name -b $board -s $source run 2>&1 &
+    echo "$!"
+}
+
 run_benchmark() {
     board=$1
     source=$2
     benchmark_name="${@:3}"
 
-    laze build -C $benchmark_name -b $board -s $source run &>output.txt &
-    # timeout 3s laze build -C $benchmark_name -b $board -s $source run &>output.txt &
-    func_pid=$!
+    exec 3< <(subprocess)
+    read <&3 subprocess_pid;
     while true; 
     do
-        tail=$(tail output.txt)
-        if ticks=$(echo $tail | grep -Po "\d+(?= ticks)"); then
+        read <&3 line;
+        # echo $line
+        if ticks=$(echo $line | grep -Po "\d+(?= ticks)"); then
             echo -ne " | $ticks"
-            kill -- -$func_pid # Terminate the function
+            kill -- -$subprocess_pid # Terminate the function
             break
-        elif err=$(echo $tail | grep "none of the selected packages contains these features"); then
+        elif err=$(echo $line | grep "none of the selected packages contains these features"); then
             echo -ne " | - "
             break
-        elif err=$(echo $tail | grep -Pio -B2 "Error:.*"); then
-            echo -e "\nError in $benchmark_name for $source on $board:\n$err"
+        elif panic=$(echo $line | grep -Pio "panic:.*"); then
+            echo -ne " | <panic>"
+            echo -e "\nPanic in $benchmark_name for $source on $board:\n$panic" 1>&2
+            kill -- -$subprocess_pid # Terminate the function
+            break
+        elif err=$(echo $line | grep -Pio "Error:.*"); then
+            echo -ne " | <error>"
+            echo -e "\nError in $benchmark_name for $source on $board:\n$err" 1>&2
             break
         fi
-        sleep 0.5
     done
 }
 
-set -m
+run(){
 
-if [ -z "$BOARD" ]
-then
-    echo "Please set the BOARD env."
-    exit
-fi
+    if [ -z "$BOARD" ]
+    then
+        echo "Please set the BOARD env."
+        exit
+    fi
 
-SOURCES="multicore-v1"
-BENCHMARKS=($(find ./benchmarks/ -name "*bench_*" -type d |  grep -vE "reallocate|async|poll|fib" ))
-
-for i in 1 3 4
-do
-    BENCHMARKS+=("benchmarks/bench_sched_yield -s t$i")
-done
-
-for i in none fib loop
-do
-    BENCHMARKS+=("benchmarks/bench_fib -s $i")
-done
-
-echo -ne "source"
-for benchmark in "${BENCHMARKS[@]}"
-do
-    bench=$(echo $benchmark | grep -oP "(?<=bench_).*")
-    echo -n "| $bench"
-done
-echo 
-
-echo -n ":- "
-for benchmark in "${BENCHMARKS[@]}"
-do
-    echo -n "| -: "
-done
-echo 
+    if [ -z "$SOURCES" ]
+    then
+        SOURCES="main single-core multicore"
+    fi
 
 
-for source in $SOURCES
-do
-    echo -n $source
-    for benchmark in "${BENCHMARKS[@]}"
+    if [ -z "$BENCHMARKS" ]
+    then
+        get_all_benchmarks
+    else 
+        $BENCHMARKS=$($BENCHMARKS)
+    fi
+
+    print_table_header
+
+    for source in $SOURCES
     do
-        run_benchmark $BOARD $source $benchmark
+        echo -n $source
+        for benchmark in "${BENCHMARKS[@]}"
+        do
+            run_benchmark $BOARD $source $benchmark
+        done
+        echo
     done
-    echo
-done
+}
+
+run
