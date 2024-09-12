@@ -24,7 +24,7 @@ modules:
       - multicore-v2
     env:
       global:
-        RIOT_RS_REV: bb25312c53b25660c71dc53e1bea65590a713bc6
+        RIOT_RS_REV: 3abe0368d494f4fdceade12e2917d2af6b43d041
         FEATURES:
           - single-core
 
@@ -36,7 +36,7 @@ modules:
       - multicore-v2
     env:
       global:
-        RIOT_RS_REV: d1508d740d75ec9429ba5fc8d6009af659f190d4
+        RIOT_RS_REV: b5bbcc6b24988927a47fd3c478175c2125187850
         FEATURES:
           - multicore
           - multicore-v1
@@ -50,7 +50,7 @@ modules:
       - multicore-v1
     env:
       global:
-        RIOT_RS_REV: 12d25afbc71c1cc4bb1ef6d87a6493160f738db5
+        RIOT_RS_REV: 44824a75133a2d9b5c71a72303da9974a9057580
         FEATURES:
           - multicore-v2
     
