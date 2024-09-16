@@ -1,6 +1,2 @@
 apps:
   - name: bench_runqueue_get_next
-    selects:
-      - sw/benchmark
-      - sw/threading
-      - ?release

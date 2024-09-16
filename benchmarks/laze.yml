@@ -1,7 +1,10 @@
 modules:
   - name: patch
     selects:
+      - sw/threading
+      - sw/benchmark
       - executor-thread
+      - ?release
     help: patch used repo revision
     env: 
       global:

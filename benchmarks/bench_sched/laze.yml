@@ -1,6 +1,2 @@
 apps:
   - name: bench_sched
-    selects:
-      - sw/benchmark
-      - sw/threading
-      - ?release

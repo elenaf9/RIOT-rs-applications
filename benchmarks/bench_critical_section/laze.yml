@@ -1,6 +1,2 @@
 apps:
   - name: bench_critical_section
-    selects:
-      - sw/benchmark
-      - sw/threading
-      - ?release

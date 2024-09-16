@@ -1,6 +1,2 @@
 apps:
   - name: bench_runqueue_advance
-    selects:
-      - sw/benchmark
-      - sw/threading
-      - ?release

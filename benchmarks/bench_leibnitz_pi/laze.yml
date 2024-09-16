@@ -1,7 +1,4 @@
 apps:
   - name: bench_leibnitz_pi
     selects:
-      - sw/benchmark
-      - sw/threading
       - ?affinity
-      - ?release

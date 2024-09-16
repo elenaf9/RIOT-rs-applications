@@ -18,8 +18,4 @@ modules:
 apps:
   - name: bench_busy_poll
     selects:
-      - sw/benchmark
-      - sw/threading
       - executor-thread
-      - ?affinity
-      - ?release

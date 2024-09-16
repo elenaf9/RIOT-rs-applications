@@ -1,6 +1,2 @@
 apps:
   - name: bench_runqueue_del
-    selects:
-      - sw/benchmark
-      - sw/threading
-      - ?release

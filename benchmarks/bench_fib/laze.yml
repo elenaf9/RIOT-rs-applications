@@ -25,7 +25,3 @@ modules:
           - loop
 apps:
   - name: bench_fib
-    selects:
-      - sw/benchmark
-      - sw/threading
-      - ?release
