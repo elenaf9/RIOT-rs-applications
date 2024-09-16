@@ -6,8 +6,8 @@ edition.workspace = true
 publish = false
 
 [dependencies]
-riot-rs.workspace = true
-riot-rs-boards.workspace = true
+riot-rs = { workspace = true }
+riot-rs-boards = { workspace = true }
 
 [features]
 single-core = []
