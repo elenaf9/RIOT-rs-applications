@@ -8,17 +8,17 @@ edition = "2021"
 authors = ["Elena Frank <elena.frank@proton.me>"]
 
 [workspace.dependencies]
-riot-rs = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
+riot-rs = { git = "https://github.com/future-proof-iot/RIOT-rs.git", features = [
+  "bench",
+] }
 riot-rs-boards = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
-riot-rs-runqueue = { git = "https://github.com/future-proof-iot/RIOT-rs.git", default-features = false }
+riot-rs-runqueue = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
 
-embassy-executor = { version = "0.5", default-features = false }
+embassy-executor = { version = "0.6", default-features = false }
 embassy-time = { version = "0.3", default-features = false }
 embassy-time-driver = { version = "0.1.0", default-features = false }
 
 critical-section = { version = "1.1", default-features = false }
-
-# cortex-m = { version = "0.7", default-features = false }
 
 [workspace.lints.rust]
 # ... until we figure out a way to generate a list of all used cfg variables
