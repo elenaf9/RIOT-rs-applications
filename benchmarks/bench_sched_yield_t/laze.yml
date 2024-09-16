@@ -21,4 +21,4 @@ modules:
         FEATURES:
           - t4
 apps:
-  - name: bench_sched_yield
+  - name: bench_sched_yield_t

@@ -5,7 +5,7 @@ get_all_benchmarks() {
 
     for i in 1 3 4
     do
-        BENCHMARKS+=("benchmarks/bench_sched_yield -s t$i")
+        BENCHMARKS+=("benchmarks/bench_sched_yield_t -s t$i")
     done
 
     for i in none fib loop

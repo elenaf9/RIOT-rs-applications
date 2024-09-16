@@ -1,4 +1,4 @@
-# bench_sched_yield
+# bench_sched_yield_t
 
 Copied from <https://github.com/future-proof-iot/RIOT-rs/tree/main/tests/benchmarks>.
 

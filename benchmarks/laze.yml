@@ -97,7 +97,7 @@ subdirs:
   - bench_leibnitz_pi
   - bench_matrix_mult
   - bench_sched
-  - bench_sched_yield
+  - bench_sched_yield_t
   - bench_thread_flags
   - bench_threads_access
   - runqueue
