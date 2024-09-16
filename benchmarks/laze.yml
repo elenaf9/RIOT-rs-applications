@@ -21,11 +21,13 @@ modules:
     selects:
       - patch
     conflicts:
+      - critical-section-single-core
+      - multicore
       - multicore-v1
       - multicore-v2
     env:
       global:
-        RIOT_RS_REV: 3abe0368d494f4fdceade12e2917d2af6b43d041
+        RIOT_RS_REV: 8a26742ebec188f3fef2fde0d977871da8c74463
         FEATURES:
           - single-core
 
@@ -51,12 +53,13 @@ modules:
       - multicore-v1
     env:
       global:
-        RIOT_RS_REV: 44824a75133a2d9b5c71a72303da9974a9057580
+        RIOT_RS_REV: 696abc1f75a62217a75e09aa475432aa75eec7ea
         FEATURES:
           - multicore-v2
     
   - name: single-core
     selects:
+      - critical-section-single-core
       - multicore-v2
     conflicts:
       - multicore
@@ -64,10 +67,10 @@ modules:
       global:
         FEATURES:
           - single-core
-          - riot-rs/single-core
 
   - name: multicore
     selects:
+      - multicore
       - multicore-v2
     conflicts:
       - single-core
@@ -75,7 +78,6 @@ modules:
       global:
         FEATURES:
           - multicore
-          - riot-rs/multicore
 
   - name: affinity
     conflicts:
