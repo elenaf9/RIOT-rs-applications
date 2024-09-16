@@ -8,7 +8,6 @@ publish = false
 [dependencies]
 riot-rs = { workspace = true, features = ["time"] }
 riot-rs-boards = { workspace = true }
-riot-rs-rt = { workspace = true }
 
 critical-section = { workspace = true }
 embassy-executor = { workspace = true }

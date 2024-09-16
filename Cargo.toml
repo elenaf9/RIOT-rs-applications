@@ -8,10 +8,9 @@ edition = "2021"
 authors = ["Elena Frank <elena.frank@proton.me>"]
 
 [workspace.dependencies]
-riot-rs = { git = "https://github.com/future-proof-iot/RIOT-rs.git", default-features = false}
+riot-rs = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
 riot-rs-boards = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
 riot-rs-runqueue = { git = "https://github.com/future-proof-iot/RIOT-rs.git", default-features = false }
-riot-rs-rt = { git = "https://github.com/future-proof-iot/RIOT-rs.git", default-features = false, features = ["_panic-handler"] }
 
 embassy-executor = { version = "0.5", default-features = false }
 embassy-time = { version = "0.3", default-features = false }

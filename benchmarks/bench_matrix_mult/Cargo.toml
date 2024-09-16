@@ -11,7 +11,6 @@ workspace = true
 [dependencies]
 riot-rs = { workspace = true }
 riot-rs-boards = { workspace = true }
-riot-rs-rt = { workspace = true }
 
 [features]
 single-core = []

@@ -14,8 +14,6 @@ modules:
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-runqueue.rev="${RIOT_RS_REV}"'
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-boards.git="${FORKED_REPO}"'
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-boards.rev="${RIOT_RS_REV}"'
-          - --config 'patch."${UPSTREAM_REPO}".riot-rs-rt.git="${FORKED_REPO}"'
-          - --config 'patch."${UPSTREAM_REPO}".riot-rs-rt.rev="${RIOT_RS_REV}"'
   - name: main
     selects:
       - patch
