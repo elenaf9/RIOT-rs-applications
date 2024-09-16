@@ -1,5 +1,7 @@
 #! /bin/bash
 
+OUT=benchmarks_$BOARD.md
+
 get_all_benchmarks() {
     mapfile -t BENCHMARKS < <(find ./benchmarks/ -name "*bench_*" -type d |  grep -vE "poll|fib" )
 
@@ -13,7 +15,7 @@ get_all_benchmarks() {
         BENCHMARKS+=("benchmarks/bench_fib -s $i")
     done
 
-    for i in none poll await
+    for i in poll await
     do
         BENCHMARKS+=("benchmarks/bench_busy_poll -s $i")
     done
@@ -30,8 +32,10 @@ print_table_header(){
         table_line+=" | -:"
     done
 
-    echo "source$benchmark_names"
-    echo ":-$table_line"
+    echo -e "\n" >> $OUT
+    date >> $OUT
+    echo -e "\nsource$benchmark_names" >> $OUT
+    echo ":-$table_line" >> $OUT
 }
 
 
@@ -51,22 +55,24 @@ run_benchmark() {
     while true; 
     do
         read <&3 line;
-        # echo $line
+        echo "$line"
+
         if ticks=$(echo $line | grep -Po "\d+(?= ticks)"); then
-            echo -ne " | $ticks"
+            echo -ne " | $ticks" >> $OUT
             kill -- -$subprocess_pid # Terminate the function
             break
         elif err=$(echo $line | grep "none of the selected packages contains these features"); then
-            echo -ne " | - "
+            echo -ne " | - " >> $OUT
+            break
+        elif err=$(echo $line | grep "is not an ancestor of"); then
+            echo -ne " | - " >> $OUT
             break
         elif panic=$(echo $line | grep -Pio "panic:.*"); then
-            echo -ne " | <panic>"
-            echo -e "\n$panic" 1>&2
+            echo -ne " | <panic>" >> $OUT
             kill -- -$subprocess_pid # Terminate the function
             break
         elif err=$(echo $line | grep -Pio "Error:.*"); then
-            echo -ne " | <error>"
-            echo -e "\n$err" 1>&2
+            echo -ne " | <error>" >> $OUT
             break
         fi
     done
@@ -97,7 +103,7 @@ run(){
 
     for source in $SOURCES
     do
-        echo -n $source
+        echo -n $source >> $OUT
         for benchmark in "${BENCHMARKS[@]}"
         do
             run_benchmark $BOARD $source $benchmark
