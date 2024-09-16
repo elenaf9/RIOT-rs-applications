@@ -11,5 +11,5 @@ riot-rs-runqueue = { workspace = true }
 riot-rs-boards = { workspace = true }
 
 [features]
-multicore = []
+dual-core = []
 multicore-v1 = []

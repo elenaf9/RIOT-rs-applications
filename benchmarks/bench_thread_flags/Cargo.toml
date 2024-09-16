@@ -10,7 +10,7 @@ riot-rs = { workspace = true }
 riot-rs-boards = { workspace = true }
 
 [features]
-multicore = []
+dual-core = []
 multicore-v1 = []
 multicore-v2 = []
 affinity = []

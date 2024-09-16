@@ -28,7 +28,7 @@ static BENCHMARK_CORE: Mutex<RefCell<usize>> = Mutex::new(RefCell::new(0xff));
 async fn start_other_tasks() {
     thread_flags::set(ThreadId::new(0), 0b1);
     thread_flags::set(ThreadId::new(1), 0b110);
-    #[cfg(feature = "multicore")]
+    #[cfg(feature = "dual-core")]
     thread_flags::set(ThreadId::new(2), 0b110);
 }
 
@@ -72,7 +72,7 @@ fn thread1() {
     });
 }
 
-#[cfg(feature = "multicore")]
+#[cfg(feature = "dual-core")]
 #[riot_rs::thread(autostart)]
 fn thread2() {
     let executor = make_static!(Executor::new());

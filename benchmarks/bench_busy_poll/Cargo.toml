@@ -17,7 +17,7 @@ embassy-time-driver = { workspace = true }
 poll = []
 await = ["riot-rs/time"]
 single-core = []
-multicore = []
+dual-core = []
 multicore-v1 = []
 multicore-v2 = []
 affinity = []

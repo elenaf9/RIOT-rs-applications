@@ -68,7 +68,7 @@ modules:
         FEATURES:
           - single-core
 
-  - name: multicore
+  - name: dual-core
     selects:
       - multicore
       - multicore-v2
@@ -77,7 +77,7 @@ modules:
     env:
       global:
         FEATURES:
-          - multicore
+          - dual-core
 
   - name: affinity
     conflicts:

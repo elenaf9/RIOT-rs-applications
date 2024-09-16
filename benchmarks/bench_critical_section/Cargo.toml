@@ -12,6 +12,6 @@ riot-rs-boards = { workspace = true }
 critical-section = { workspace = true }
 
 [features]
-multicore = []
+dual-core = []
 multicore-v1 = []
 multicore-v2 = []

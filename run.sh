@@ -82,7 +82,7 @@ run(){
 
     if [ -z "$SOURCES" ]
     then
-        SOURCES="main single-core multicore"
+        SOURCES="main single-core dual-core"
     fi
 
 

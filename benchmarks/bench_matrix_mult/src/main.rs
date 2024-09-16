@@ -4,12 +4,12 @@
 #![feature(used_with_arg)]
 
 use riot_rs::debug::log::*;
-#[cfg(feature = "multicore")]
+#[cfg(feature = "dual-core")]
 use riot_rs::thread::channel::Channel;
 
-#[cfg(feature = "multicore")]
+#[cfg(feature = "dual-core")]
 static INPUT_CHANNEL: Channel<([[u16; N]; N / 2], [[u16; N]; N])> = Channel::new();
-#[cfg(feature = "multicore")]
+#[cfg(feature = "dual-core")]
 static RESULT_CHANNEL: Channel<[[u16; N]; N / 2]> = Channel::new();
 
 const N: usize = 20;
@@ -39,7 +39,7 @@ fn thread0() {
             let matrix_c = matrix_mult(&matrix_a, &matrix_b);
             core::hint::black_box(matrix_c);
         }
-        #[cfg(feature = "multicore")]
+        #[cfg(feature = "dual-core")]
         {
             let (matrix_a1, matrix_a2) = matrix_a.split_at(N / 2);
             let matrix_a1: [_; N / 2] = matrix_a1.try_into().unwrap();
@@ -58,7 +58,7 @@ fn thread0() {
         Err(_) => error!("benchmark returned error"),
     }
 }
-#[cfg(feature = "multicore")]
+#[cfg(feature = "dual-core")]
 #[riot_rs::thread(autostart, stacksize = 16384)]
 fn thread1() {
     loop {

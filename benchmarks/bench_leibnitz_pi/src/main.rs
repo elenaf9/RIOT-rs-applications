@@ -4,12 +4,12 @@
 #![feature(used_with_arg)]
 
 use riot_rs::debug::log::*;
-#[cfg(feature = "multicore")]
+#[cfg(feature = "dual-core")]
 use riot_rs::thread::channel::Channel;
 #[cfg(feature = "affinity")]
 use riot_rs::thread::{CoreAffinity, CoreId};
 
-#[cfg(feature = "multicore")]
+#[cfg(feature = "dual-core")]
 static RESULT_CHANNEL: Channel<f32> = Channel::new();
 
 const ROUNDS: usize = 1_000; // Must be a multiple of 4.
@@ -33,7 +33,7 @@ fn thread0() {
         {
             res = leibniz_formula(1, ROUNDS * 2);
         }
-        #[cfg(feature = "multicore")]
+        #[cfg(feature = "dual-core")]
         {
             res = leibniz_formula(1, ROUNDS) + RESULT_CHANNEL.recv();
         }
@@ -45,7 +45,7 @@ fn thread0() {
     loop {}
 }
 
-#[cfg(feature = "multicore")]
+#[cfg(feature = "dual-core")]
 #[riot_rs::thread(autostart)]
 fn thread1() {
     loop {
