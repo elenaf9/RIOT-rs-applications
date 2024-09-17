@@ -25,7 +25,7 @@ fn leibniz_formula(start: usize, end: usize) -> f32 {
 }
 
 #[cfg_attr(not(feature = "affinity"), riot_rs::thread(autostart))]
-#[cfg_attr(feature = "affinity", riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(1))))]
+#[cfg_attr(feature = "affinity", riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(0))))]
 fn thread0() {
     match riot_rs::bench::benchmark(10, || {
         let res;

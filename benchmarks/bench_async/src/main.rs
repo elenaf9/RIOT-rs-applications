@@ -49,7 +49,7 @@ async fn task(id: usize) {
 }
 
 #[cfg_attr(not(feature = "affinity"), riot_rs::thread(autostart))]
-#[cfg_attr(feature = "affinity", riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(1))))]
+#[cfg_attr(feature = "affinity", riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(0))))]
 fn thread0() {
     thread_flags::wait_one(0b1);
     #[cfg(feature = "multicore-v1")]
