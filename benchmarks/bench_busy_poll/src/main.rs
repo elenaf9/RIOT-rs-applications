@@ -38,14 +38,14 @@ async fn critical_task() {
             while now() < expires {}
         }
     }
-    thread_flags::set(ThreadId::new(0), 0b10);
+    thread_flags::set(ThreadId::new(0), 0b100);
 }
 
-#[riot_rs::thread(autostart)]
+#[riot_rs::thread(autostart, priority = 10)]
 fn thread0() {
     thread_flags::wait_all(0b10);
     match riot_rs::bench::benchmark(1, || {
-        thread_flags::wait_all(0b10);
+        thread_flags::wait_all(0b100);
     }) {
         Ok(ticks) => info!("took {} ticks", ticks),
         Err(_) => error!("benchmark returned error"),
