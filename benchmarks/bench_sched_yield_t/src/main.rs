@@ -3,9 +3,12 @@
 #![feature(type_alias_impl_trait)]
 #![feature(used_with_arg)]
 
+#[cfg(feature = "affinity")]
+use riot_rs::thread::{CoreAffinity, CoreId};
 use riot_rs::{debug::log::*, thread};
 
-#[riot_rs::thread(autostart)]
+#[cfg_attr(not(feature = "affinity"), riot_rs::thread(autostart))]
+#[cfg_attr(feature = "affinity", riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(0))))]
 fn thread0() {
     match riot_rs::bench::benchmark(1000, || thread::yield_same()) {
         Ok(ticks) => info!("took {} ticks per iteration", ticks,),

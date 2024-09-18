@@ -41,7 +41,10 @@ async fn critical_task() {
     thread_flags::set(ThreadId::new(0), 0b100);
 }
 
-#[riot_rs::thread(autostart, priority = 10)]
+#[cfg_attr(not(feature = "affinity"), riot_rs::thread(autostart, priority = 10))]
+#[cfg_attr(feature = "affinity", 
+    riot_rs::thread(autostart, priority = 10, affinity = CoreAffinity::one(CoreId::new(0)))
+)]
 fn thread0() {
     thread_flags::wait_all(0b10);
     match riot_rs::bench::benchmark(1, || {
