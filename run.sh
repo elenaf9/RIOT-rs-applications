@@ -32,7 +32,7 @@ print_table_header(){
         table_line+=" | -:"
     done
 
-    echo -e "\n" >> $OUT
+    echo "" >> $OUT
     date >> $OUT
     echo -e "\nsource$benchmark_names" >> $OUT
     echo ":-$table_line" >> $OUT
@@ -108,7 +108,7 @@ run(){
         do
             run_benchmark $BOARD $source $benchmark
         done
-        echo
+        echo "" >> $OUT
     done
 }
 

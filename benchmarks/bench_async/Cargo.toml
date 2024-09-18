@@ -7,6 +7,7 @@ publish = false
 
 [dependencies]
 riot-rs = { workspace = true, features = ["time"] }
+riot-rs-embassy = { workspace = true, features = ["time"] }
 riot-rs-boards = { workspace = true }
 
 critical-section = { workspace = true }

@@ -12,6 +12,7 @@ riot-rs = { git = "https://github.com/future-proof-iot/RIOT-rs.git", features = 
   "bench",
 ] }
 riot-rs-boards = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
+riot-rs-embassy = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
 riot-rs-runqueue = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
 
 embassy-executor = { version = "0.6", default-features = false }

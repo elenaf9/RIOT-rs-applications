@@ -6,10 +6,10 @@
 use embassy_time::{Duration, Timer};
 use riot_rs::{
     debug::log::*,
-    static_cell::make_static,
     thread::{thread_flags, ThreadId},
-    thread_executor::Executor,
+    StaticCell,
 };
+use riot_rs_embassy::thread_executor::Executor;
 
 #[cfg(feature = "multicore-v1")]
 use core::cell::RefCell;
@@ -64,8 +64,8 @@ fn thread0() {
 
 #[riot_rs::thread(autostart)]
 fn thread1() {
-    let executor = make_static!(Executor::new());
-    executor.run(|spawner| {
+    static EXECUTOR: StaticCell<Executor> = StaticCell::new();
+    EXECUTOR.init_with(|| Executor::new()).run(|spawner| {
         spawner.must_spawn(task(0));
         #[cfg(feature = "single-core")]
         spawner.must_spawn(task(1));
@@ -75,8 +75,8 @@ fn thread1() {
 #[cfg(feature = "dual-core")]
 #[riot_rs::thread(autostart)]
 fn thread2() {
-    let executor = make_static!(Executor::new());
-    executor.run(|spawner| {
-        spawner.must_spawn(task(1));
-    });
+    static EXECUTOR: StaticCell<Executor> = StaticCell::new();
+    EXECUTOR
+        .init_with(|| Executor::new())
+        .run(|spawner| spawner.must_spawn(task(1)));
 }

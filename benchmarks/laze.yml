@@ -13,6 +13,8 @@ modules:
         CARGO_ARGS:
           - --config 'patch."${UPSTREAM_REPO}".riot-rs.git="${FORKED_REPO}"'
           - --config 'patch."${UPSTREAM_REPO}".riot-rs.rev="${RIOT_RS_REV}"'
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs-embassy.git="${FORKED_REPO}"'
+          - --config 'patch."${UPSTREAM_REPO}".riot-rs-embassy.rev="${RIOT_RS_REV}"'
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-runqueue.git="${FORKED_REPO}"'
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-runqueue.rev="${RIOT_RS_REV}"'
           - --config 'patch."${UPSTREAM_REPO}".riot-rs-boards.git="${FORKED_REPO}"'
@@ -27,7 +29,7 @@ modules:
       - multicore-v2
     env:
       global:
-        RIOT_RS_REV: 8a26742ebec188f3fef2fde0d977871da8c74463
+        RIOT_RS_REV: e009736c6752ffeb1a611e0b8e443c4f386a87bf
         FEATURES:
           - single-core
 
@@ -36,7 +38,11 @@ modules:
       - patch
     conflicts:
       - main
+      - multicore
+      - critical-section-single-core
       - multicore-v2
+    context:
+      - rp2040
     env:
       global:
         RIOT_RS_REV: b5bbcc6b24988927a47fd3c478175c2125187850
@@ -53,7 +59,7 @@ modules:
       - multicore-v1
     env:
       global:
-        RIOT_RS_REV: 696abc1f75a62217a75e09aa475432aa75eec7ea
+        RIOT_RS_REV: a4350a765263bd1b111216729cb5d86a0e8c5819
         FEATURES:
           - multicore-v2
     
@@ -74,6 +80,9 @@ modules:
       - multicore-v2
     conflicts:
       - single-core
+    context:
+      - rp2040
+      - esp32s3
     env:
       global:
         FEATURES:
