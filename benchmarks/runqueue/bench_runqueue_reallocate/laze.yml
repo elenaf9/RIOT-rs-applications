@@ -1,2 +1,5 @@
 apps:
   - name: bench_runqueue_reallocate
+    context:
+      - rp
+

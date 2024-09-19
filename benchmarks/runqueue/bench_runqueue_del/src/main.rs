@@ -36,8 +36,13 @@ fn thread0() {
         }
         #[cfg(feature = "multicore-v1")]
         {
-            rq.del(thread1, rq_id);
-            rq.del(thread0, rq_id);
+            if riot_rs::thread::CORES_NUMOF > 1 {
+                rq.del(thread1, rq_id);
+                rq.del(thread0, rq_id);
+            } else {
+                rq.del(thread0, rq_id);
+                rq.del(thread1, rq_id);
+            }
         }
         #[cfg(feature = "multicore-v2")]
         {

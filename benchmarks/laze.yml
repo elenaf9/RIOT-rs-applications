@@ -43,11 +43,12 @@ modules:
       - multicore-v2
     context:
       - rp2040
+      - nrf
     env:
       global:
-        RIOT_RS_REV: b5bbcc6b24988927a47fd3c478175c2125187850
+        RIOT_RS_REV: 4cae9787f23f54a70a66cc56216a628b442caa3d
         FEATURES:
-          - multicore
+          - dual-core
           - multicore-v1
 
   - name: multicore-v2
