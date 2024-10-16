@@ -94,9 +94,37 @@ run(){
 
     if [ -z "$SOURCES" ]
     then
-        SOURCES="main single-core dual-core"
+        if [ -z "$REVS" ]
+        then
+            REVS="main multicore-v1 multicore-v2 multicore-v2-cs multicore-v2-locking"
+        fi
+
+        if [ -z "$FEAT" ]
+        then
+            FEAT="single-core dual-core"
+        fi
+
+        for rev in $REVS
+        do
+            if [ "$rev" = "main" ];
+            then
+
+                SOURCES+=("$rev")
+                continue
+            fi
+            for feat in $FEAT
+            do
+
+                SOURCES+=("$feat -s $rev")
+
+            done
+        done
     fi
 
+    for source in "${SOURCES[@]}"
+    do
+        echo $source
+    done
 
     if [ -z "${BENCHMARKS[0]}" ]
     then
@@ -107,12 +135,12 @@ run(){
 
     print_table_header
 
-    for source in $SOURCES
+    for source in "${SOURCES[@]}"
     do
         echo -n $source >> $OUT
         for benchmark in "${BENCHMARKS[@]}"
         do
-            run_benchmark $BOARD $source $benchmark
+            run_benchmark "$BOARD" "$source" "$benchmark"
         done
         echo "" >> $OUT
     done

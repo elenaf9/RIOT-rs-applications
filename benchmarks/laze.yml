@@ -22,11 +22,11 @@ modules:
   - name: main
     selects:
       - patch
+    provides_unique:
+      - rev
     conflicts:
       - critical-section-single-core
       - multicore
-      - multicore-v1
-      - multicore-v2
     env:
       global:
         RIOT_RS_REV: fe3e23c3ba0967c861e27898f49527a458b6b160
@@ -36,38 +36,49 @@ modules:
   - name: multicore-v1
     selects:
       - patch
-    conflicts:
-      - main
-      - multicore
-      - critical-section-single-core
-      - multicore-v2
-    context:
-      - rp2040
-      - nrf
+    provides_unique:
     env:
       global:
         RIOT_RS_REV: 77883035e3422fd74185763daf703d0a6cf7d001
         FEATURES:
-          - dual-core
           - multicore-v1
 
   - name: multicore-v2
     selects:
       - patch
-      - ?multicore
-    conflicts:
-      - main
-      - multicore-v1
+    provides_unique:
+      - rev
     env:
       global:
         RIOT_RS_REV: 9dcfc00804cac29728bfa5c33ceeaf80a30cc80b
+        FEATURES:
+          - multicore-v2
+
+  - name: multicore-v2-cs
+    selects:
+      - patch
+    provides_unique:
+      - rev
+    env:
+      global:
+        RIOT_RS_REV: cbfe02040899b89352706ef456f2cbc4b80ba84b
+        FEATURES:
+          - multicore-v2
+
+  - name: multicore-v2-locking
+    selects:
+      - patch
+    provides_unique:
+      - rev
+    env:
+      global:
+        RIOT_RS_REV: 919170bc229d42ecbbff278b1a8c6045936dd954
         FEATURES:
           - multicore-v2
     
   - name: single-core
     selects:
       - critical-section-single-core
-      - multicore-v2
     conflicts:
       - multicore
     env:
@@ -78,7 +89,6 @@ modules:
   - name: dual-core
     selects:
       - multicore
-      - multicore-v2
     conflicts:
       - single-core
     context:
