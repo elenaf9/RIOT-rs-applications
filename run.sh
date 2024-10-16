@@ -1,6 +1,6 @@
 #! /bin/bash
 
-OUT=benchmarks_$BOARD.md
+OUT=data/$BOARD.md
 
 get_all_benchmarks() {
     mapfile -t BENCHMARKS < <(find ./benchmarks/ -name "*bench_*" -type d |  grep -vE "poll|fib" )
@@ -32,9 +32,7 @@ print_table_header(){
         table_line+=" | -:"
     done
 
-    echo "" >> $OUT
-    date >> $OUT
-    echo -e "\nsource$benchmark_names" >> $OUT
+    echo "source$benchmark_names" > $OUT
     echo ":-$table_line" >> $OUT
 }
 
@@ -44,7 +42,9 @@ subprocess(){
     source=$2
     benchmark_name="${*:3}"
     set -m
-    laze build -C $benchmark_name -b $board -s $source run 2>&1 &
+    # Build once first so that timeout doesn't cancel slow builds.
+    laze build -C $benchmark_name -b $board -s $source &> /dev/null
+    timeout -v 10s laze build -C $benchmark_name -b $board -s $source run 2>&1 &
     echo "$!"
 }
 
@@ -61,18 +61,24 @@ run_benchmark() {
             echo -ne " | $ticks" >> $OUT
             kill -- -$subprocess_pid # Terminate the function
             break
-        elif err=$(echo $line | grep "none of the selected packages contains these features"); then
+        elif echo $line | grep "none of the selected packages contains these features"; then
             echo -ne " | - " >> $OUT
             break
-        elif err=$(echo $line | grep "is not an ancestor of"); then
+        elif echo $line | grep "is not an ancestor of"; then
             echo -ne " | - " >> $OUT
             break
-        elif panic=$(echo $line | grep -Pio "panic:.*"); then
-            echo -ne " | <panic>" >> $OUT
+        elif echo $line | grep -Pio "panic:.*"; then
+            echo -ne " | panic" >> $OUT
             kill -- -$subprocess_pid # Terminate the function
             break
-        elif err=$(echo $line | grep -Pio "Error:.*"); then
-            echo -ne " | <error>" >> $OUT
+        elif echo $line | grep -Pio "Error:.*"; then
+            echo -ne " | error" >> $OUT
+            break
+        elif echo $line | grep -Pio "returned error:.*"; then
+            echo -ne " | bench error" >> $OUT
+            break
+        elif echo $line | grep -Pio "timeout:"; then
+            echo -ne " | timeout " >> $OUT
             break
         fi
     done
@@ -110,6 +116,8 @@ run(){
         done
         echo "" >> $OUT
     done
+
+    { date; cat $OUT; echo ""; } >> data/archive/$BOARD.md
 }
 
 run
