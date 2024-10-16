@@ -9,13 +9,11 @@ use riot_rs::{
 };
 use riot_rs_runqueue::{GlobalRunqueue, RunQueue as GenericRunqueue, RunqueueId, ThreadId};
 
-#[cfg(feature = "multicore-v1")]
-use riot_rs::thread::CORES_NUMOF;
-
-#[cfg(not(feature = "multicore-v1"))]
+#[cfg(not(feature = "dual-core"))]
 type RunQueue = GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }>;
-#[cfg(feature = "multicore-v1")]
-type RunQueue = GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }, { CORES_NUMOF }>;
+#[cfg(feature = "dual-core")]
+type RunQueue =
+    GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }, { riot_rs::thread::CORES_NUMOF }>;
 
 #[riot_rs::thread(autostart)]
 fn thread0() {

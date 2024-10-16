@@ -10,14 +10,13 @@ use riot_rs::{
 use riot_rs_runqueue::{RunQueue as GenericRunqueue, RunqueueId, ThreadId};
 
 #[cfg(feature = "multicore-v1")]
-use riot_rs::thread::CORES_NUMOF;
-#[cfg(feature = "multicore-v1")]
 use riot_rs_runqueue::GlobalRunqueue;
 
-#[cfg(not(feature = "multicore-v1"))]
+#[cfg(not(all(feature = "dual-core", feature = "multicore-v1")))]
 type RunQueue = GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }>;
-#[cfg(feature = "multicore-v1")]
-type RunQueue = GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }, { CORES_NUMOF }>;
+#[cfg(all(feature = "dual-core", feature = "multicore-v1"))]
+type RunQueue =
+    GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }, { riot_rs::thread::CORES_NUMOF }>;
 
 #[riot_rs::thread(autostart, priority = 2)]
 fn thread0() {
@@ -29,26 +28,36 @@ fn thread0() {
         rq.add(thread0, rq_id);
         rq.add(thread1, rq_id);
         rq = core::hint::black_box(rq);
-        #[cfg(not(any(feature = "multicore-v1", feature = "multicore-v2")))]
+        // #[cfg(not(any(feature = "multicore-v1", feature = "multicore-v2")))]
+        // {
+        //     rq.del(thread1);
+        //     rq.del(thread0);
+        // }
+        #[cfg(not(feature = "multicore-v1"))]
         {
-            rq.del(thread0, rq_id);
-            rq.del(thread1, rq_id);
+            // if riot_rs::thread::CORES_NUMOF > 1 {
+            rq.del(thread1);
+            rq.del(thread0);
+            // } else {
+            //     rq.del(thread0, rq_id);
+            //     rq.del(thread1, rq_id);
+            // }
         }
         #[cfg(feature = "multicore-v1")]
         {
-            if riot_rs::thread::CORES_NUMOF > 1 {
-                rq.del(thread1, rq_id);
-                rq.del(thread0, rq_id);
-            } else {
-                rq.del(thread0, rq_id);
-                rq.del(thread1, rq_id);
-            }
+            // if riot_rs::thread::CORES_NUMOF > 1 {
+            rq.del(thread1, rq_id);
+            rq.del(thread0, rq_id);
+            // } else {
+            //     rq.del(thread0, rq_id);
+            //     rq.del(thread1, rq_id);
+            // }
         }
-        #[cfg(feature = "multicore-v2")]
-        {
-            rq.del(thread1);
-            rq.del(thread0);
-        }
+        // #[cfg(feature = "multicore-v2")]
+        // {
+        //     rq.del(thread1);
+        //     rq.del(thread0);
+        // }
         core::hint::black_box(rq);
     }) {
         Ok(ticks) => info!("took {} ticks per iteration ", ticks),

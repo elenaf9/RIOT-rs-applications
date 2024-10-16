@@ -5,7 +5,7 @@
 
 use riot_rs::debug::log::*;
 #[cfg(feature = "dual-core")]
-use riot_rs::thread::channel::Channel;
+use riot_rs::thread::sync::Channel;
 
 #[cfg(feature = "dual-core")]
 static INPUT_CHANNEL: Channel<([[u16; N]; N / 2], [[u16; N]; N])> = Channel::new();
