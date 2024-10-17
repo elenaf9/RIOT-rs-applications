@@ -27,7 +27,7 @@ print_table_header(){
 
     for benchmark in "${BENCHMARKS[@]}"
     do
-        bench=$(echo $benchmark | grep -oP "(?<=bench_).*" | sed "s/_/  /g")
+        bench=$(echo $benchmark | grep -oP "(?<=bench_).*" | sed "s/_/ /g")
         benchmark_names+=" | $bench"
         table_line+=" | -:"
     done
@@ -62,10 +62,10 @@ run_benchmark() {
             kill -- -$subprocess_pid # Terminate the function
             break
         elif echo $line | grep "none of the selected packages contains these features"; then
-            echo -ne " | - " >> $OUT
+            echo -ne " | -" >> $OUT
             break
         elif echo $line | grep "is not an ancestor of"; then
-            echo -ne " | - " >> $OUT
+            echo -ne " | -" >> $OUT
             break
         elif echo $line | grep -Pio "panic:.*"; then
             echo -ne " | panic" >> $OUT
@@ -78,7 +78,7 @@ run_benchmark() {
             echo -ne " | bench error" >> $OUT
             break
         elif echo $line | grep -Pio "timeout:"; then
-            echo -ne " | timeout " >> $OUT
+            echo -ne " | timeout" >> $OUT
             break
         fi
     done
