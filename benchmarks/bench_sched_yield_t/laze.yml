@@ -6,6 +6,13 @@ modules:
       global:
         FEATURES:
           - t1
+  - name: t2
+    provides_unique:
+      - n-threads
+    env:
+      global:
+        FEATURES:
+          - t2
   - name: t3
     provides_unique:
       - n-threads
@@ -20,8 +27,21 @@ modules:
       global:
         FEATURES:
           - t4
+  - name: affinity-0
+    selects:
+      - affinity
+    env:
+      global:
+        FEATURES:
+          - affinity-0
+  - name: affinity-1
+    selects:
+      - affinity
+    env:
+      global:
+        FEATURES:
+          - affinity-1
 apps:
   - name: bench_sched_yield_t
     selects:
       - executor-thread
-      - ?affinity

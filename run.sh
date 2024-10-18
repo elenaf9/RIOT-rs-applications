@@ -3,11 +3,15 @@
 OUT=data/$BOARD.md
 
 get_all_benchmarks() {
-    mapfile -t BENCHMARKS < <(find ./benchmarks/ -name "*bench_*" -type d |  grep -vE "poll|fib" )
-
-    for i in 1 3 4
+    mapfile -t BENCHMARKS < <(find ./benchmarks/ -name "*bench_*" -type d |  grep -vE "yield|poll|fib" )
+    for i in $(seq 4)
     do
         BENCHMARKS+=("benchmarks/bench_sched_yield_t -s t$i")
+    done
+
+    for i in "" "-0" "-1"  
+    do
+        BENCHMARKS+=("benchmarks/bench_sched_yield_t -s t3 -s affinity$i")
     done
 
     for i in none fib loop
@@ -62,6 +66,9 @@ run_benchmark() {
             kill -- -$subprocess_pid # Terminate the function
             break
         elif echo $line | grep "none of the selected packages contains these features"; then
+            echo -ne " | -" >> $OUT
+            break
+        elif echo $line | grep "no matching target for task"; then
             echo -ne " | -" >> $OUT
             break
         elif echo $line | grep "is not an ancestor of"; then
@@ -145,7 +152,7 @@ run(){
         echo "" >> $OUT
     done
 
-    { date; cat $OUT; echo ""; } >> data/archive/$BOARD.md
+    { date; echo ""; cat $OUT; echo ""; } >> data/archive/$BOARD.md
 }
 
 run
