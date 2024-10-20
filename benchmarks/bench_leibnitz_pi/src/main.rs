@@ -6,8 +6,6 @@
 use riot_rs::debug::log::*;
 #[cfg(feature = "dual-core")]
 use riot_rs::thread::sync::Channel;
-#[cfg(feature = "affinity")]
-use riot_rs::thread::{CoreAffinity, CoreId};
 
 #[cfg(feature = "dual-core")]
 static RESULT_CHANNEL: Channel<f32> = Channel::new();
@@ -24,8 +22,7 @@ fn leibniz_formula(start: usize, end: usize) -> f32 {
     res
 }
 
-#[cfg_attr(not(feature = "affinity"), riot_rs::thread(autostart))]
-#[cfg_attr(feature = "affinity", riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(0))))]
+#[riot_rs::thread(autostart)]
 fn thread0() {
     match bench_multicore::benchmark(10, || {
         let res;

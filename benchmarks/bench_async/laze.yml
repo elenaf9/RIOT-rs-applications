@@ -4,4 +4,3 @@ apps:
       - rp
     selects:
       - executor-thread
-      - ?affinity

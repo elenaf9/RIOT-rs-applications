@@ -1,4 +1,2 @@
 apps:
   - name: bench_leibnitz_pi
-    selects:
-      - ?affinity
