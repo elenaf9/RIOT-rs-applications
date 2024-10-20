@@ -23,7 +23,7 @@ fn thread0() {
     let thread0 = ThreadId::new(0);
     let thread1 = ThreadId::new(1);
     let rq_id = RunqueueId::new(5);
-    match riot_rs::bench::benchmark(10000, || {
+    match bench_multicore::benchmark(10000, || {
         let mut rq = RunQueue::new();
         rq.add(thread0, rq_id);
         rq.add(thread1, rq_id);
@@ -61,7 +61,7 @@ fn thread0() {
         core::hint::black_box(rq);
     }) {
         Ok(ticks) => info!("took {} ticks per iteration ", ticks),
-        Err(_) => error!("benchmark returned error"),
+        Err(err) => error!("benchmark error: {}", err),
     }
     loop {}
 }

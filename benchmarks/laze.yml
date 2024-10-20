@@ -99,6 +99,7 @@ modules:
       global:
         FEATURES:
           - dual-core
+          - bench-multicore/multicore
 
   - name: affinity
     conflicts:

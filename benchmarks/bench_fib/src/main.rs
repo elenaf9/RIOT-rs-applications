@@ -14,12 +14,12 @@ fn fib(n: usize) -> usize {
 
 #[riot_rs::thread(autostart)]
 fn thread0() {
-    match riot_rs::bench::benchmark(1000, || {
+    match bench_multicore::benchmark(1000, || {
         core::hint::black_box(fib(25));
     }) {
         Ok(ticks) => info!("took {} ticks per iteration", ticks),
 
-        Err(_) => error!("benchmark returned error"),
+        Err(err) => error!("benchmark error: {}", err),
     }
     loop {}
 }

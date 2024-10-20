@@ -20,13 +20,13 @@ type RunQueue =
 
 #[riot_rs::thread(autostart)]
 fn thread0() {
-    match riot_rs::bench::benchmark(10000, || {
+    match bench_multicore::benchmark(10000, || {
         let mut rq = RunQueue::new();
         rq.add(ThreadId::new(0), RunqueueId::new(5));
         core::hint::black_box(rq);
     }) {
         Ok(ticks) => info!("took {} ticks per iteration ", ticks),
-        Err(_) => error!("benchmark returned error"),
+        Err(err) => error!("benchmark error: {}", err),
     }
     loop {}
 }

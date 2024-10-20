@@ -47,10 +47,10 @@ async fn critical_task() {
 )]
 fn thread0() {
     thread_flags::wait_all(0b10);
-    match riot_rs::bench::benchmark(1, || {
+    match bench_multicore::benchmark(1, || {
         thread_flags::wait_all(0b100);
     }) {
         Ok(ticks) => info!("took {} ticks", ticks),
-        Err(_) => error!("benchmark returned error"),
+        Err(err) => error!("benchmark error: {}", err),
     }
 }

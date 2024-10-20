@@ -11,9 +11,9 @@ use riot_rs::{debug::log::*, thread};
 #[cfg_attr(feature = "affinity-0", riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(0))))]
 #[cfg_attr(feature = "affinity-1", riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(1))))]
 fn thread0() {
-    match riot_rs::bench::benchmark(1000, || thread::yield_same()) {
+    match bench_multicore::benchmark(1000, || thread::yield_same()) {
         Ok(ticks) => info!("took {} ticks per iteration", ticks,),
-        Err(_) => error!("benchmark returned error"),
+        Err(err) => error!("benchmark error: {}", err),
     }
 }
 

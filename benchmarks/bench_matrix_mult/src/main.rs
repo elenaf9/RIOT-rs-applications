@@ -33,7 +33,7 @@ fn matrix_mult<const M: usize>(
 fn thread0() {
     let matrix_a = core::hint::black_box([[3; N]; N]);
     let matrix_b = core::hint::black_box([[7; N]; N]);
-    match riot_rs::bench::benchmark(10, || {
+    match bench_multicore::benchmark(10, || {
         #[cfg(feature = "single-core")]
         {
             let matrix_c = matrix_mult(&matrix_a, &matrix_b);
@@ -55,7 +55,7 @@ fn thread0() {
     }) {
         Ok(ticks) => info!("took {} ticks per iteration", ticks),
 
-        Err(_) => error!("benchmark returned error"),
+        Err(err) => error!("benchmark error: {}", err),
     }
 }
 #[cfg(feature = "dual-core")]

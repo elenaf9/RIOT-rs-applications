@@ -41,13 +41,13 @@ mod noop {
 #[riot_rs::thread(autostart)]
 fn thread0() {
     let counter = Spinlock::new(0);
-    match riot_rs::bench::benchmark(100_000, || {
+    match bench_multicore::benchmark(100_000, || {
         let mut _c = core::hint::black_box(counter.lock_mut());
         *_c += core::hint::black_box(1);
     }) {
         Ok(ticks) => info!("took {} ticks per iteration", ticks),
 
-        Err(_) => error!("benchmark returned error"),
+        Err(err) => error!("benchmark error: {}", err),
     }
     loop {}
 }

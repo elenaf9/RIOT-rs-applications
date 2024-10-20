@@ -16,12 +16,12 @@ use riot_rs::{
 )]
 #[cfg_attr(feature = "affinity", riot_rs::thread(autostart, stacksize = 4094, affinity = CoreAffinity::one(CoreId::new(0))))]
 fn thread0() {
-    match riot_rs::bench::benchmark(1000, || {
+    match bench_multicore::benchmark(1000, || {
         thread_flags::set(ThreadId::new(1), 1);
         thread_flags::wait_all(1);
     }) {
         Ok(ticks) => info!("took {} ticks per iteration", ticks),
-        Err(_) => error!("benchmark returned error"),
+        Err(err) => error!("benchmark error: {}", err),
     }
     loop {}
 }

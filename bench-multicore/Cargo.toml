@@ -1,0 +1,16 @@
+[package]
+name = "bench-multicore"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+publish = false
+
+[dependencies]
+defmt = { workspace = true }
+riot-rs = { workspace = true, features = ["bench"] }
+
+[target.'cfg(target_arch = "xtensa")'.dependencies]
+esp-hal = { workspace = true }
+
+[features]
+multicore = []

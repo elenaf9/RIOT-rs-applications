@@ -79,15 +79,16 @@ run_benchmark() {
         elif echo $line | grep "is not an ancestor of"; then
             echo -ne " | -" >> $OUT
             break
+        elif bench_err=$(echo $line | grep -Po "(?<=benchmark error: )\w+"); then
+            echo -ne " | benchmark $bench_err" >> $OUT
+            kill -- -$subprocess_pid # Terminate the function
+            break
         elif echo $line | grep -Pio "panic:.*"; then
             echo -ne " | panic" >> $OUT
             kill -- -$subprocess_pid # Terminate the function
             break
         elif echo $line | grep -Pio "Error:.*"; then
             echo -ne " | error" >> $OUT
-            break
-        elif echo $line | grep -Pio "returned error:.*"; then
-            echo -ne " | bench error" >> $OUT
             break
         elif echo $line | grep -Pio "timeout:"; then
             echo -ne " | timeout" >> $OUT

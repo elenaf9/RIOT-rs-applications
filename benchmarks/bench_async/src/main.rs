@@ -54,11 +54,11 @@ fn thread0() {
     thread_flags::wait_one(0b1);
     #[cfg(feature = "multicore-v1")]
     with(|cs| *BENCHMARK_CORE.borrow(cs).borrow_mut() = usize::from(riot_rs::thread::core_id()));
-    match riot_rs::bench::benchmark(1, || {
+    match bench_multicore::benchmark(1, || {
         thread_flags::wait_all(0b11);
     }) {
         Ok(ticks) => info!("took {} ticks", ticks),
-        Err(_) => error!("benchmark returned error"),
+        Err(err) => error!("benchmark error: {}", err),
     }
 }
 
