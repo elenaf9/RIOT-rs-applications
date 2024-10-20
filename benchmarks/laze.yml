@@ -37,6 +37,7 @@ modules:
     selects:
       - patch
     provides_unique:
+      - rev
     env:
       global:
         RIOT_RS_REV: 1d91a2b6aa6449745b1511401b1bad59ce9704e7
@@ -72,7 +73,7 @@ modules:
       - rev
     env:
       global:
-        RIOT_RS_REV: 919170bc229d42ecbbff278b1a8c6045936dd954
+        RIOT_RS_REV: 1a0ce33381031956f0802ea4e3f22011811d18af
         FEATURES:
           - multicore-v2
     
@@ -120,6 +121,7 @@ subdirs:
   - bench_matrix_mult
   - bench_sched
   - bench_sched_yield_t
+  - bench_spinlocks
   - bench_thread_flags
   - bench_threads_access
   - runqueue

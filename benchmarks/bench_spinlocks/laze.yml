@@ -1,0 +1,47 @@
+modules:
+  - name: noop
+    provides_unique:
+      - spinlock
+    env:
+      global:
+        FEATURES:
+          - noop
+  - name: cs
+    provides_unique:
+      - spinlock
+    env:
+      global:
+        FEATURES:
+          - cs
+  - name: atomic
+    provides_unique:
+      - spinlock
+    conflicts:
+      - thumbv6m-none-eabi
+    env:
+      global:
+        FEATURES:
+          - atomic
+  - name: atomic-rw
+    provides_unique:
+      - spinlock
+    conflicts:
+      - thumbv6m-none-eabi
+    env:
+      global:
+        FEATURES:
+          - atomic-rw
+  - name: hardware
+    provides_unique:
+      - spinlock
+    context:
+      - rp2040
+    env:
+      global:
+        FEATURES:
+          - hardware
+apps:
+  - name: bench_spinlocks
+    selects:
+      - multicore-v2-locking
+
