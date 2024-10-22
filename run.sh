@@ -3,7 +3,7 @@
 OUT=data/$BOARD.md
 
 get_all_benchmarks() {
-    mapfile -t BENCHMARKS < <(find ./benchmarks/ -name "*bench_*" -type d |  grep -vE "yield|poll|fib|spinlocks" )
+    mapfile -t BENCHMARKS < <(find ./benchmarks/ -name "*bench_*" -type d |  grep -vE "yield|poll|fib|matrix|spinlocks" )
     for i in $(seq 4)
     do
         BENCHMARKS+=("benchmarks/bench_sched_yield_t -s t$i")
@@ -17,6 +17,11 @@ get_all_benchmarks() {
     for i in none fib loop
     do
         BENCHMARKS+=("benchmarks/bench_fib -s $i")
+    done
+
+    for i in $(seq 10 10 40)
+    do
+        BENCHMARKS+=("benchmarks/bench_matrix_mult -s n$i")
     done
 
     for i in poll await

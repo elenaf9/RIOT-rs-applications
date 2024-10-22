@@ -2,17 +2,25 @@
 #![no_std]
 #![feature(type_alias_impl_trait)]
 #![feature(used_with_arg)]
+#![feature(impl_trait_in_assoc_type)]
 
-use riot_rs::debug::log::*;
 #[cfg(feature = "dual-core")]
 use riot_rs::thread::sync::Channel;
+use riot_rs::{debug::log::*, thread};
 
 #[cfg(feature = "dual-core")]
 static INPUT_CHANNEL: Channel<([[u16; N]; N / 2], [[u16; N]; N])> = Channel::new();
 #[cfg(feature = "dual-core")]
 static RESULT_CHANNEL: Channel<[[u16; N]; N / 2]> = Channel::new();
 
+#[cfg(feature = "n10")]
+const N: usize = 10;
+#[cfg(feature = "n20")]
 const N: usize = 20;
+#[cfg(feature = "n30")]
+const N: usize = 30;
+#[cfg(feature = "n40")]
+const N: usize = 40;
 
 fn matrix_mult<const M: usize>(
     matrix_a: &[[u16; N]; M],
@@ -29,8 +37,16 @@ fn matrix_mult<const M: usize>(
     matrix_c
 }
 
-#[riot_rs::thread(autostart, stacksize = 16384)]
+#[riot_rs::task(autostart)]
+async fn start() {
+    thread::thread_flags::set(thread::ThreadId::new(0), 1);
+}
+
+#[riot_rs::thread(autostart, stacksize = 32768)]
 fn thread0() {
+    #[cfg(not(feature = "multicore-v1"))]
+    thread::thread_flags::wait_any(1);
+    
     let matrix_a = core::hint::black_box([[3; N]; N]);
     let matrix_b = core::hint::black_box([[7; N]; N]);
     match bench_multicore::benchmark(10, || {
@@ -59,7 +75,7 @@ fn thread0() {
     }
 }
 #[cfg(feature = "dual-core")]
-#[riot_rs::thread(autostart, stacksize = 16384)]
+#[riot_rs::thread(autostart, stacksize = 32768)]
 fn thread1() {
     loop {
         let (matrix_a, matrix_b) = INPUT_CHANNEL.recv();

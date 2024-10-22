@@ -14,8 +14,15 @@ bench-multicore = { workspace = true }
 riot-rs = { workspace = true }
 riot-rs-boards = { workspace = true }
 
+embassy-executor = { workspace = true }
+
 [features]
 single-core = []
 dual-core = []
 multicore-v1 = []
 multicore-v2 = []
+
+n10 = []
+n20 = []
+n30 = []
+n40 = []

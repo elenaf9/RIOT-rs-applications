@@ -1,2 +1,33 @@
+modules:
+  - name: n10
+    provides_unique:
+      - size
+    env:
+      global:
+        FEATURES:
+          - n10
+  - name: n20
+    provides_unique:
+      - size
+    env:
+      global:
+        FEATURES:
+          - n20
+  - name: n30
+    provides_unique:
+      - size
+    env:
+      global:
+        FEATURES:
+          - n30
+  - name: n40
+    provides_unique:
+      - size
+    env:
+      global:
+        FEATURES:
+          - n40
 apps:
   - name: bench_matrix_mult
+    selects: 
+      - size
