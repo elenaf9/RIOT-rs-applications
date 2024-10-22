@@ -50,7 +50,7 @@ fn thread0() {
     let matrix_a = core::hint::black_box([[3; N]; N]);
     let matrix_b = core::hint::black_box([[7; N]; N]);
     match bench_multicore::benchmark(10, || {
-        #[cfg(feature = "single-core")]
+        #[cfg(not(feature = "dual-core"))]
         {
             let matrix_c = matrix_mult(&matrix_a, &matrix_b);
             core::hint::black_box(matrix_c);

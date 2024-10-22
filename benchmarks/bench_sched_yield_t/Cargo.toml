@@ -14,7 +14,6 @@ riot-rs-boards = { workspace = true }
 embassy-executor = { workspace = true }
 
 [features]
-single-core = []
 dual-core = []
 multicore-v1 = []
 multicore-v2 = []

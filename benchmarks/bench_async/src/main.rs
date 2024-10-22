@@ -63,7 +63,7 @@ fn thread1() {
     static EXECUTOR: StaticCell<Executor> = StaticCell::new();
     EXECUTOR.init_with(|| Executor::new()).run(|spawner| {
         spawner.must_spawn(task(0));
-        #[cfg(feature = "single-core")]
+        #[cfg(not(feature = "dual-core"))]
         spawner.must_spawn(task(1));
     });
 }

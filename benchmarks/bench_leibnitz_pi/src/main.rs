@@ -26,7 +26,7 @@ fn leibniz_formula(start: usize, end: usize) -> f32 {
 fn thread0() {
     match bench_multicore::benchmark(10, || {
         let res;
-        #[cfg(feature = "single-core")]
+        #[cfg(not(feature = "dual-core"))]
         {
             res = leibniz_formula(1, ROUNDS * 2);
         }

@@ -13,7 +13,6 @@ riot-rs-runqueue = { workspace = true }
 riot-rs-boards = { workspace = true }
 
 [features]
-single-core = []
 dual-core = []
 multicore-v1 = []
 multicore-v2 = []
