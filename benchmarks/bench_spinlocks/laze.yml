@@ -42,6 +42,9 @@ modules:
           - hardware
 apps:
   - name: bench_spinlocks
-    selects:
-      - multicore-v2-locking
+    conflicts:
+      - main
+      - multicore-v1
+      - multicore-v2
+      - multicore-v2-cs
 

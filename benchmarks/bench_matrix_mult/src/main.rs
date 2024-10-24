@@ -44,7 +44,7 @@ async fn start() {
 
 #[riot_rs::thread(autostart, stacksize = 32768)]
 fn thread0() {
-    #[cfg(not(feature = "multicore-v1"))]
+    // #[cfg(not(feature = "multicore-v1"))]
     thread::thread_flags::wait_any(1);
     
     let matrix_a = core::hint::black_box([[3; N]; N]);

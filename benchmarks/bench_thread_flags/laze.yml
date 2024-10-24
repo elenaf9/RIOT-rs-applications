@@ -1,4 +1,3 @@
 apps:
   - name: bench_thread_flags
     selects:
-      - ?affinity

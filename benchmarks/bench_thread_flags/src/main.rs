@@ -18,7 +18,7 @@ async fn start() {
 }
 
 #[cfg_attr(
-    not(feature = "multicore-v2"),
+    not(feature = "affinity"),
     riot_rs::thread(autostart, stacksize = 4094)
 )]
 #[cfg_attr(feature = "affinity", riot_rs::thread(autostart, stacksize = 4094, affinity = CoreAffinity::one(CoreId::new(0))))]
@@ -46,15 +46,15 @@ fn thread1() {
 #[riot_rs::thread(autostart)]
 fn thread2() {
     loop {
-        thread_flags::wait_all(1);
         thread_flags::set(ThreadId::new(0), 1);
+        thread_flags::wait_all(1);
     }
 }
 
 #[riot_rs::thread(autostart)]
 fn thread3() {
     loop {
-        thread_flags::wait_all(1);
         thread_flags::set(ThreadId::new(1), 1);
+        thread_flags::wait_all(1);
     }
 }
