@@ -22,12 +22,20 @@ fn now() -> u64 {
     embassy_time_driver::now()
 }
 
+/// Add second task to prevent that the thread 
+/// is suspended in the `await` case, which would 
+/// add extra cost for context switching.
+#[riot_rs::task(autostart)]
+async fn yielder() {
+    embassy_futures::yield_now().await;
+}
+
 #[riot_rs::task(autostart)]
 async fn critical_task() {
     let delay = Duration::from_millis(1);
 
     // Start benchmark.
-    thread_flags::set(ThreadId::new(0), 0b10);
+    thread_flags::set(ThreadId::new(0), 0b1);
     for _ in 0..ITERATIONS {
         #[cfg(feature = "await")]
         Timer::after(delay).await;
@@ -38,7 +46,7 @@ async fn critical_task() {
             while now() < expires {}
         }
     }
-    thread_flags::set(ThreadId::new(0), 0b100);
+    thread_flags::set(ThreadId::new(0), 0b10);
 }
 
 #[cfg_attr(not(feature = "affinity"), riot_rs::thread(autostart, priority = 10))]
@@ -46,11 +54,11 @@ async fn critical_task() {
     riot_rs::thread(autostart, priority = 10, affinity = CoreAffinity::one(CoreId::new(0)))
 )]
 fn thread0() {
-    thread_flags::wait_all(0b10);
+    while thread_flags::get() & 0b1 == 0 {}
     match bench_multicore::benchmark(1, || {
-        thread_flags::wait_all(0b100);
+        while thread_flags::get() & 0b10 == 0 {}
     }) {
-        Ok(ticks) => info!("took {} ticks", ticks),
+        Ok(ticks) => info!("took {} ticks", ticks/ITERATIONS),
         Err(err) => error!("benchmark error: {}", err),
     }
 }

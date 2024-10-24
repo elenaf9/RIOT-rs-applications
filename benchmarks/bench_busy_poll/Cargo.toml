@@ -12,13 +12,14 @@ riot-rs = { workspace = true, features = ["time"] }
 riot-rs-boards = { workspace = true }
 
 embassy-executor = { workspace = true }
+embassy-futures = { workspace = true }
 embassy-time = { workspace = true }
 embassy-time-driver = { workspace = true }
 
 [features]
-poll = []
-await = ["riot-rs/time"]
 dual-core = []
 multicore-v1 = []
 multicore-v2 = []
 affinity = []
+poll = []
+await = ["riot-rs/time"]
