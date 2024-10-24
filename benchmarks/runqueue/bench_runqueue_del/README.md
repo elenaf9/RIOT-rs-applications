@@ -2,7 +2,7 @@
 
 ## About
 
-This benchmark tests adding and deleting again a thread from the runqueue.
+This benchmark tests deleting a thread from the runqueue.
 
 ## How to run
 

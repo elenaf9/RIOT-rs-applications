@@ -23,45 +23,24 @@ fn thread0() {
     let thread0 = ThreadId::new(0);
     let thread1 = ThreadId::new(1);
     let rq_id = RunqueueId::new(5);
-    match bench_multicore::benchmark(10000, || {
+    let mut total = 0;
+    let iterations = 10000;
+    for _ in 0..iterations {
         let mut rq = RunQueue::new();
         rq.add(thread0, rq_id);
         rq.add(thread1, rq_id);
-        rq = core::hint::black_box(rq);
-        // #[cfg(not(any(feature = "multicore-v1", feature = "multicore-v2")))]
-        // {
-        //     rq.del(thread1);
-        //     rq.del(thread0);
-        // }
-        #[cfg(not(feature = "multicore-v1"))]
-        {
-            // if riot_rs::thread::CORES_NUMOF > 1 {
+        match bench_multicore::benchmark(1, || {
+            #[cfg(not(feature = "multicore-v1"))]
             rq.del(thread1);
-            rq.del(thread0);
-            // } else {
-            //     rq.del(thread0, rq_id);
-            //     rq.del(thread1, rq_id);
-            // }
-        }
-        #[cfg(feature = "multicore-v1")]
-        {
-            // if riot_rs::thread::CORES_NUMOF > 1 {
+            #[cfg(feature = "multicore-v1")]
             rq.del(thread1, rq_id);
-            rq.del(thread0, rq_id);
-            // } else {
-            //     rq.del(thread0, rq_id);
-            //     rq.del(thread1, rq_id);
-            // }
+
+            core::hint::black_box(&mut rq);
+        }) {
+            Ok(ticks) => total += ticks,
+            Err(err) => error!("benchmark error: {}", err),
         }
-        // #[cfg(feature = "multicore-v2")]
-        // {
-        //     rq.del(thread1);
-        //     rq.del(thread0);
-        // }
         core::hint::black_box(rq);
-    }) {
-        Ok(ticks) => info!("took {} ticks per iteration ", ticks),
-        Err(err) => error!("benchmark error: {}", err),
     }
-    loop {}
+    info!("took {} ticks per iteration ", total/ iterations);
 }
