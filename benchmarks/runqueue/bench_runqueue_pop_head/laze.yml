@@ -1,0 +1,2 @@
+apps:
+  - name: bench_runqueue_pop_head
