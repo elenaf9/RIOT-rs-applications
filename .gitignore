@@ -1,6 +1,5 @@
 build/
 *target/
-Cargo.lock
 output.txt
 data/
 env/
