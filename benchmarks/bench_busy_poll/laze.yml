@@ -19,4 +19,5 @@ apps:
   - name: bench_busy_poll
     selects:
       - executor-thread
+      - multi-core
       - ?affinity

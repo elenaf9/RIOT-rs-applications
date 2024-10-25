@@ -207,8 +207,8 @@ def plot_all(board, df):
 
     # RunQueue operations
 
-    # Runqueue single-core 
-    plot_one(board, df_sched_revs_single_core, "runqueue", 
+    # Runqueue single-core
+    plot_one(board, df_sched_revs_single_core, "runqueue",
              rename_revs=rename_runqueue, feat="single-core")
     plot_one(board, df_sched_revs_dual_core, "runqueue",
              rename_revs=rename_runqueue)
@@ -217,7 +217,7 @@ def plot_all(board, df):
 
     # Plot pure scheduler invocation
     plot_one(board, df_sched_revs_both, "sched", exclude="yield")
-    
+
     # Plot scheduler performance for different versions on single-core
     plot_one(board, df_sched_revs_single_core, "sched yield",
              rename_revs=rename_sched, feat="single-core", exclude="affinity")
@@ -256,10 +256,9 @@ def plot_all(board, df):
              rename_revs=rename_sched, index_map=map_index_locking,
              exclude="affinity", name="sched_locking_cs")
 
-
-    # Plot sched benchmark for different locking granularities on single-core
-    plot_one(board, df_lock_revs_dual_core, "sched"
-    , exclude="yield", name="sched_locking")
+    # Plot sched benchmark for different locking granularities on dual-core
+    plot_one(board, df_lock_revs_dual_core, "sched",
+             exclude="yield", name="sched_locking")
     # Plot sched-yield benchmark for different locking granularities on single-core
     plot_one(board, df_lock_revs_single_core, "sched yield",
              rename_revs=rename_sched, feat="single-core", index_map=map_index_locking,

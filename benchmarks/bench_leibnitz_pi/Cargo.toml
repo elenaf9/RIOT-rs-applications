@@ -11,6 +11,8 @@ bench-multicore = { workspace = true }
 riot-rs = { workspace = true }
 riot-rs-boards = { workspace = true }
 
+embassy-executor = { workspace = true }
+
 [target.'cfg(target_arch = "xtensa")'.dependencies]
 xtensa-lx-rt = { workspace = true, features = ["float-save-restore"]}
 

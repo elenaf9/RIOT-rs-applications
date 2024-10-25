@@ -13,8 +13,8 @@ use riot_rs::{
 
 #[riot_rs::task(autostart)]
 async fn start() {
-    thread_flags::set(ThreadId::new(0), 0b10);
     thread_flags::set(ThreadId::new(1), 0b10);
+    thread_flags::set(ThreadId::new(0), 0b10);
 }
 
 #[cfg_attr(
@@ -46,15 +46,15 @@ fn thread1() {
 #[riot_rs::thread(autostart)]
 fn thread2() {
     loop {
-        thread_flags::set(ThreadId::new(0), 1);
         thread_flags::wait_all(1);
+        thread_flags::set(ThreadId::new(0), 1);
     }
 }
 
 #[riot_rs::thread(autostart)]
 fn thread3() {
     loop {
-        thread_flags::set(ThreadId::new(1), 1);
         thread_flags::wait_all(1);
+        thread_flags::set(ThreadId::new(1), 1);
     }
 }

@@ -3,7 +3,8 @@
 OUT=data/$BOARD.md
 
 get_all_benchmarks() {
-    mapfile -t BENCHMARKS < <(find ./benchmarks/ -name "*bench_*" -type d |  grep -vE "yield|poll|fib|matrix|spinlocks" )
+    exclude="yield|poll|fib|matrix|spinlocks|counter|critical"
+    mapfile -t BENCHMARKS < <(find ./benchmarks/ -name "*bench_*" -type d |  grep -vE $exclude )
     for i in $(seq 4)
     do
         BENCHMARKS+=("benchmarks/bench_sched_yield_t -s t$i")
@@ -29,7 +30,7 @@ get_all_benchmarks() {
         BENCHMARKS+=("benchmarks/bench_busy_poll -s $i")
     done
 
-    for i in noop cs atomic atomic-rw hardware
+    for i in noop cs atomic hardware
     do
         BENCHMARKS+=("benchmarks/bench_spinlocks -s $i")
     done

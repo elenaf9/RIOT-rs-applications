@@ -2,8 +2,10 @@
 #![no_std]
 #![feature(type_alias_impl_trait)]
 #![feature(used_with_arg)]
+#![feature(impl_trait_in_assoc_type)]
 
-use riot_rs::debug::log::*;
+use riot_rs::{debug::log::*, thread};
+
 #[cfg(feature = "dual-core")]
 use riot_rs::thread::sync::Channel;
 
@@ -22,8 +24,15 @@ fn leibniz_formula(start: usize, end: usize) -> f32 {
     res
 }
 
+#[riot_rs::task(autostart)]
+async fn start() {
+    thread::thread_flags::set(thread::ThreadId::new(0), 1);
+}
+
 #[riot_rs::thread(autostart)]
 fn thread0() {
+    thread::thread_flags::wait_any(1);
+
     match bench_multicore::benchmark(10, || {
         let res;
         #[cfg(not(feature = "dual-core"))]
