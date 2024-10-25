@@ -22,15 +22,6 @@ modules:
       global:
         FEATURES:
           - atomic
-  - name: atomic-rw
-    provides_unique:
-      - spinlock
-    conflicts:
-      - thumbv6m-none-eabi
-    env:
-      global:
-        FEATURES:
-          - atomic-rw
   - name: hardware
     provides_unique:
       - spinlock

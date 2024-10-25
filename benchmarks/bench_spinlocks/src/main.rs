@@ -11,8 +11,6 @@ use riot_rs::thread::sync;
 type Spinlock = sync::GenericSpinlock<usize, sync::Cs, 10>;
 #[cfg(feature = "atomic")]
 type Spinlock = sync::GenericSpinlock<usize, sync::Atomic, 10>;
-#[cfg(feature = "atomic-rw")]
-type Spinlock = sync::GenericSpinlock<usize, sync::AtomicRw, 10>;
 #[cfg(feature = "hardware")]
 type Spinlock = sync::GenericSpinlock<usize, sync::Hardware<10>, 10>;
 #[cfg(feature = "noop")]
