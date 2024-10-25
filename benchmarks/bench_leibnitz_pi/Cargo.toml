@@ -11,6 +11,9 @@ bench-multicore = { workspace = true }
 riot-rs = { workspace = true }
 riot-rs-boards = { workspace = true }
 
+[target.'cfg(target_arch = "xtensa")'.dependencies]
+xtensa-lx-rt = { workspace = true, features = ["float-save-restore"]}
+
 [features]
 dual-core = []
 multicore-v1 = []
