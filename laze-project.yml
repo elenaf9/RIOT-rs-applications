@@ -1,7 +1,7 @@
 imports:
   - git:
       url: https://github.com/elenaf9/RIOT-rs
-      commit: 43b6b75dae1943d647915ddb91c633234e6fe674
+      commit: f3a950732873be87490544e9b976ce279f2b9abe
 
 subdirs:
   - benchmarks

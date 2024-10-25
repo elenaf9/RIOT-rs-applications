@@ -29,7 +29,7 @@ modules:
       - multi-core
     env:
       global:
-        RIOT_RS_REV: 6e5a19e0d861d7d632c787c78f52857e30ae86a6
+        RIOT_RS_REV: 64a169e5d7519a7e35e7eb84a22935307f3d9699
 
   - name: multicore-v1
     selects:
@@ -38,9 +38,12 @@ modules:
       - rev
     env:
       global:
-        RIOT_RS_REV: 1d91a2b6aa6449745b1511401b1bad59ce9704e7
+        RIOT_RS_REV: 6408e1a239206dea663cae2c32176693a01f9ebe
         FEATURES:
           - multicore-v1
+        # CARGO_ARGS:
+        #   - --config 'patch.crates-io.embassy-rp.git="https://github.com/elenaf9/embassy"'
+        #   - --config 'patch.crates-io.embassy-rp.branch="for-riot-rs-multicore-20240910"'
 
   - name: multicore-v2
     selects:
@@ -49,7 +52,7 @@ modules:
       - rev
     env:
       global:
-        RIOT_RS_REV: 43b6b75dae1943d647915ddb91c633234e6fe674
+        RIOT_RS_REV: f3a950732873be87490544e9b976ce279f2b9abe
         FEATURES:
           - multicore-v2
 
@@ -60,7 +63,7 @@ modules:
       - rev
     env:
       global:
-        RIOT_RS_REV: d0b9e2dc557a97fe90c3cd1aba9bab4121a01449
+        RIOT_RS_REV: 440ceace4363f02adf6419bd9c0b48e146502095
         FEATURES:
           - multicore-v2
 
@@ -71,9 +74,20 @@ modules:
       - rev
     env:
       global:
-        RIOT_RS_REV: 898837a041b53534c96cac136cc25fdf0c37df71
+        RIOT_RS_REV: bfdadbdd82c6c7e7e22eff62ab93bf7a8a0ab757
         FEATURES:
           - multicore-v2
+
+  # - name: multicore-v2-locking-rw
+  #   selects:
+  #     - patch
+  #   provides_unique:
+  #     - rev
+  #   env:
+  #     global:
+  #       RIOT_RS_REV: 57eebfde435a472b9f122355849a8e1aefd3678c
+  #       FEATURES:
+  #         - multicore-v2
     
   - name: dual-core
     selects:

@@ -21,11 +21,13 @@ riot-rs-boards = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
 riot-rs-embassy = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
 riot-rs-runqueue = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
 
-embassy-executor = { version = "0.6", default-features = false }
+embassy-executor = { version = "=0.6.0", default-features = false }
+embassy-futures = { version = "0.1.1", default-features = false }
 embassy-time = { version = "0.3", default-features = false }
 embassy-time-driver = { version = "0.1.0", default-features = false }
 
-esp-hal = { git = "https://github.com/kaspar030/esp-hal", branch = "for-riot-rs-2024-08-30", default-features = false }
+esp-hal = { git = "https://github.com/kaspar030/esp-hal", branch = "for-riot-rs-2024-10-16-0.21.1+pr2377", default-features = false }
+xtensa-lx-rt = { git = "https://github.com/kaspar030/esp-hal", branch = "for-riot-rs-2024-10-16-0.21.1+pr2377", default-features = false }
 
 critical-section = { version = "1.1", default-features = false }
 defmt = { version = "0.3.7" }
@@ -38,10 +40,11 @@ unexpected_cfgs = "allow"
 
 [patch.crates-io]
 # riot-rs embassy fork
-embassy-executor = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-08-18" }
-embassy-hal-internal = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-08-18" }
-embassy-nrf = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-08-18" }
-embassy-rp = { git = "https://github.com/elenaf9/embassy", branch = "for-riot-rs-multicore-20240910" }
-embassy-sync = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-08-18" }
-embassy-time-driver = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-08-18" }
-embassy-time-queue-driver = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-08-18" }
+embassy-executor = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-09-19" }
+embassy-executor-macros = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-09-19" }
+embassy-hal-internal = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-09-19" }
+embassy-nrf = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-09-19" }
+embassy-rp = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-09-19" }
+embassy-sync = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-09-19" }
+embassy-time-driver = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-09-19" }
+embassy-time-queue-driver = { git = "https://github.com/kaspar030/embassy", branch = "for-riot-rs-2024-09-19" }
