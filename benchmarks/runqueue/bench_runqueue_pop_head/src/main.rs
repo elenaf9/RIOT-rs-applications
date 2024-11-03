@@ -37,5 +37,5 @@ fn thread0() {
         }
         core::hint::black_box(rq);
     }
-    info!("took {} ticks per iteration ", total/ iterations);
+    info!("took {} ticks per iteration ", total / iterations);
 }

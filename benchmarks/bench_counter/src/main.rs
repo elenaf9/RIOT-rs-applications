@@ -14,7 +14,6 @@ fn count() {
     core::hint::black_box(counter);
 }
 
-
 #[riot_rs::task(autostart)]
 async fn start() {
     thread::thread_flags::set(thread::ThreadId::new(0), 1);

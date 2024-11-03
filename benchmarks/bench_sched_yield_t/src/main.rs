@@ -21,9 +21,9 @@ fn thread0() {
     // core when core affinities aren't enabled.
     // Experimental trying showed that these different wait mechanism work best for the
     // two different boards.
-    #[cfg(context="rp2040")]
+    #[cfg(context = "rp2040")]
     thread::thread_flags::wait_any(1);
-    #[cfg(context="esp32s3")]
+    #[cfg(context = "esp32s3")]
     while thread::thread_flags::get() == 0 {}
 
     match bench_multicore::benchmark(1000, || thread::yield_same()) {

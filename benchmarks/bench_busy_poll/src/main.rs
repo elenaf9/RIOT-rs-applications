@@ -22,8 +22,8 @@ fn now() -> u64 {
     embassy_time_driver::now()
 }
 
-/// Add second task to prevent that the thread 
-/// is suspended in the `await` case, which would 
+/// Add second task to prevent that the thread
+/// is suspended in the `await` case, which would
 /// add extra cost for context switching.
 #[riot_rs::task(autostart)]
 async fn yielder() {
@@ -55,10 +55,8 @@ async fn critical_task() {
 )]
 fn thread0() {
     while thread_flags::get() & 0b1 == 0 {}
-    match bench_multicore::benchmark(1, || {
-        while thread_flags::get() & 0b10 == 0 {}
-    }) {
-        Ok(ticks) => info!("took {} ticks", ticks/ITERATIONS),
+    match bench_multicore::benchmark(1, || while thread_flags::get() & 0b10 == 0 {}) {
+        Ok(ticks) => info!("took {} ticks", ticks / ITERATIONS),
         Err(err) => error!("benchmark error: {}", err),
     }
 }

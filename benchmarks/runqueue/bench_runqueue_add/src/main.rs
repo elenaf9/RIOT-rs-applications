@@ -24,9 +24,8 @@ fn thread0() {
     let iterations = 10000;
     for _ in 0..iterations {
         let mut rq = RunQueue::new();
-        rq.add(ThreadId::new(0), RunqueueId::new(5));
         match bench_multicore::benchmark(1, || {
-            rq.add(ThreadId::new(1), RunqueueId::new(5));
+            rq.add(ThreadId::new(0), RunqueueId::new(5));
             core::hint::black_box(&mut rq);
         }) {
             Ok(ticks) => total += ticks,
@@ -34,5 +33,5 @@ fn thread0() {
         }
         core::hint::black_box(rq);
     }
-    info!("took {} ticks per iteration ", total/ iterations);
+    info!("took {} ticks per iteration ", total / iterations);
 }
