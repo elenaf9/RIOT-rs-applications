@@ -2059,7 +2059,7 @@ checksum = "2b15c43186be67a4fd63bee50d0303afffcef381492ebe2c5d87f324e1b8815c"
 [[package]]
 name = "riot-rs"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "document-features",
  "linkme",
@@ -2067,6 +2067,7 @@ dependencies = [
  "riot-rs-boards",
  "riot-rs-debug",
  "riot-rs-embassy",
+ "riot-rs-identity",
  "riot-rs-macros",
  "riot-rs-rt",
  "riot-rs-utils",
@@ -2076,7 +2077,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-arch"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "cfg-if",
  "embassy-executor",
@@ -2084,6 +2085,7 @@ dependencies = [
  "embassy-usb",
  "embedded-hal 1.0.0",
  "embedded-hal-async",
+ "embedded-storage-async",
  "riot-rs-embassy-common",
  "riot-rs-esp",
  "riot-rs-nrf",
@@ -2094,7 +2096,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-bench"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "cfg-if",
  "cortex-m",
@@ -2104,7 +2106,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-boards"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "cfg-if",
  "linkme",
@@ -2114,7 +2116,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-debug"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "cortex-m",
  "defmt-rtt-target",
@@ -2125,7 +2127,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-embassy"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "cfg-if",
  "const_panic",
@@ -2151,7 +2153,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-embassy-common"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "embassy-futures",
  "embassy-time",
@@ -2162,7 +2164,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-esp"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "cfg-if",
  "embassy-embedded-hal 0.2.0",
@@ -2179,9 +2181,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "riot-rs-identity"
+version = "0.1.0"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
+dependencies = [
+ "riot-rs-embassy",
+ "riot-rs-embassy-common",
+]
+
+[[package]]
 name = "riot-rs-macros"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "enum-iterator",
  "proc-macro-crate",
@@ -2193,12 +2204,16 @@ dependencies = [
 [[package]]
 name = "riot-rs-nrf"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "cfg-if",
  "embassy-executor",
  "embassy-nrf",
  "embedded-hal-async",
+ "nrf52832-pac",
+ "nrf52833-pac",
+ "nrf52840-pac",
+ "nrf5340-app-pac",
  "paste",
  "portable-atomic",
  "riot-rs-debug",
@@ -2208,7 +2223,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-rp"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "cfg-if",
  "embassy-embedded-hal 0.2.0",
@@ -2224,12 +2239,11 @@ dependencies = [
 [[package]]
 name = "riot-rs-rt"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "cfg-if",
  "cortex-m",
  "cortex-m-rt",
- "embassy-rp",
  "esp-hal",
  "linkme",
  "portable-atomic",
@@ -2240,7 +2254,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-runqueue"
 version = "0.1.2"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "hax-lib",
 ]
@@ -2248,7 +2262,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-stm32"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "cfg-if",
  "embassy-embedded-hal 0.2.0",
@@ -2264,7 +2278,7 @@ dependencies = [
 [[package]]
 name = "riot-rs-utils"
 version = "0.1.0"
-source = "git+https://github.com/elenaf9/RIOT-rs.git?rev=6408e1a239206dea663cae2c32176693a01f9ebe#6408e1a239206dea663cae2c32176693a01f9ebe"
+source = "git+https://github.com/future-proof-iot/RIOT-rs.git#fd8453471bc6c6c1d5f3c7d6242241556761dcd7"
 dependencies = [
  "const_panic",
  "konst",

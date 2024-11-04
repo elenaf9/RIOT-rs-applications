@@ -23,7 +23,7 @@ async fn start() {
 )]
 #[cfg_attr(feature = "affinity", riot_rs::thread(autostart, stacksize = 4094, affinity = CoreAffinity::one(CoreId::new(0))))]
 fn thread0() {
-    thread_flags::wait_all(0b10);
+    while thread_flags::get() != 0b10 { }
     match bench_multicore::benchmark(1000, || {
         thread_flags::set(ThreadId::new(2), 1);
         thread_flags::wait_all(1);

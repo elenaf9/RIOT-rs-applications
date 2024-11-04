@@ -59,7 +59,7 @@ subprocess(){
     set -m
     # Build once first so that timeout doesn't cancel slow builds.
     laze build -C $benchmark_name -b $board -s $source &> /dev/null
-    timeout -v 10s laze build -C $benchmark_name -b $board -s $source run 2>&1 &
+    timeout -v 20s laze build -C $benchmark_name -b $board -s $source run 2>&1 &
     echo "$!"
 }
 
@@ -115,7 +115,7 @@ run(){
     then
         if [ -z "$REVS" ]
         then
-            REVS="main multicore-v1 multicore-v2 multicore-v2-cs multicore-v2-locking"
+            REVS="main multicore-v1 multicore-v2 multicore-v2-cs multicore-v2-fine-grained multicore-v2-locking"
         fi
 
         if [ -z "$FEAT" ]

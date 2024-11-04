@@ -30,7 +30,7 @@ mod noop {
                 inner: UnsafeCell::new(inner),
             }
         }
-        pub fn lock_mut(&self) -> &mut T {
+        pub fn lock(&self) -> &mut T {
             unsafe { &mut *self.inner.get() }
         }
     }
@@ -40,7 +40,7 @@ mod noop {
 fn thread0() {
     let counter = Spinlock::new(0);
     match bench_multicore::benchmark(100_000, || {
-        let mut _c = core::hint::black_box(counter.lock_mut());
+        let mut _c = core::hint::black_box(counter.lock());
         *_c += core::hint::black_box(1);
     }) {
         Ok(ticks) => info!("took {} ticks per iteration", ticks),
