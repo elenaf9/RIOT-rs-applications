@@ -16,17 +16,25 @@ colors = {
 }
 
 map_index_sched = {
-    "main": "No SMP",
-    "multicore-v1": "Allocation",
+    "main": "Original",
+    "multicore-v1": "Reallocation",
     "multicore-v2": "Dynamic",
     "multicore-v2-cs": "Internal CS",
-    "multicore-v2-locking": "Fine-grained",
+    "multicore-v2-locking": "No Deadlock",
+    "multicore-v2-fine-grained": "Fine-grained",
 }
 
+# map_index_cs = {
+#     "multicore-v2": "Baseline",
+#     "multicore-v2-cs": "New CS",
+# }
+
+
 map_index_locking = {
-    "multicore-v2": "Original",
+    "multicore-v2": "Baseline",
     "multicore-v2-cs": "Internal CS",
-    "multicore-v2-locking": "Fine-grained",
+    "multicore-v2-fine-grained": "Fine-grained\nLocking",
+    "multicore-v2-locking": "Deadlock\nPrevention",
 }
 
 rename_fib = {
@@ -69,7 +77,6 @@ rename_feat = {
 rename_spinlocks = {
     'spinlocks -s noop': 'None',
     'spinlocks -s cs': 'Critical-Section',
-    'spinlocks -s atomic-rw': 'Atomics RW',
     'spinlocks -s atomic': 'Atomics',
     'spinlocks -s hardware': 'Hardware',
 }
@@ -133,16 +140,17 @@ def bar_plot(board, df, name, feat, index):
         color=colors[board][feat],
         edgecolor="black",
         legend=len(df.columns) > 1,
-        fontsize=16
-
+        fontsize=15,
     )
     ax.xaxis.label.set_visible(False)
-    ax.yaxis.label.set_visible(False)
+    ax.set_ylabel("Ticks", rotation=0)
+    ax.yaxis.set_label_coords(-0.05, 1)
+    # ax.yaxis.set_label("Ticks")
     ax.spines.top.set_visible(False)
     ax.spines.right.set_visible(False)
     if len(df.columns) > 1:
         plt.legend(prop={'size': 14})
-    plt.subplots_adjust(bottom=0.07, top=0.97, right=0.98, left=0.15)
+    plt.subplots_adjust(bottom=0.12, top=0.96, right=0.98, left=0.15)
     plt.savefig("graphs/" + name + "_" + feat + "_" + board + ".png", )
     plt.close()
 
@@ -189,13 +197,15 @@ def plot_all(board, df):
 
     # Locking versions
     df_lock_revs = filter_revs(
-        df, ['multicore-v2', 'multicore-v2-cs', 'multicore-v2-locking'])
+        df, ['multicore-v2', 'multicore-v2-cs', 'multicore-v2-fine-grained', 'multicore-v2-locking'])
     # Single Core locking-version
-    df_lock_revs_single_core = filter_revs(
-        df_single_core, ['multicore-v2', 'multicore-v2-cs', 'multicore-v2-locking'])
+    df_lock_revs_single_core = filter_feature(df_lock_revs, 'single-core')
+    # df_lock_revs_single_core = filter_revs(
+    #     df_single_core, ['multicore-v2', 'multicore-v2-cs', 'multicore-v2-locking'])
     # Dual Core locking-version
-    df_lock_revs_dual_core = filter_revs(
-        df_dual_core, ['multicore-v2', 'multicore-v2-cs', 'multicore-v2-locking'])
+    df_lock_revs_dual_core = filter_feature(df_lock_revs, 'dual-core')
+    # df_lock_revs_dual_core = filter_revs(
+    #     df_dual_core, ['multicore-v2', 'multicore-v2-cs', 'multicore-v2-locking'])
     # Dual Core v2-locking
     df_locking_dual_core = filter_revs(df_dual_core, ['multicore-v2-locking'])
 
@@ -209,9 +219,9 @@ def plot_all(board, df):
 
     # Runqueue single-core
     plot_one(board, df_sched_revs_single_core, "runqueue",
-             rename_revs=rename_runqueue, feat="single-core")
+             rename_revs=rename_runqueue, exclude="reallocate", feat="single-core")
     plot_one(board, df_sched_revs_dual_core, "runqueue",
-             rename_revs=rename_runqueue)
+             rename_revs=rename_runqueue, exclude="reallocate")
 
     # = Scheduler Benchmarks
 
@@ -219,10 +229,10 @@ def plot_all(board, df):
     plot_one(board, df_sched_revs_both, "sched", exclude="yield")
 
     # Plot scheduler performance for different versions on single-core
-    plot_one(board, df_sched_revs_single_core, "sched yield",
+    plot_one(board, df_sched_revs_single_core, "yield",
              rename_revs=rename_sched, feat="single-core", exclude="affinity")
     # Plot scheduler performance for different versions on dual-core
-    plot_one(board, df_sched_revs_dual_core, "sched yield",
+    plot_one(board, df_sched_revs_dual_core, "yield",
              rename_revs=rename_sched,  exclude="affinity")
     # Plot core-affinity overhead
     plot_one(board, df_v2_dual_core, "-s t3",
@@ -236,14 +246,11 @@ def plot_all(board, df):
     plot_one(board, df_sched_revs_dual_core, "leibnitz pi")
     # Plot async benchmark
     plot_one(board, df_sched_revs_dual_core, "async")
-    # Plot busy-poll benchmark
-    plot_one(board, df_sched_revs_dual_core, "busy poll",
-             rename_revs=rename_busy_poll)
-    # Plot busy-poll benchmark
-    plot_one(board, df_sched_revs_dual_core, "busy poll",
-             rename_revs=rename_busy_poll)
+    # # Plot busy-poll benchmark
+    # plot_one(board, df_sched_revs_dual_core, "busy poll",
+    #          rename_revs=rename_busy_poll)
     # Thread-flags
-    plot_one(board, df_sched_revs_dual_core, "thread flags")
+    plot_one(board, df_sched_revs_dual_core, "flags")
 
     # = Locking benchmarks
 
@@ -252,27 +259,29 @@ def plot_all(board, df):
              rename_revs=rename_spinlocks)
 
     # Just compare internal cs vs main
-    plot_one(board, filter_revs(df_dual_core, ['multicore-v2', 'multicore-v2-cs']), "sched yield",
+    plot_one(board, filter_revs(df_dual_core, ['multicore-v2', 'multicore-v2-cs']), "yield",
              rename_revs=rename_sched, index_map=map_index_locking,
-             exclude="affinity", name="sched_locking_cs")
+             exclude="affinity", name="yield_locking_cs")
 
-    # Plot sched benchmark for different locking granularities on dual-core
-    plot_one(board, df_lock_revs_dual_core, "sched",
-             exclude="yield", name="sched_locking")
-    # Plot sched-yield benchmark for different locking granularities on single-core
-    plot_one(board, df_lock_revs_single_core, "sched yield",
-             rename_revs=rename_sched, feat="single-core", index_map=map_index_locking,
-             exclude="affinity", name="sched_yield_locking")
-    # Plot sched-yield benchmark for different locking granularities on dual-core
-    plot_one(board, df_lock_revs_dual_core, "sched yield",
-             rename_revs=rename_sched, index_map=map_index_locking,
-             exclude="affinity", name="sched_yield_locking")
+    # # Plot sched benchmark for different locking granularities on dual-core
+    # plot_one(board, df_lock_revs_dual_core, "sched",
+    #          exclude="yield", name="yield_locking")
+
+    # # Plot sched-yield benchmark for different locking granularities on single-core
+    # plot_one(board, df_lock_revs_single_core, "sched yield",
+    #          rename_revs=rename_sched, feat="single-core", index_map=map_index_locking,
+    #          exclude="affinity", name="sched_yield_locking")
+
+    # # Plot sched-yield benchmark for different locking granularities on dual-core
+    # plot_one(board, df_lock_revs_dual_core, "yield",
+    #          rename_revs=rename_sched, index_map=map_index_locking,
+    #          exclude="affinity", name="yield_locking")
     # Plot thread-flags for different locking granularities
     plot_one(board, df_lock_revs_dual_core, "flags",
              index_map=map_index_locking, name="flags_locking")
     # Plot thread-access time for different locking granularities
-    plot_one(board, df_lock_revs, "threads access",
-             index_map=map_index_locking, rename_revs=rename_feat)
+    plot_one(board, df_lock_revs_dual_core, "threads access",
+             index_map=map_index_locking)
 
 
 # Plot all charts
