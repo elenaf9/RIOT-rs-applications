@@ -8,4 +8,4 @@ Benchmark for testing different spinlock Backends.
 
 In this folder, run
 
-    laze build -b rpi-pico run
+    laze build -b rpi-pico -s <noop|cs|atomic|hardware> -s <FEAT> -s <REV> run

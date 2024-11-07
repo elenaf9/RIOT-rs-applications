@@ -8,4 +8,4 @@ This benchmark tests popping the head of the runqueue.
 
 In this folder, run
 
-    laze build -b rpi-pico run
+    laze build -b rpi-pico  -s <FEAT> -s <REV> run

@@ -8,4 +8,4 @@ This benchmark tests performance of busy-polling vs interrupts.
 
 In this folder, run
 
-    laze build -b rpi-pico run
+    laze build -b rpi-pico -s <poll|await> -s <FEAT> -s <REV> run

@@ -8,4 +8,4 @@ This benchmark tests parallelization of a memory bound task (matrix multiplicati
 
 In this folder, run
 
-    laze build -b rpi-pico run
+    laze build -b rpi-pico  -s <n10|n20|n30|n40> -s <FEAT> -s <REV> run

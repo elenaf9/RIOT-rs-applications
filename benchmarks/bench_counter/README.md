@@ -8,4 +8,4 @@ Very simple benchmark with two threads that are increasing a local counter each.
 
 In this folder, run
 
-    laze build -b rpi-pico run
+    laze build -b rpi-pico -s <FEAT> -s <REV> run

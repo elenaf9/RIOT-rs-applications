@@ -8,4 +8,4 @@ This benchmark tests parallelization of a CPU bound task (PI estimation using Le
 
 In this folder, run
 
-    laze build -b rpi-pico run
+    laze build -b rpi-pico -s <FEAT> -s <REV> run

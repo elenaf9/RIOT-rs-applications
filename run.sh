@@ -167,4 +167,5 @@ run(){
     { date; echo ""; cat $OUT; echo ""; } >> data/archive/$BOARD.md
 }
 
+mkdir -p data/archive
 run

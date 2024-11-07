@@ -9,4 +9,4 @@ Compared to most of the other benchmarks, this benchmark is multicore-only becau
 
 In this folder, run
 
-    laze build -b rpi-pico run
+    laze build -b rpi-pico  -s <FEAT> -s <REV> run

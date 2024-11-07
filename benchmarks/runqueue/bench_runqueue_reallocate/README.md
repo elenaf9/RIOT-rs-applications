@@ -8,4 +8,4 @@ This benchmark tests the reallocation computation for multicore-v1.
 
 In this folder, run
 
-    laze build -b rpi-pico run
+    laze build -b rpi-pico  -s <FEAT> -s <REV> run
