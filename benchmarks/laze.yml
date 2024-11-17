@@ -93,18 +93,14 @@ modules:
           - multicore-v2
     
   - name: dual-core
-    selects:
-      - multi-core
     conflicts:
       - single-core
-    context:
-      - rp2040
-      - esp32s3
     env:
       global:
         FEATURES:
           - dual-core
           - bench-multicore/multicore
+          - riot-rs/multi-core
 
   - name: affinity
     conflicts:

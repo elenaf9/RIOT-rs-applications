@@ -17,4 +17,3 @@ embassy-executor = { workspace = true }
 dual-core = []
 multicore-v1 = []
 multicore-v2 = []
-affinity = []

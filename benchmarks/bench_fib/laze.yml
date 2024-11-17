@@ -25,3 +25,5 @@ modules:
           - loop
 apps:
   - name: bench_fib
+    conflicts:
+      - single-core
