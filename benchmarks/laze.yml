@@ -120,6 +120,7 @@ subdirs:
   - bench_critical_section
   - bench_fib
   - bench_leibnitz_pi
+  - bench_lock
   - bench_matrix_mult
   - bench_sched
   - bench_sched_yield_t

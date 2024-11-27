@@ -1,0 +1,19 @@
+[package]
+name = "bench_lock"
+version = "0.1.0"
+authors.workspace = true
+edition.workspace = true
+publish = false
+
+[dependencies]
+bench-multicore = { workspace = true }
+
+riot-rs = { workspace = true }
+riot-rs-boards = { workspace = true }
+
+embassy-executor = { workspace = true }
+
+[features]
+dual-core = []
+multicore-v1 = []
+multicore-v2 = []
