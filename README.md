@@ -1,7 +1,7 @@
-# Benchmarks for RIOT-rs
+# Benchmarks for Ariel OS
 
-Benchmarks for the [RIOT-rs](https://github.com/future-proof-iot/RIOT-rs) embedded operating system.
-The RIOT-rs dependency is patched to exact commit revisions based on the set `REV` below (see also [benchmarks/laze.yml](benchmarks/laze.yml)).
+Benchmarks for the [Ariel](https://github.com/ariel-os/ariel-os) embedded operating system.
+The Ariel OS dependency is patched to exact commit revisions based on the set `REV` below (see also [benchmarks/laze.yml](benchmarks/laze.yml)).
 
 ## Execute individual Benchmarks
 
@@ -11,7 +11,7 @@ Individual benchmarks in the `benchmarks/` folder can be executed with the follo
 laze build -C benchmarks/<BENCHMARK> -b <BOARD> [-s <FEAT>] -s <REV> run
 ```
 
-- \<BOARD> may be any of the supported boards in RIOT-rs. However, we only tested the following boards:
+- \<BOARD> may be any of the supported boards in Ariel OS. However, we only tested the following boards:
     - rpi-pico
     - espressif-esp32-s3-wroom-1 
 - \<FEAT>: single-core | dual-core (dual-core only supported for the above two boards)
@@ -51,4 +51,4 @@ The executed configuration can be customized by setting the following environmen
 
 ## Prerequisites
 
-See [RIOT-rs](https://github.com/future-proof-iot/RIOT-rs).
+See [Ariel OS](https://github.com/ariel-os/ariel-os).
