@@ -5,6 +5,7 @@ modules:
       - sw/benchmark
       - executor-thread
       - ?release
+      - opt_speed
     help: patch used repo revision
     env: 
       global:
