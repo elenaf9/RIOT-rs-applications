@@ -1,4 +1,4 @@
-# Benchmarks for Ariel OS
+# Benchmarks for Ariel OS (formerly known as RIOT-rs)
 
 Benchmarks for the [Ariel](https://github.com/ariel-os/ariel-os) embedded operating system.
 The Ariel OS dependency is patched to exact commit revisions based on the set `REV` below (see also [benchmarks/laze.yml](benchmarks/laze.yml)).
