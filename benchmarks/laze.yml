@@ -117,15 +117,12 @@ modules:
 subdirs:
   - bench_async
   - bench_busy_poll
-  - bench_counter
   - bench_critical_section
   - bench_fib
   - bench_leibnitz_pi
   - bench_lock
   - bench_matrix_mult
-  - bench_sched
   - bench_sched_yield_t
-  - bench_spinlocks
   - bench_thread_flags
   - bench_threads_access
   - runqueue

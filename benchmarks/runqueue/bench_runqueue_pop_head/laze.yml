@@ -1,6 +1,2 @@
 apps:
-  - name: 
-    conflicts:
-      - multicore-v2-cs
-      - multicore-v2-fine-grained
-      - multicore-v2-locking
+  - name: bench_runqueue_pop_head

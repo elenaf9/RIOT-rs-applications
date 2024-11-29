@@ -14,7 +14,7 @@ riot-rs-boards = { workspace = true }
 embassy-executor = { workspace = true }
 
 [target.'cfg(target_arch = "xtensa")'.dependencies]
-xtensa-lx-rt = { workspace = true, features = ["float-save-restore"]}
+xtensa-lx-rt = { workspace = true, features = ["float-save-restore"] }
 
 [features]
 dual-core = []

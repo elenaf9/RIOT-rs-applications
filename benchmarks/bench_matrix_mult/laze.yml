@@ -31,7 +31,3 @@ apps:
   - name: bench_matrix_mult
     selects: 
       - size
-    conflicts:
-      - multicore-v2-cs
-      - multicore-v2-fine-grained
-      - multicore-v2-locking
