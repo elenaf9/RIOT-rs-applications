@@ -7,7 +7,7 @@ publish = false
 
 [dependencies]
 defmt = { workspace = true }
-riot-rs = { workspace = true, features = ["bench"] }
+ariel-os = { workspace = true, features = ["bench"] }
 
 [target.'cfg(target_arch = "xtensa")'.dependencies]
 esp-hal = { workspace = true }

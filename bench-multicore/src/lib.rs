@@ -6,7 +6,7 @@ mod xtensa;
 use defmt::Format;
 
 #[cfg(not(target_arch = "xtensa"))]
-use riot_rs::bench::benchmark as benchmark_impl;
+use ariel_os::bench::benchmark as benchmark_impl;
 #[cfg(target_arch = "xtensa")]
 use xtensa::benchmark as benchmark_impl;
 
@@ -18,12 +18,12 @@ pub enum Error {
 
 pub fn benchmark<F: FnMut() -> ()>(iterations: usize, f: F) -> Result<usize, Error> {
     #[cfg(feature = "multicore")]
-    let core = riot_rs::thread::core_id();
+    let core = ariel_os::thread::core_id();
 
     let res = benchmark_impl(iterations, f).map_err(|_| Error::TimerWrapper);
 
     #[cfg(feature = "multicore")]
-    if core != riot_rs::thread::core_id() {
+    if core != ariel_os::thread::core_id() {
         return Err(Error::Migrated);
     }
     res

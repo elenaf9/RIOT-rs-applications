@@ -4,18 +4,18 @@
 #![feature(used_with_arg)]
 #![feature(impl_trait_in_assoc_type)]
 
-use riot_rs::{
+use ariel_os::{
     debug::log::*,
     thread::{thread_flags, ThreadId},
 };
 
-#[riot_rs::task(autostart)]
+#[ariel_os::task(autostart)]
 async fn start() {
     thread_flags::set(ThreadId::new(0), 1);
     thread_flags::set(ThreadId::new(1), 1);
 }
 
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread0() {
     thread_flags::wait_all(1);
     thread_flags::set(ThreadId::new(0), 1);
@@ -29,7 +29,7 @@ fn thread0() {
     loop {}
 }
 
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread1() {
     loop {
         thread_flags::wait_all(1);
@@ -37,7 +37,7 @@ fn thread1() {
     }
 }
 
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread2() {
     loop {
         thread_flags::wait_all(1);
@@ -45,7 +45,7 @@ fn thread2() {
     }
 }
 
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread3() {
     loop {
         thread_flags::wait_all(1);

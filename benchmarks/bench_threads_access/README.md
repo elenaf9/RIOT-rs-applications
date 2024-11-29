@@ -2,7 +2,7 @@
 
 ## About
 
-This benchmark tests how many ticks accessing `riot_rs_threads::THREADS` once immutably takes.
+This benchmark tests how many ticks accessing `ariel_os_threads::THREADS` once immutably takes.
 
 ## How to run
 

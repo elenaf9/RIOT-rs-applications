@@ -4,12 +4,12 @@
 #![feature(impl_trait_in_assoc_type)]
 #![feature(used_with_arg)]
 use embassy_time::{Duration, Timer};
-use riot_rs::{
+use ariel_os::{
     debug::log::*,
     thread::{thread_flags, ThreadId},
     StaticCell,
 };
-use riot_rs_embassy::thread_executor::Executor;
+use ariel_os_embassy::thread_executor::Executor;
 
 #[cfg(feature = "multicore-v1")]
 use core::cell::RefCell;
@@ -21,7 +21,7 @@ const ITERATIONS: usize = 100;
 #[cfg(feature = "multicore-v1")]
 static BENCHMARK_CORE: Mutex<RefCell<usize>> = Mutex::new(RefCell::new(0xff));
 
-#[riot_rs::task(autostart)]
+#[ariel_os::task(autostart)]
 async fn start_other_tasks() {
     thread_flags::set(ThreadId::new(0), 0b1);
     thread_flags::set(ThreadId::new(1), 0b110);
@@ -29,7 +29,7 @@ async fn start_other_tasks() {
     thread_flags::set(ThreadId::new(2), 0b110);
 }
 
-#[riot_rs::task(pool_size = 2)]
+#[ariel_os::task(pool_size = 2)]
 async fn task(id: usize) {
     thread_flags::wait_one(0b110);
     for _ in 0..ITERATIONS {
@@ -40,16 +40,16 @@ async fn task(id: usize) {
     // Blocks other core so that the benchmark has to continue running on its original core
     // FIXME: implement core affinity masks instead.
     #[cfg(feature = "multicore-v1")]
-    if with(|cs| *BENCHMARK_CORE.borrow(cs).borrow() != usize::from(riot_rs::thread::core_id())) {
+    if with(|cs| *BENCHMARK_CORE.borrow(cs).borrow() != usize::from(ariel_os::thread::core_id())) {
         loop {}
     }
 }
 
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread0() {
     thread_flags::wait_one(0b1);
     #[cfg(feature = "multicore-v1")]
-    with(|cs| *BENCHMARK_CORE.borrow(cs).borrow_mut() = usize::from(riot_rs::thread::core_id()));
+    with(|cs| *BENCHMARK_CORE.borrow(cs).borrow_mut() = usize::from(ariel_os::thread::core_id()));
     match bench_multicore::benchmark(1, || {
         thread_flags::wait_all(0b11);
     }) {
@@ -58,7 +58,7 @@ fn thread0() {
     }
 }
 
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread1() {
     static EXECUTOR: StaticCell<Executor> = StaticCell::new();
     EXECUTOR.init_with(|| Executor::new()).run(|spawner| {
@@ -69,7 +69,7 @@ fn thread1() {
 }
 
 #[cfg(feature = "dual-core")]
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread2() {
     static EXECUTOR: StaticCell<Executor> = StaticCell::new();
     EXECUTOR

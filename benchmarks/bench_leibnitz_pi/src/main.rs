@@ -4,10 +4,10 @@
 #![feature(used_with_arg)]
 #![feature(impl_trait_in_assoc_type)]
 
-use riot_rs::{debug::log::*, thread};
+use ariel_os::{debug::log::*, thread};
 
 #[cfg(feature = "dual-core")]
-use riot_rs::thread::sync::Channel;
+use ariel_os::thread::sync::Channel;
 
 #[cfg(feature = "dual-core")]
 static RESULT_CHANNEL: Channel<f32> = Channel::new();
@@ -24,12 +24,12 @@ fn leibniz_formula(start: usize, end: usize) -> f32 {
     res
 }
 
-#[riot_rs::task(autostart)]
+#[ariel_os::task(autostart)]
 async fn start() {
     thread::thread_flags::set(thread::ThreadId::new(0), 1);
 }
 
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread0() {
     thread::thread_flags::wait_any(1);
 
@@ -52,7 +52,7 @@ fn thread0() {
 }
 
 #[cfg(feature = "dual-core")]
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread1() {
     loop {
         let start = ROUNDS + 1;

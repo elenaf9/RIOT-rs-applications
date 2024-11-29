@@ -5,17 +5,17 @@
 #![feature(impl_trait_in_assoc_type)]
 
 #[cfg(any(feature = "use-affinity"))]
-use riot_rs::thread::{CoreAffinity, CoreId};
-use riot_rs::{debug::log::*, thread};
+use ariel_os::thread::{CoreAffinity, CoreId};
+use ariel_os::{debug::log::*, thread};
 
-#[riot_rs::task(autostart)]
+#[ariel_os::task(autostart)]
 async fn start() {
     thread::thread_flags::set(thread::ThreadId::new(0), 1);
 }
 
-#[cfg_attr(not(feature = "use-affinity"), riot_rs::thread(autostart))]
-#[cfg_attr(feature = "affinity-0", riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(0))))]
-#[cfg_attr(feature = "affinity-1", riot_rs::thread(autostart, affinity = CoreAffinity::one(CoreId::new(1))))]
+#[cfg_attr(not(feature = "use-affinity"), ariel_os::thread(autostart))]
+#[cfg_attr(feature = "affinity-0", ariel_os::thread(autostart, affinity = CoreAffinity::one(CoreId::new(0))))]
+#[cfg_attr(feature = "affinity-1", ariel_os::thread(autostart, affinity = CoreAffinity::one(CoreId::new(1))))]
 fn thread0() {
     // Unavoidable race condition that the benchmarking thread might migrate to another
     // core when core affinities aren't enabled.
@@ -33,7 +33,7 @@ fn thread0() {
 }
 
 #[cfg(not(feature = "t1"))]
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread1() {
     loop {
         thread::yield_same()
@@ -41,7 +41,7 @@ fn thread1() {
 }
 
 #[cfg(any(feature = "t3", feature = "t4"))]
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread2() {
     loop {
         thread::yield_same()
@@ -49,7 +49,7 @@ fn thread2() {
 }
 
 #[cfg(feature = "t4")]
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread3() {
     loop {
         thread::yield_same()

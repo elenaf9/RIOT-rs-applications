@@ -8,9 +8,9 @@ publish = false
 [dependencies]
 bench-multicore = { workspace = true }
 
-riot-rs = { workspace = true, features = ["time"] }
-riot-rs-embassy = { workspace = true, features = ["time"] }
-riot-rs-boards = { workspace = true }
+ariel-os = { workspace = true, features = ["time"] }
+ariel-os-embassy = { workspace = true, features = ["time"] }
+ariel-os-boards = { workspace = true }
 
 critical-section = { workspace = true }
 embassy-executor = { workspace = true }

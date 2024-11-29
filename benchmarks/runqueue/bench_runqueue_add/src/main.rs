@@ -3,22 +3,22 @@
 #![feature(type_alias_impl_trait)]
 #![feature(used_with_arg)]
 
-use riot_rs::{
+use ariel_os::{
     debug::log::*,
     thread::{SCHED_PRIO_LEVELS, THREADS_NUMOF},
 };
-use riot_rs_runqueue::{RunQueue as GenericRunqueue, RunqueueId, ThreadId};
+use ariel_os_runqueue::{RunQueue as GenericRunqueue, RunqueueId, ThreadId};
 
 #[cfg(feature = "multicore-v1")]
-use riot_rs_runqueue::GlobalRunqueue;
+use ariel_os_runqueue::GlobalRunqueue;
 
 #[cfg(not(all(feature = "dual-core", feature = "multicore-v1")))]
 type RunQueue = GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }>;
 #[cfg(all(feature = "dual-core", feature = "multicore-v1"))]
 type RunQueue =
-    GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }, { riot_rs::thread::CORES_NUMOF }>;
+    GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }, { ariel_os::thread::CORES_NUMOF }>;
 
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread0() {
     let mut total = 0;
     let iterations = 10000;

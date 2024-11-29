@@ -8,9 +8,9 @@ publish = false
 [dependencies]
 bench-multicore = { workspace = true }
 
-riot-rs = { workspace = true }
-riot-rs-runqueue = { workspace = true }
-riot-rs-boards = { workspace = true }
+ariel-os = { workspace = true }
+ariel-os-runqueue = { workspace = true }
+ariel-os-boards = { workspace = true }
 
 [features]
 dual-core = []

@@ -1,7 +1,7 @@
 imports:
   - git:
-      url: https://github.com/elenaf9/RIOT-rs
-      commit: f3a950732873be87490544e9b976ce279f2b9abe
+      url: https://github.com/ariel-os/ariel-os
+      commit: 2769a83a0d80fc0d1594d5962e60ba7270080b77
 
 subdirs:
   - benchmarks

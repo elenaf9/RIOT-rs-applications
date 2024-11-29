@@ -12,12 +12,14 @@ laze build -C benchmarks/<BENCHMARK> -b <BOARD> [-s <FEAT>] -s <REV> run
 ```
 
 - \<BOARD> may be any of the supported boards in Ariel OS. However, we only tested the following boards:
-    - rpi-pico
-    - espressif-esp32-s3-wroom-1 
-- \<FEAT>: single-core | dual-core (dual-core only supported for the above two boards)
+    - rpi-pico (dual-core)
+    - espressif-esp32-s3-wroom-1 (dual-core)
+    - nrf52840dk (single-core)
+    - ai-c3 (esp32c3) (single core)
+- \<FEAT>: single-core | dual-core
     - **Must be specified before \<REV> due to laze internals.**
-- \<REV>: main | multicore-v1 | multicore-v2 |multicore-v2-cs | multicore-v2-locking
-    - when `REV=main`, `-s <FEAT>` must be omitted!
+- \<REV>: baseline | reallocation | multicore
+    - when `REV=baseline`, `-s <FEAT>` must be omitted!
 
 Note that some benchmarks require additional configuration through their own laze modules.
 See the individual benchmark README's.  
@@ -31,23 +33,6 @@ laze build -C benchmarks/bench_leibnitz_pi -b espressif-esp32-s3-wroom-1 -s main
 
 laze build -C benchmarks/runqueue/bench_runqueue_add -b rpi-pico -s dual-core -s multicore-v1 run
 ```
-
-## Execute all Benchmarks
-
-The [run.sh](run.sh) script atomizes the execution of all benchmarks for all feature- and revision combination.  
-**Only tested on Arch Linux. Might work for other Linux distributions as well.**
-The `BOARD` env must be set to one of the supported boards, e.g. `BOARD=rpi-pico`.
-Then, the script can be executed with:
-
-```sh
-./run.sh
-```
-
-It creates a folder `data/` if it doesn't exist yet and prints the benchmark results in a markdown table format into a file `data/$BOARD.md`.
-
-The executed configuration can be customized by setting the following environment variables:
-- **REVS**: list of revisions that should be tested, e.g. `REVS="main multicore-v1"`
-- **FEAT**: feature that should be tested, e.g. `FEAT="dual-core"`
 
 ## Prerequisites
 

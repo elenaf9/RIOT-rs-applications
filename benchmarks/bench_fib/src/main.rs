@@ -3,7 +3,7 @@
 #![feature(type_alias_impl_trait)]
 #![feature(used_with_arg)]
 
-use riot_rs::debug::log::*;
+use ariel_os::debug::log::*;
 
 fn fib(n: usize) -> usize {
     if n <= 1 {
@@ -12,7 +12,7 @@ fn fib(n: usize) -> usize {
     return fib(n - 1) + fib(n - 2);
 }
 
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread0() {
     match bench_multicore::benchmark(1000, || {
         core::hint::black_box(fib(25));
@@ -24,7 +24,7 @@ fn thread0() {
     loop {}
 }
 
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread1() {
     #[cfg(feature = "none")]
     return;

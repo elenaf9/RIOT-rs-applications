@@ -4,16 +4,16 @@
 #![feature(used_with_arg)]
 #![feature(impl_trait_in_assoc_type)]
 
-use riot_rs::{debug::log::*, thread::{sync::Lock, thread_flags, ThreadId}};
+use ariel_os::{debug::log::*, thread::{sync::Lock, thread_flags, ThreadId}};
 
 static LOCK: Lock = Lock::new_locked();
 
-#[riot_rs::task(autostart)]
+#[ariel_os::task(autostart)]
 async fn start() {
     thread_flags::set(ThreadId::new(0), 1);
 }
 
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread0() {
     thread_flags::wait_any(1);
 
@@ -23,7 +23,7 @@ fn thread0() {
     }
 }
 
-#[riot_rs::thread(autostart, priority = 2)]
+#[ariel_os::thread(autostart, priority = 2)]
 fn thread1() {
     loop {
         LOCK.acquire();

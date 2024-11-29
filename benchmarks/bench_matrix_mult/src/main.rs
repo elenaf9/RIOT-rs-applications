@@ -8,8 +8,8 @@
 use core::usize;
 
 #[cfg(feature = "dual-core")]
-use riot_rs::thread::sync::Channel;
-use riot_rs::{debug::log::*, thread};
+use ariel_os::thread::sync::Channel;
+use ariel_os::{debug::log::*, thread};
 
 #[cfg(feature = "dual-core")]
 static INPUT_CHANNEL: Channel<([[u16; N]; N / 2], [[u16; N]; N])> = Channel::new();
@@ -35,12 +35,12 @@ fn matrix_mult(matrix_a: &[[u16; N]], matrix_b: &[[u16; N]], matrix_c: &mut [[u1
     }
 }
 
-#[riot_rs::task(autostart)]
+#[ariel_os::task(autostart)]
 async fn start() {
     thread::thread_flags::set(thread::ThreadId::new(0), 1);
 }
 
-#[riot_rs::thread(autostart, stacksize = 32768)]
+#[ariel_os::thread(autostart, stacksize = 32768)]
 fn thread0() {
     while thread::thread_flags::get() == 0 {}
 
@@ -79,7 +79,7 @@ fn thread0() {
 }
 
 #[cfg(feature = "dual-core")]
-#[riot_rs::thread(autostart, stacksize = 32768)]
+#[ariel_os::thread(autostart, stacksize = 32768)]
 fn thread1() {
     loop {
         let (matrix_a, matrix_b) = INPUT_CHANNEL.recv();

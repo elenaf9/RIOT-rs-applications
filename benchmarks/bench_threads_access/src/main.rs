@@ -3,9 +3,9 @@
 #![feature(type_alias_impl_trait)]
 #![feature(used_with_arg)]
 
-use riot_rs::{debug::log::*, thread};
+use ariel_os::{debug::log::*, thread};
 
-#[riot_rs::thread(autostart)]
+#[ariel_os::thread(autostart)]
 fn thread0() {
     match bench_multicore::benchmark(10_000, || {
         // Immutable access to `THREADS`.
