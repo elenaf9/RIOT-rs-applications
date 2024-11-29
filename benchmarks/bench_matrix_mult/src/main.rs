@@ -42,7 +42,8 @@ async fn start() {
 
 #[ariel_os::thread(autostart, stacksize = 32768)]
 fn thread0() {
-    while thread::thread_flags::get() == 0 {}
+    // while thread::thread_flags::get() == 0 {}
+    thread::thread_flags::wait_any(1);
 
     let matrix_a = core::hint::black_box([[3; N]; N]);
     let matrix_b = core::hint::black_box([[7; N]; N]);

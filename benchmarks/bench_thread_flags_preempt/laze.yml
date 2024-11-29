@@ -1,0 +1,3 @@
+apps:
+  - name: bench_thread_flags_preempt
+

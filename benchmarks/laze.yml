@@ -93,5 +93,6 @@ subdirs:
   - bench_matrix_mult
   - bench_sched_yield_t
   - bench_thread_flags
+  - bench_thread_flags_preempt
   - bench_threads_access
   - runqueue
