@@ -14,19 +14,17 @@ authors = ["Elena Frank <elena.frank@proton.me>"]
 [workspace.dependencies]
 bench-multicore = { path = "bench-multicore" }
 
-ariel-os = { git = "https://github.com/ariel-os/ariel-os", features = [
+ariel-os = { git = "https://github.com/ariel-os/ariel-os", rev = "7a20485c93f1e0e057437a21d0ef4149c776320a", features = [
   "bench",
 ] }
-ariel-os-boards = { git = "https://github.com/ariel-os/ariel-os" }
-ariel-os-embassy = { git = "https://github.com/ariel-os/ariel-os" }
-ariel-os-runqueue = { git = "https://github.com/ariel-os/ariel-os" }
+ariel-os-boards = { git = "https://github.com/ariel-os/ariel-os", rev = "7a20485c93f1e0e057437a21d0ef4149c776320a" }
+ariel-os-embassy = { git = "https://github.com/ariel-os/ariel-os", rev = "7a20485c93f1e0e057437a21d0ef4149c776320a" }
+ariel-os-runqueue = { git = "https://github.com/ariel-os/ariel-os", rev = "7a20485c93f1e0e057437a21d0ef4149c776320a" }
 
 embassy-embedded-hal = { version = "0.2.0", default-features = false }
 embassy-executor = { version = "0.6.3", default-features = false }
 embassy-futures = { version = "0.1.1", default-features = false }
 embassy-hal-internal = { version = "0.2.0", default-features = false }
-embassy-net = { version = "0.5", default-features = false }
-embassy-net-driver-channel = { version = "0.3.0", default-features = false }
 embassy-nrf = { version = "0.2", default-features = false }
 embassy-rp = { version = "0.2", default-features = false }
 embassy-stm32 = { version = "0.1", default-features = false }
@@ -36,7 +34,7 @@ embassy-time-driver = { version = "0.1.0", default-features = false }
 embassy-usb = { version = "0.3.0", default-features = false }
 
 esp-hal = { version = "0.21.1", default-features = false }
-xtensa-lx-rt = { version = "0.17" }
+xtensa-lx-rt = { version = "0.17.2", default-features = false }
 
 critical-section = { version = "1.1", default-features = false }
 defmt = { version = "0.3.7" }
@@ -63,13 +61,15 @@ embassy-time-driver = { git = "https://github.com/ariel-os/embassy", branch = "f
 embassy-time-queue-driver = { git = "https://github.com/ariel-os/embassy", branch = "for-ariel-os-2024-11-28" }
 embassy-usb-driver = { git = "https://github.com/ariel-os/embassy", branch = "for-ariel-os-2024-11-28" }
 embassy-usb-synopsys-otg = { git = "https://github.com/ariel-os/embassy", branch = "for-ariel-os-2024-11-28" }
-cyw43 = { git = "https://github.com/ariel-os/embassy", branch = "for-ariel-os-2024-11-28" }
-cyw43-pio = { git = "https://github.com/ariel-os/embassy", branch = "for-ariel-os-2024-11-28" }
 
 # ariel-os esp-hal fork
-esp-alloc = { git = "https://github.com/ariel-os/esp-hal", branch = "for-ariel-os-2024-10-16-0.21.1-pr2377" }
-esp-hal = { git = "https://github.com/ariel-os/esp-hal", branch = "for-ariel-os-2024-10-16-0.21.1-pr2377" }
-esp-hal-embassy = { git = "https://github.com/ariel-os/esp-hal", branch = "for-ariel-os-2024-10-16-0.21.1-pr2377" }
-esp-println = { git = "https://github.com/ariel-os/esp-hal", branch = "for-ariel-os-2024-10-16-0.21.1-pr2377" }
-esp-wifi = { git = "https://github.com/ariel-os/esp-hal", branch = "for-ariel-os-2024-10-16-0.21.1-pr2377" }
-esp-storage = { git = "https://github.com/ariel-os/esp-hal", branch = "for-ariel-os-2024-10-16-0.21.1-pr2377" }
+esp-hal = { git = "https://github.com/ariel-os/esp-hal", branch = "for-ariel-os-2024-10-16-0.21.1-pr2377-nousbquirk" }
+esp-hal-embassy = { git = "https://github.com/ariel-os/esp-hal", branch = "for-ariel-os-2024-10-16-0.21.1-pr2377-nousbquirk" }
+xtensa-lx-rt = { git = "https://github.com/ariel-os/esp-hal", branch = "for-ariel-os-2024-10-16-0.21.1-pr2377-nousbquirk" }
+
+
+[patch.'https://github.com/kaspar030/esp-hal']
+# ariel-os esp-hal fork
+esp-hal = { git = "https://github.com/ariel-os/esp-hal", branch = "for-ariel-os-2024-10-16-0.21.1-pr2377-nousbquirk" }
+esp-hal-embassy = { git = "https://github.com/ariel-os/esp-hal", branch = "for-ariel-os-2024-10-16-0.21.1-pr2377-nousbquirk" }
+xtensa-lx-rt = { git = "https://github.com/ariel-os/esp-hal", branch = "for-ariel-os-2024-10-16-0.21.1-pr2377-nousbquirk" }
