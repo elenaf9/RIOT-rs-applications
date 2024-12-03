@@ -1,7 +1,6 @@
 [package]
 name = "bench_threads_access"
 version = "0.1.0"
-authors.workspace = true
 edition.workspace = true
 publish = false
 
