@@ -2,7 +2,6 @@
 name = "bench-multicore"
 version.workspace = true
 edition.workspace = true
-authors.workspace = true
 publish = false
 
 [dependencies]

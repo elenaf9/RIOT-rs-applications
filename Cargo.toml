@@ -9,7 +9,6 @@ resolver = "2"
 [workspace.package]
 version = "0.1.0"
 edition = "2021"
-authors = ["Elena Frank <elena.frank@proton.me>"]
 
 [workspace.dependencies]
 bench-multicore = { path = "bench-multicore" }
