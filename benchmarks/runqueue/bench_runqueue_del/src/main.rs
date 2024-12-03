@@ -9,14 +9,7 @@ use riot_rs::{
 };
 use riot_rs_runqueue::{RunQueue as GenericRunqueue, RunqueueId, ThreadId};
 
-#[cfg(feature = "multicore-v1")]
-use riot_rs_runqueue::GlobalRunqueue;
-
-#[cfg(not(all(feature = "dual-core", feature = "multicore-v1")))]
 type RunQueue = GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }>;
-#[cfg(all(feature = "dual-core", feature = "multicore-v1"))]
-type RunQueue =
-    GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }, { riot_rs::thread::CORES_NUMOF }>;
 
 #[riot_rs::thread(autostart, priority = 2)]
 fn thread0() {
@@ -30,11 +23,7 @@ fn thread0() {
         rq.add(thread0, rq_id);
         rq.add(thread1, rq_id);
         match bench_multicore::benchmark(1, || {
-            #[cfg(not(feature = "multicore-v1"))]
             rq.del(thread1);
-            #[cfg(feature = "multicore-v1")]
-            rq.del(thread1, rq_id);
-
             core::hint::black_box(&mut rq);
         }) {
             Ok(ticks) => total += ticks,

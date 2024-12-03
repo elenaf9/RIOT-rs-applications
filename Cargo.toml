@@ -14,12 +14,12 @@ authors = ["Elena Frank <elena.frank@proton.me>"]
 [workspace.dependencies]
 bench-multicore = { path = "bench-multicore" }
 
-riot-rs = { git = "https://github.com/future-proof-iot/RIOT-rs.git", features = [
+riot-rs = { git = "https://github.com/future-proof-iot/RIOT-rust.git", rev = "88bb5fb37c356c9157d028397f51a3b1ab42f48a", features = [
   "bench",
 ] }
-riot-rs-boards = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
-riot-rs-embassy = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
-riot-rs-runqueue = { git = "https://github.com/future-proof-iot/RIOT-rs.git" }
+riot-rs-boards = { git = "https://github.com/future-proof-iot/RIOT-rust.git", rev = "88bb5fb37c356c9157d028397f51a3b1ab42f48a" }
+riot-rs-embassy = { git = "https://github.com/future-proof-iot/RIOT-rust.git", rev = "88bb5fb37c356c9157d028397f51a3b1ab42f48a" }
+riot-rs-runqueue = { git = "https://github.com/future-proof-iot/RIOT-rust.git", rev = "88bb5fb37c356c9157d028397f51a3b1ab42f48a" }
 
 embassy-executor = { version = "=0.6.0", default-features = false }
 embassy-futures = { version = "0.1.1", default-features = false }

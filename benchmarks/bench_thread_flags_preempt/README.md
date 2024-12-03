@@ -9,4 +9,4 @@ Two threads are running: one higher priority one that is just waiting for it's f
 
 In this folder, run
 
-    laze build -b rpi-pico  -s <FEAT> -s <REV> run
+    laze build -b rpi-pico run

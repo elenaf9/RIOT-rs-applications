@@ -8,4 +8,4 @@ This benchmark tests advancing the runqueue.
 
 In this folder, run
 
-    laze build -b rpi-pico  -s <FEAT> -s <REV> run
+    laze build -b rpi-pico run

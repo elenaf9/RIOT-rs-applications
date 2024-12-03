@@ -18,5 +18,3 @@ embassy-time = { workspace = true }
 
 [features]
 dual-core = []
-multicore-v1 = []
-multicore-v2 = []

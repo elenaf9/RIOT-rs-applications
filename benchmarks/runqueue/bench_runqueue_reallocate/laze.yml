@@ -1,5 +1,0 @@
-apps:
-  - name: bench_runqueue_reallocate
-    selects:
-      - multicore-v1
-

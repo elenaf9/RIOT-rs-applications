@@ -8,4 +8,4 @@ This benchmark tests two pairs of threads setting flags for each other. The purp
 
 In this folder, run
 
-    laze build -b rpi-pico  -s <FEAT> -s <REV> run
+    laze build -b rpi-pico run

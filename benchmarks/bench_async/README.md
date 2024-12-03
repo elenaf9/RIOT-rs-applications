@@ -8,4 +8,4 @@ This benchmark tests performance of asynchronous tasks in one vs two threads.
 
 In this folder, run
 
-    laze build -b rpi-pico  -s <FEAT> -s <REV> run
+    laze build -b rpi-pico run

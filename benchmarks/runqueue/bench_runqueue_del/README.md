@@ -8,4 +8,4 @@ This benchmark tests deleting a thread from the runqueue.
 
 In this folder, run
 
-    laze build -b rpi-pico  -s <FEAT> -s <REV> run
+    laze build -b rpi-pico run

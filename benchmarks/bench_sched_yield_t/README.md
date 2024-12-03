@@ -10,4 +10,4 @@ This benchmark tests basic context switch performance.
 
 In this folder, run
 
-    laze build -b rpi-pico  -s <t1|t2|t3|t4> [-s <affinity|affinity-0|affinity-1>]  -s <FEAT> -s <REV> run
+    laze build -b rpi-pico  -s <t1|t2|t3|t4> [-s <affinity|affinity-0|affinity-1>] run

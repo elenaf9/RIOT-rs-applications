@@ -11,4 +11,4 @@ It must be changed locally to public in the checked-out `$HOME/.cargo/git/checko
 
 In this folder, run
 
-    laze build -b rpi-pico  -s <FEAT> -s <REV> run
+    laze build -b rpi-pico run

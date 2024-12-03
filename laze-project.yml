@@ -1,7 +1,7 @@
 imports:
   - git:
-      url: https://github.com/elenaf9/RIOT-rs
-      commit: f3a950732873be87490544e9b976ce279f2b9abe
+      url: https://github.com/future-proof-iot/RIOT-rust.git
+      commit: 88bb5fb37c356c9157d028397f51a3b1ab42f48a
 
 subdirs:
   - benchmarks

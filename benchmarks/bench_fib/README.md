@@ -12,4 +12,4 @@ Three scenarios can be tested:
 
 In this folder, run
 
-    laze build -b rpi-pico -s <none|fib|loop> -s <FEAT> -s <REV> run
+    laze build -b rpi-pico -s <none|fib|loop>run

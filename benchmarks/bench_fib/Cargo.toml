@@ -13,8 +13,6 @@ riot-rs-boards = { workspace = true }
 
 [features]
 dual-core = []
-multicore-v1 = []
-multicore-v2 = []
 none = []
 fib = []
 loop = []

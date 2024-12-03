@@ -8,4 +8,4 @@ This benchmark tests adding a thread to the runqueue.
 
 In this folder, run
 
-    laze build -b rpi-pico  -s <FEAT> -s <REV> run
+    laze build -b rpi-pico run
