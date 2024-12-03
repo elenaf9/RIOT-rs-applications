@@ -1,6 +1,6 @@
 # Benchmarks for Ariel OS
 
-Benchmarks for the [Ariel](https://github.com/ariel-os/ariel-os) embedded operating system.
+Benchmarks for the [Ariel](https://anonymous.4open.science/r/ariel-os-8DBF/) embedded operating system.
 The Ariel OS dependency is patched to exact commit revisions based on the set `REV` below (see also [benchmarks/laze.yml](benchmarks/laze.yml)).
 
 ## Execute individual Benchmarks
@@ -33,4 +33,4 @@ laze build -C benchmarks/bench_thread_flags -b rpi-pico -s dual-core -s ariel-re
 
 ## Prerequisites
 
-See [Ariel OS](https://github.com/ariel-os/ariel-os).
+See [Ariel OS](https://anonymous.4open.science/r/ariel-os-8DBF/).
