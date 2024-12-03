@@ -18,5 +18,4 @@ xtensa-lx-rt = { workspace = true, features = ["float-save-restore"] }
 
 [features]
 dual-core = []
-multicore-v1 = []
-multicore-v2 = []
+reallocation = []

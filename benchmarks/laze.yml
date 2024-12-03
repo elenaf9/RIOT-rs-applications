@@ -21,59 +21,58 @@ modules:
           - --config 'patch."${UPSTREAM_REPO}".ariel-os-boards.git="${FORKED_REPO}"'
           - --config 'patch."${UPSTREAM_REPO}".ariel-os-boards.rev="${DEP_REV}"'
 
-  - name: probe-rs-baseline
+  - name: probe-rs-runner
     help: use probe-rs as runner
     conflicts:
       - probe-rs
       - semihosting
+    context:
+      - nrf
+      - rp2040
+      - stm32
+    provides_unique:
+      - old-runner
     selects:
       - ?debug-console
     env:
       global:
         CARGO_RUNNER: "'probe-rs run ${PROBE_RS_PROTOCOL} --chip ${PROBE_RS_CHIP}'"
-
-  - name: baseline
-    selects:
-      - patch
-      - benchmark-default
-      - probe-rs-baseline
-    provides_unique:
-      - rev
+  
+  - name: esp-runner
+    help: use probe-rs as runner
     conflicts:
-      - single-core
-      - multi-core
+      - probe-rs
+      - semihosting
+      - esp-println
+    context:
+      - esp
+    provides_unique:
+      - old-runner
+    selects:
+      - ?debug-console
     env:
       global:
-        FORKED_REPO: https://github.com/future-proof-iot/RIOT-rust.git
-        DEP_REV: 88bb5fb37c356c9157d028397f51a3b1ab42f48a
-        CARGO_ARGS:
-          - --config 'patch."${UPSTREAM_REPO}".ariel-os.package="riot-rs"'
-          - --config 'patch."${UPSTREAM_REPO}".ariel-os-embassy.package="riot-rs-embassy"'
-          - --config 'patch."${UPSTREAM_REPO}".ariel-os-runqueue.package="riot-rs-runqueue"'
-          - --config 'patch."${UPSTREAM_REPO}".ariel-os-boards.package="riot-rs-boards"'
+        CARGO_RUNNER: '"espflash flash --monitor ${ESPFLASH_LOG_FORMAT}"'
+
   - name: ariel-reallocation
     selects:
       - patch
       - benchmark-default
-      - probe-rs-baseline
+      - old-runner
     provides_unique:
       - rev
     env:
       global:
         FORKED_REPO: https://github.com/elenaf9/RIOT-rs
-        DEP_REV: 4133aac705ef2e98142de4d51bbd8efc7c4dd4a2
+        DEP_REV: 9f162aa7512c4cb0f5726bbc6368e2f37c41f169
         FEATURES:
-          - multicore-v1
+          - reallocation
 
   - name: ariel
     selects:
       - benchmark-default
     provides_unique:
       - rev
-    env:
-      global:
-        FEATURES:
-          - multicore-v2
     
   - name: dual-core
     conflicts:
@@ -89,7 +88,7 @@ modules:
     conflicts:
       - main
       - single-core
-      - multicore-v1
+      - reallocation
     env:
       global:
         FEATURES:

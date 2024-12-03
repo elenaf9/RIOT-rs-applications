@@ -1,7 +1,7 @@
 [workspace]
 members = [
-  "benchmarks/runqueue/bench_*",
   "benchmarks/bench_*",
+  "benchmarks/runqueue/bench_*",
   "bench-multicore",
 ]
 resolver = "2"

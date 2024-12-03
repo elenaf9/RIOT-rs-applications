@@ -9,12 +9,12 @@ use ariel_os::{
 };
 use ariel_os_runqueue::{RunQueue as GenericRunqueue, RunqueueId, ThreadId};
 
-#[cfg(feature = "multicore-v1")]
+#[cfg(feature = "reallocation")]
 use ariel_os_runqueue::GlobalRunqueue;
 
-#[cfg(not(all(feature = "dual-core", feature = "multicore-v1")))]
+#[cfg(not(all(feature = "dual-core", feature = "reallocation")))]
 type RunQueue = GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }>;
-#[cfg(all(feature = "dual-core", feature = "multicore-v1"))]
+#[cfg(all(feature = "dual-core", feature = "reallocation"))]
 type RunQueue =
     GenericRunqueue<{ SCHED_PRIO_LEVELS }, { THREADS_NUMOF }, { ariel_os::thread::CORES_NUMOF }>;
 
@@ -30,9 +30,9 @@ fn thread0() {
         rq.add(thread0, rq_id);
         rq.add(thread1, rq_id);
         match bench_multicore::benchmark(1, || {
-            #[cfg(not(feature = "multicore-v1"))]
+            #[cfg(not(feature = "reallocation"))]
             rq.del(thread1);
-            #[cfg(feature = "multicore-v1")]
+            #[cfg(feature = "reallocation")]
             rq.del(thread1, rq_id);
 
             core::hint::black_box(&mut rq);

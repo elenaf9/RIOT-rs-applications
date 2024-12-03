@@ -2,7 +2,7 @@
 
 ## About
 
-This benchmark tests the reallocation computation for multicore-v1.
+This benchmark tests the reallocation computation for reallocation.
 
 ## How to run
 

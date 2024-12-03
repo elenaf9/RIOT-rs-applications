@@ -18,8 +18,7 @@ laze build -C benchmarks/<BENCHMARK> -b <BOARD> [-s <FEAT>] -s <REV> run
     - ai-c3 (esp32c3) (single core)
 - \<FEAT>: single-core | dual-core
     - **Must be specified before \<REV> due to laze internals.**
-- \<REV>: baseline | reallocation | multicore
-    - when `REV=baseline`, `-s <FEAT>` must be omitted!
+- \<REV>: ariel-reallocation | ariel
 
 Note that some benchmarks require additional configuration through their own laze modules.
 See the individual benchmark README's.  
@@ -29,9 +28,7 @@ For invalid configurations, laze will print a conflict and "laze: error: no matc
 ### Examples
 
 ```sh
-laze build -C benchmarks/bench_leibnitz_pi -b espressif-esp32-s3-wroom-1 -s main run
-
-laze build -C benchmarks/runqueue/bench_runqueue_add -b rpi-pico -s dual-core -s multicore-v1 run
+laze build -C benchmarks/bench_thread_flags -b rpi-pico -s dual-core -s ariel-reallocation run
 ```
 
 ## Prerequisites

@@ -13,8 +13,7 @@ ariel-os-boards = { workspace = true }
 
 [features]
 dual-core = []
-multicore-v1 = []
-multicore-v2 = []
+reallocation = []
 none = []
 fib = []
 loop = []

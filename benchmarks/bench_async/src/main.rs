@@ -11,14 +11,14 @@ use ariel_os::{
 };
 use ariel_os_embassy::thread_executor::Executor;
 
-#[cfg(feature = "multicore-v1")]
+#[cfg(feature = "reallocation")]
 use core::cell::RefCell;
-#[cfg(feature = "multicore-v1")]
+#[cfg(feature = "reallocation")]
 use critical_section::{with, Mutex};
 
 const ITERATIONS: usize = 100;
 
-#[cfg(feature = "multicore-v1")]
+#[cfg(feature = "reallocation")]
 static BENCHMARK_CORE: Mutex<RefCell<usize>> = Mutex::new(RefCell::new(0xff));
 
 #[ariel_os::task(autostart)]
@@ -39,7 +39,7 @@ async fn task(id: usize) {
 
     // Blocks other core so that the benchmark has to continue running on its original core
     // FIXME: implement core affinity masks instead.
-    #[cfg(feature = "multicore-v1")]
+    #[cfg(feature = "reallocation")]
     if with(|cs| *BENCHMARK_CORE.borrow(cs).borrow() != usize::from(ariel_os::thread::core_id())) {
         loop {}
     }
@@ -48,7 +48,7 @@ async fn task(id: usize) {
 #[ariel_os::thread(autostart)]
 fn thread0() {
     thread_flags::wait_one(0b1);
-    #[cfg(feature = "multicore-v1")]
+    #[cfg(feature = "reallocation")]
     with(|cs| *BENCHMARK_CORE.borrow(cs).borrow_mut() = usize::from(ariel_os::thread::core_id()));
     match bench_multicore::benchmark(1, || {
         thread_flags::wait_all(0b11);
