@@ -1,7 +1,7 @@
 imports:
   - git:
       url: https://github.com/ariel-os/ariel-os
-      commit: 7a20485c93f1e0e057437a21d0ef4149c776320a
+      commit: 45a968606d7c72a6aa9b0d02b07d867c2b857659
 
 subdirs:
   - benchmarks
