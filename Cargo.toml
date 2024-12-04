@@ -13,12 +13,12 @@ edition = "2021"
 [workspace.dependencies]
 bench-multicore = { path = "bench-multicore" }
 
-ariel-os = { git = "https://github.com/ariel-os/ariel-os", rev = "45a968606d7c72a6aa9b0d02b07d867c2b857659", features = [
+ariel-os = { git = "https://github.com/ariel-os/ariel-os", rev = "4b3eebd01d7e5a4858cb110a4321396e597861f2", features = [
   "bench",
 ] }
-ariel-os-boards = { git = "https://github.com/ariel-os/ariel-os", rev = "45a968606d7c72a6aa9b0d02b07d867c2b857659" }
-ariel-os-embassy = { git = "https://github.com/ariel-os/ariel-os", rev = "45a968606d7c72a6aa9b0d02b07d867c2b857659" }
-ariel-os-runqueue = { git = "https://github.com/ariel-os/ariel-os", rev = "45a968606d7c72a6aa9b0d02b07d867c2b857659" }
+ariel-os-boards = { git = "https://github.com/ariel-os/ariel-os", rev = "4b3eebd01d7e5a4858cb110a4321396e597861f2" }
+ariel-os-embassy = { git = "https://github.com/ariel-os/ariel-os", rev = "4b3eebd01d7e5a4858cb110a4321396e597861f2" }
+ariel-os-runqueue = { git = "https://github.com/ariel-os/ariel-os", rev = "4b3eebd01d7e5a4858cb110a4321396e597861f2" }
 
 embassy-embedded-hal = { version = "0.2.0", default-features = false }
 embassy-executor = { version = "0.6.3", default-features = false }
