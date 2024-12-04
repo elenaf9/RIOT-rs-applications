@@ -10,7 +10,35 @@ modules:
     selects:
       - benchmark-default
       - benchmark
-
+  
+  - name: t1
+    provides_unique:
+      - n-threads
+    env:
+      global:
+        FEATURES:
+          - t1
+  - name: t2
+    provides_unique:
+      - n-threads
+    env:
+      global:
+        FEATURES:
+          - t2
+  - name: t3
+    provides_unique:
+      - n-threads
+    env:
+      global:
+        FEATURES:
+          - t3
+  - name: t4
+    provides_unique:
+      - n-threads
+    env:
+      global:
+        FEATURES:
+          - t4
 subdirs:
   - bench_async
   - bench_busy_poll

@@ -14,3 +14,5 @@ embassy-executor = { workspace = true }
 
 [features]
 dual-core = []
+t2 = []
+t4 = []
